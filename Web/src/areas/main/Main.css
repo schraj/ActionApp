@@ -1,0 +1,11 @@
+.main-scene-layout {
+}
+
+.map-layout {
+  width: 100vw;
+  height: 100vh;
+}
+
+.map-layout>div{
+  z-index: 1;  
+}

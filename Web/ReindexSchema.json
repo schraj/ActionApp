@@ -1,0 +1,58 @@
+[
+  {
+    name: "User",
+    kind: "OBJECT",
+    interfaces: [
+      "Node"
+    ],
+    fields: [
+      {
+        name: "id",
+        type: "ID",
+        nonNull: true,
+        unique: true
+      }
+    ]
+  },
+  {
+    name: "Contact",
+    kind: "OBJECT",
+    interfaces: [
+      "Node"
+    ],
+    fields: [
+      {
+        name: "id",
+        type: "ID",
+        nonNull: true,
+        unique: true
+      },
+      {
+        name: "firstName",
+        type: "String",
+        nonNull: true,
+      },
+      {
+        name: "lastName",
+        type: "String",
+        nonNull: true,
+      },
+      {
+        name: "location",
+        type: "String"
+      },
+      {
+        name: "latitude",
+        type: "Float"
+      },
+      {
+        name: "longitude",
+        type: "Float"
+      },
+      {
+        name: "isFriend",
+        type: "Boolean"
+      }
+    ]
+  }
+]

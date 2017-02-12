@@ -1,0 +1,35 @@
+.contact-status-widget {
+    z-index: 2;  
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 15px;
+    width: 200px;
+    height: 100px;
+    border: solid 1px aliceblue;
+    box-shadow: 1px 1px 1px 0px rgba(13,140,64,.5);
+    background: white;
+    opacity: .9;
+}
+
+.contact-count{
+  float: left;
+  width: 30px;
+  height: 30px;
+  background-color: green;
+  font-weight: bold;
+  color: white;
+  font-size: 20px;
+  padding: 5px;
+  padding-top: 2px;
+  border-radius: 4px;
+  text-align: center;
+  vertical-align: middle;
+  opacity: .7;  
+}
+
+.contact-status-message{
+  float: left;
+  margin-left: 20px;
+  width: 110px;
+}

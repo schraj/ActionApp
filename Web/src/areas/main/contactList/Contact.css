@@ -1,0 +1,30 @@
+.contact-info-string {
+  margin-right: 20px;
+  float:left;
+}
+
+.delete-button{
+  float:right;
+}
+
+.contact-item {
+  float: left;
+  border: solid 1px aliceblue;
+  box-shadow: 1px 1px 1px 0px rgba(13,140,64,.5);
+  margin: 10px;
+  width: 250px;
+  padding: 10px;
+  cursor: pointer;
+  background: white;
+  opacity: .8;
+}
+
+.contact-item:hover{
+  box-shadow: 1px 1px 2px 0px rgba(13,140,64,.7);  
+  background-color: lightgray;
+}
+
+.contact-item:pressed{
+  background-color: gray;
+  box-shadow: 1px 1px 2px 0px rgba(13,140,64,.9);  
+}

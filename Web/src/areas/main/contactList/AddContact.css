@@ -1,0 +1,13 @@
+.contact-form {
+  z-index: 2;  
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  border: solid 1px aliceblue;
+  box-shadow: 1px 1px 1px 0px rgba(13,140,64,.5);
+  margin: 20px;
+  width: 200px;
+  padding: 20px;
+  background: white;
+  opacity: .9;
+}
