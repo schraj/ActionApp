@@ -47,8 +47,8 @@ ON t.[schema_id] = s.[schema_id]
 WHERE c.[type] IN ('D','C','F','PK','UQ')
 ORDER BY c.[type];
 
---EXEC sys.sp_executesql @sql;
-Print @sql
+EXEC sys.sp_executesql @sql;
+--Print @sql
 
 --Delete tables
 EXEC sp_MSforeachtable @command1 = "DROP TABLE ?"
@@ -73,6 +73,14 @@ CREATE TABLE [Data].[Official](
 	OfficialId int identity(1,1) not null,
 	FirstName varchar(100) not null,
 	LastName varchar(100) not null,
+	GovernmentLevelId int not null,
+	GeographyId varchar(20) not null,
+	Gender varchar(1) null,
+	Party varchar(50) null,
+	Phone varchar(50) null,
+	Email varchar(250) null,
+	Url varchar(250) null,
+	ContactForm varchar(250) null,
 	Twitter varchar(100) null,
 	Facebook varchar(100) null,
 	[Timestamp] timestamp NOT NULL,
@@ -259,6 +267,7 @@ CodeSets
  CREATE TABLE [CodeSets].[Code](
 	CodeId int IDENTITY(1,1) NOT NULL,
 	CodeSetId int NOT NULL,
+	CodeDefinition varchar(100) NOT NULL,  -- how the code is identified within a codeset
 	Name varchar(100) NOT NULL,
 	DisplayName varchar(100) NOT NULL,
 	CodeDescription varchar(1000) NULL,
