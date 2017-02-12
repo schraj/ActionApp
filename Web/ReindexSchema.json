@@ -15,7 +15,7 @@
     ]
   },
   {
-    name: "Contact",
+    name: "Official",
     kind: "OBJECT",
     interfaces: [
       "Node"
@@ -38,20 +38,85 @@
         nonNull: true,
       },
       {
-        name: "location",
+        name: "governmentLevelCode",
+        type: "Int",
+        nonNull: true,
+       },
+      {
+        name: "geographyCode",
+        type: "String"
+        nonNull: true,
+      },
+      {
+        name: "gender",
         type: "String"
       },
       {
-        name: "latitude",
-        type: "Float"
+        name: "party",
+        type: "String"
       },
       {
-        name: "longitude",
-        type: "Float"
+        name: "phone",
+        type: "String"
       },
       {
-        name: "isFriend",
-        type: "Boolean"
+        name: "email",
+        type: "String"
+      },
+      {
+        name: "url",
+        type: "String"
+      },
+      {
+        name: "contactForm",
+        type: "String"
+      },
+      {
+        name: "twitter",
+        type: "String"
+      },
+      {
+        name: "facebook",
+        type: "String"
+      }
+    ]
+  },
+  {
+    name: "Event",
+    kind: "OBJECT",
+    interfaces: [
+      "Node"
+    ],
+    fields: [
+      {
+        name: "id",
+        type: "ID",
+        nonNull: true,
+        unique: true
+      },
+      {
+        name: "name",
+        type: "String",
+        nonNull: true,
+      },
+      {
+        name: "eventDate",
+        type: "String",
+        nonNull: true,
+      },
+      {
+        name: "eventTime",
+        type: "String",
+        nonNull: true,
+       },
+      {
+        name: "eventTypeCode",
+        type: "Int"
+        nonNull: true,
+      },
+      {
+        name: "eventDescription",
+        type: "String"
       }
     ]
   }

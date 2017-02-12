@@ -3,7 +3,6 @@ import Relay from 'react-relay';
 import AddContact from './contactList/AddContact'
 import ContactList from './contactList/ContactList'
 import ContactStatus from './contactStatus/ContactStatus'
-import EventsMapPage from './map/samples/events_map_page'
 
 import AddContactMutation from '../../mutations/AddContactMutation';
 import DeleteContactMutation from '../../mutations/DeleteContactMutation';
