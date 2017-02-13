@@ -1,7 +1,7 @@
 import session from 'express-session';
 import passport from 'passport';
 import { Strategy as GitHubStrategy } from 'passport-github';
-import knex from './sql/connector';
+import knex from './sql/models/connector';
 
 import {
   GITHUB_CLIENT_ID,

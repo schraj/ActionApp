@@ -1,88 +1,102 @@
 import { property, constant } from 'lodash';
 
 export const schema = [`
-
-# A comment about an entry, submitted by a user
-type Comment {
-  # The SQL ID of this entry
-  id: Int!
-
-  # The GitHub user who posted the comment
-  postedBy: User!
-
-  # A timestamp of when the comment was posted
-  createdAt: Float! # Actually a date
-
-  # The text of the comment
-  content: String!
-
-  # The repository which this comment is about
-  repoName: String!
+enum PoliticalEventType {
+  TOWNHALL
+  SITIN
+  PHONECONFERENCE
 }
 
-# XXX to be removed
-type Vote {
-  vote_value: Int!
+type PoliticalEvent {
+  ID: Int!
+  PoliticalEventName: String!
+  PoliticalEventDateTime: Float! #Actually a date
+  CreatedDateTime: String! #Actually a date
+  PoliticalEventType: PoliticalEventType!
+  PoliticalEventDescription: String!
 }
 
-# Information about a GitHub repository submitted to GitHunt
-type Entry {
-  # Information about the repository from GitHub
-  repository: Repository!
+type Official {
+  ID: Int!
+  FirstName: String!
+  LastName: String!
+  GovernmentLevelId: Int!
+  GeographyId: String!
+  Gender: Int
+  Party: Int
+  Phone: String
+  Email: String
+  Url: String
+  ContactForm: String
+  Twitter: String
+  Facebook: String
+}
 
-  # The GitHub user who submitted this entry
-  postedBy: User!
+type PoliticalEvent_Official {
+  ID: Int!
+  PoliticalEvent_ID: Int!
+  Official_ID: Int!
+}
 
-  # A timestamp of when the entry was submitted
-  createdAt: Float! # Actually a date
+type Issue {
+  ID: Int!
+  IssueName: String!
+  IssueDescription: String!
+}
 
-  # The score of this repository, upvotes - downvotes
-  score: Int!
+type ActionItem {
+  ID: Int!
+  Issue_ID: Int!
+  ActionItemName: String!
+  ActionItemDescription: String!
+  ActionItemStartDate: Float #Actually a date
+  ActionItemEndDate: Float #Actually a date
+  ActionItemType: Int
+}
 
-  # The hot score of this repository
-  hotScore: Float!
+type Resource {
+  ID: Int!
+  ResourceName: String!
+  ResourceDescription: String!
+  Url: String!
+  Media: String!
+}
 
-  # Comments posted about this repository
-  comments(limit: Int, offset: Int): [Comment]!
+type Resource_Official {
+  ID: Int!
+  Resource_ID: Int!
+  Official_ID: Int!
+}
 
-  # The number of comments posted about this repository
-  commentCount: Int!
+type Resource_PoliticalEvent {
+  ID: Int!
+  Resource_ID: Int!
+  PoliticalEvent_ID: Int!
+}
 
-  # The SQL ID of this entry
-  id: Int!
+type Resource_Issue {
+  ID: Int!
+  Resource_ID: Int!
+  Issue_ID: Int!
+}
 
-  # XXX to be changed
-  vote: Vote!
+type LookupItem {
+  ID: Int!
+  Lookup_ID: Int!
+  LookupItemDefinition: String!
+  LookupItemName: String!
+  DisplayName: String!
+  LookupItemDescription: String!
+}
+
+type Lookup {
+  ID: Int!
+  LookupName: String!
+  DisplayName: String!
+  LookupDescription: String!
 }
 
 `];
 
 export const resolvers = {
-  Entry: {
-    repository({ repository_name }, _, context) {
-      return context.Repositories.getByFullName(repository_name);
-    },
-    postedBy({ posted_by }, _, context) {
-      return context.Users.getByLogin(posted_by);
-    },
-    comments({ repository_name }, { limit = -1, offset = 0 }, context) {
-      return context.Comments.getCommentsByRepoName(repository_name, limit, offset);
-    },
-    createdAt: property('created_at'),
-    hotScore: property('hot_score'),
-    commentCount({ repository_name }, _, context) {
-      return context.Comments.getCommentCount(repository_name) || constant(0);
-    },
-    vote({ repository_name }, _, context) {
-      if (!context.user) return { vote_value: 0 };
-      return context.Entries.haveVotedForEntry(repository_name, context.user.login);
-    },
-  },
-
-  Comment: {
-    createdAt: property('created_at'),
-    postedBy({ posted_by }, _, context) {
-      return context.Users.getByLogin(posted_by);
-    },
-  },
 };

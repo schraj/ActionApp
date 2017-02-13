@@ -11,13 +11,19 @@ import {
 
 import { setUpGitHubLogin } from './githubLogin';
 import { GitHubConnector } from './github/connector';
-import { Repositories, Users } from './github/models';
-import { Events } from './sql/models';
+import { Users } from './github/models';
+import { PoliticalEvents } from './sql/models/politicalEvents';
+import { Lookups } from './sql/models/lookups';
+import { ActionItems } from './sql/models/lookupItems';
+import { Issues } from './sql/models/issues';
+import { Officials } from './sql/models/officials';
+import { Resources } from './sql/models/resources';
 
 import { createServer } from 'http';
 
 import schema from './schema';
 
+import queryMap from '../extracted_queries.json';
 import config from './config';
 
 let PORT = 3010;
@@ -25,14 +31,22 @@ if (process.env.PORT) {
   PORT = parseInt(process.env.PORT, 10) + 100;
 }
 
+const WS_PORT = process.env.WS_PORT || 8080;
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+const invertedMap = invert(queryMap);
+
 app.use(
   '/graphql',
   (req, resp, next) => {
+    if (config.persistedQueries) {
+      // eslint-disable-next-line no-param-reassign
+      req.body.query = invertedMap[req.body.id];
+    }
     next();
   },
 );
@@ -73,7 +87,13 @@ app.use('/graphql', graphqlExpress((req) => {
     context: {
       user,
       Users: new Users({ connector: gitHubConnector }),
-      Events: new Events(),
+      PoliticalEvents: new PoliticalEvents(),
+      Lookups: new Lookups(),
+      LookupItems: new LookupItems(),
+      Issues: new Issues(),
+      ActionItems: new ActionItems(),
+      Resources: new Resources(),
+      Officials: new Officials()
     },
   };
 }));
