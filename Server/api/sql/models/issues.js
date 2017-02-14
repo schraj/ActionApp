@@ -30,7 +30,7 @@ export class Issues {
     return query.then(rows => rows.map(row => (row['count(*)'] || '0')));
   }
 
-  submitIssue(issueName, IssueDescription, username) {
+  submitIssue(issueName, issueDescription, username) {
     return knex.transaction(trx => trx('Issue')
       .insert({
         IssueName: issueName,

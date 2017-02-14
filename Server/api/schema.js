@@ -40,7 +40,9 @@ type Query {
 type Mutation {
   submitIssue(issueName: String!, issueDescription: String!): Issue
   submitActionItem(issue_ID: Int!, actionItemName: String!, actionItemStartDate: Float!,actionItemEndDate: Float!, actionItemType: Int!, actionItemDescription: String!): ActionItem
-  submitResource(resourceName: String!, resourceDescription: String!, url: String!, media: String!, resourceType: Int! ): Resource  
+  submitOfficial(firstName: String!, lastName: String!, governmentLevelId: Int!, geographyId: String!, gender:Int!, party:Int!, phone: String!, email: String!, url: String!, contactForm: String!, facebook: String!, twitter: String!): Official
+  submitResource(resourceName: String!, resourceDescription: String!, url: String!, media: String!, resourceRelation: String!, resourceRelationIdentifier:Int! ): Resource  
+  submitPoliticalEvent(politicalEventName: String!, politicalEventDescription: String!, politicalEventDate: Float!, politicalEventTime: Float!, politicalEventType: Int!, politicalEventRelation: String!, politicalEventRelationIdentifier: Int!): PoliticalEvent  
 }
 
 schema {
@@ -158,7 +160,6 @@ const rootResolvers = {
         ))
         .then(() => context.Issues.getIssueByName(issueName));
     },
-
     submitActionItem(root, { issue_ID, actionItemName, actionItemStartDate, actionItemEndDate, actionItemType, actionItemDescription }, context) {
       if (!context.user) {
         throw new Error('Must be logged in to submit an issue.');
@@ -170,17 +171,38 @@ const rootResolvers = {
         ))
         .then(() => context.ActionItems.getActionItemByName(actionItemName));
     },
-
-    submitResource(root, { resourceName, resourceDescription, url, media, resourceType }, context) {
+    submitOfficial(root, { firstName, lastName, governmentLevelId, geographyId, gender, party, phone, email, url, contactFrom, facebook, twitter }, context) {
       if (!context.user) {
         throw new Error('Must be logged in to submit an issue.');
       }
 
       return Promise.resolve()
         .then(() => (
-          context.Resources.submitResource(issueName, issueDescription, context.user.login)
+          context.Officials.submitOfficial(firstName, lastName, governmentLevelId, geographyId, gender, party, phone, email, url, contactFrom, facebook, twitter, context.user.login)
+        ))
+        .then(() => context.Officials.getOfficialByName(firstName, lastName));
+    },
+    submitResource(root, { resourceName, resourceDescription, url, media, resourceRelation, resourceRelationIdentifier }, context) {
+      if (!context.user) {
+        throw new Error('Must be logged in to submit an issue.');
+      }
+
+      return Promise.resolve()
+        .then(() => (
+          context.Resources.submitResource(resourceName, resourceDescription, url, media, resourceRelation, resourceRelationIdentifier, context.user.login)
         ))
         .then(() => context.Resources.getResourceByName(resourceName));
+    },
+    submitPoliticalEvent(root, { politicalEventName, politicalEventDescription, politicalEventDate, politicalEventTime, politicalEventType, politicalEventRelation,politicalEventRelationIdentifier}, context) {
+      if (!context.user) {
+        throw new Error('Must be logged in to submit an issue.');
+      }
+
+      return Promise.resolve()
+        .then(() => (
+          context.PoliticalEvents.submitPoliticalEvent(politicalEventName, politicalEventDescription, politicalEventDate, politicalEventTime, politicalEventType, politicalEventRelation, politicalEventRelationIdentifier, context.user.login)
+        ))
+        .then(() => context.PoliticalEvents.getPoliticalEventsByName(politicalEventName));
     }
   }
 };

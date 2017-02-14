@@ -14,7 +14,8 @@ import { GitHubConnector } from './github/connector';
 import { Users } from './github/models';
 import { PoliticalEvents } from './sql/models/politicalEvents';
 import { Lookups } from './sql/models/lookups';
-import { ActionItems } from './sql/models/lookupItems';
+import { LookupItems } from './sql/models/lookupItems';
+import { ActionItems } from './sql/models/actionItems';
 import { Issues } from './sql/models/issues';
 import { Officials } from './sql/models/officials';
 import { Resources } from './sql/models/resources';
@@ -85,7 +86,7 @@ app.use('/graphql', graphqlExpress((req) => {
   return {
     schema,
     context: {
-      user,
+      user: { login: 'testuser'},
       Users: new Users({ connector: gitHubConnector }),
       PoliticalEvents: new PoliticalEvents(),
       Lookups: new Lookups(),
