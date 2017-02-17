@@ -1,0 +1,165 @@
+# An action item
+type ActionItem implements Node {
+  # The ID of an object
+  id: ID!
+
+  # id in db
+  ActionItemId: Int!
+  ActionItemName: String!
+  ActionItemDescription: String!
+  ActionItemStartDate: Float!
+  ActionItemEndDate: Float!
+  ActionItemType: Int!
+  Issue(after: String, first: Int, before: String, last: Int): Issue
+}
+
+# A political issue
+type Issue implements Node {
+  # The ID of an object
+  id: ID!
+
+  # id in db
+  issueId: Int!
+  IssueName: String!
+  IssueDescription: String!
+}
+
+# A lookup
+type Lookup implements Node {
+  # The ID of an object
+  id: ID!
+
+  # id of lookup in db
+  LookupId: Int!
+  LookupName: String!
+  DisplayName: String!
+  LookupDescription: String
+
+  # The lookupItems in the lookup
+  LookupItems(after: String, first: Int, before: String, last: Int): LookupItemConnection
+}
+
+# A lookup item
+type LookupItem implements Node {
+  # The ID of an object
+  id: ID!
+
+  # id in db
+  lookupItemId: Int!
+  LookupItemDefinition: String!
+  LookupItemName: String!
+  DisplayName: String!
+  LookupDescription: String
+}
+
+# A connection to a list of items.
+type LookupItemConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [LookupItemEdge]
+}
+
+# An edge in a connection.
+type LookupItemEdge {
+  # The item at the end of the edge
+  node: LookupItem
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# A political official
+type Official implements Node {
+  # The ID of an object
+  id: ID!
+
+  # id of lookup item in db
+  officialId: Int!
+  FirstName: String!
+  LastName: String!
+  GovernmentLevelId: Int!
+  GeographyId: String!
+  Gender: String
+  Party: String
+  Phone: String
+  Email: String
+  Url: String
+  ContactForm: String
+  Twitter: String
+  Facebook: String
+  PoliticalEvents(after: String, first: Int, before: String, last: Int): LookupItemConnection
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+# An political event
+type PoliticalEvent implements Node {
+  # The ID of an object
+  id: ID!
+
+  # id in db
+  PoliticalEventId: Int!
+  PoliticalEventName: String!
+  PoliticalEventDescription: String!
+  PoliticalEventDate: Float!
+  PoliticalEventTime: String!
+  PoliticalEventType: Int!
+  Issue(after: String, first: Int, before: String, last: Int): Issue
+}
+
+type Query {
+  official(id: Int): Official
+  officials(limit: Int, offset: Int): [Official]
+  issue(id: Int): Issue
+  issues(limit: Int, offset: Int): [Issue]
+  actionItem(id: Int): ActionItem
+  actionItems(limit: Int, offset: Int): [ActionItem]
+  resource(id: Int): Resource
+  resources(limit: Int, offset: Int): [Resource]
+  politicalEvent(id: Int): PoliticalEvent
+  politicalEvents(limit: Int, offset: Int): [PoliticalEvent]
+  lookup(id: Int): Lookup
+  lookups: [Lookup]
+  lookupItem(lookupItem_ID: Int): LookupItem
+  lookupItems(lookup_ID: Int): [LookupItem]
+
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+}
+
+# An resource
+type Resource implements Node {
+  # The ID of an object
+  id: ID!
+
+  # id in db
+  resourceId: Int!
+  ResourceName: String!
+  ResourceDescription: String!
+  Url: String
+  Media: String
+}

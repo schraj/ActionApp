@@ -4,6 +4,7 @@ drop table politicalevent_official;
 drop table resource_politicalevent;
 drop table resource_issue;
 drop table resource_official;
+drop table actionitem_official;
 drop table politicalevent;
 drop table official;
 drop table lookupitem;
@@ -87,8 +88,6 @@ CREATE TABLE actionitem(
     FOREIGN KEY (Issue_ID) REFERENCES issue(ID)
 );
 
-use actionapp;
-
 CREATE TABLE resource(
 	ID int AUTO_INCREMENT not null,
 	ResourceName varchar(1000) NULL,
@@ -139,6 +138,19 @@ CREATE TABLE resource_politicalevent(
 	PRIMARY KEY (ID),
     FOREIGN KEY (Resource_ID) REFERENCES resource(ID),
     FOREIGN KEY (PoliticalEvent_ID) REFERENCES politicalevent(ID)
+);
+
+CREATE TABLE actionitem_official(
+	ID int AUTO_INCREMENT not null,
+	ActionItem_ID int not null,
+	Official_ID int not null,
+	time_stamp timestamp NOT NULL,
+	CreatedDateTime datetime NOT NULL DEFAULT NOW(),
+	ModifiedDateTime datetime NOT NULL DEFAULT NOW(),
+	ModifiedByUser varchar(255) NOT NULL DEFAULT 'SYSTEM',
+	PRIMARY KEY (ID),
+    FOREIGN KEY (ActionItem_ID) REFERENCES actionitem(ID),
+    FOREIGN KEY (Official_ID) REFERENCES official(ID)
 );
 
 CREATE TABLE lookup(
