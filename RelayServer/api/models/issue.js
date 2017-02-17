@@ -29,12 +29,16 @@ export function getIssueCount() {
   return query.then(rows => rows.map(row => (row['count(*)'] || '0')));
 }
 
-export function submitIssue(issueName, issueDescription, username) {
-  return knex.transaction(trx => trx('Issue')
-    .insert({
-      IssueName: issueName,
-      IssueDescription: issueDescription,
-      ModifiedByUser: username
-    }));
+export function submitIssue(issueName, issueDescription) {
+    return new Promise((resolve, reject) => {
+      knex("Issue")
+      .insert({
+        IssueName: issueName,
+        IssueDescription: issueDescription,
+        ModifiedByUser: 'test'
+      }, "ID").then((ret) => {
+        resolve(ret[0])
+      });
+    });
 }
 

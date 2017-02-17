@@ -28,6 +28,11 @@ import { introspectionQuery, printSchema } from 'graphql/utilities';
   }
 })();
 
+fs.writeFileSync(
+  path.join(__dirname, './api/schema.graphql'),
+  printSchema(schema)
+ );
+
 const APP_PORT = 3000;
 const GRAPHQL_PORT = 8080;
 

@@ -30,12 +30,24 @@ export function getOfficialCount() {
   return query.then(rows => rows.map(row => (row['count(*)'] || '0')));
 }
 
-export function submitOfficial(officialName, firstName, officialDescription, username) {
-  return knex.transaction(trx => trx('Official')
+export function submitOfficial( firstName, lastName, governmentLevelId, geographyId, gender, phone, email, url, contactForm
+,twitter, facebook) {
+    return new Promise((resolve, reject) => {
+      knex("Official")
     .insert({
-      OfficialName: officialName,
-      DisplayName: firstName,
-      OfficialDescription: officialDescription,
-      ModifiedByUser: username
-    }));
+      FirstName: firstName,
+      LastName: lastName,
+      GovernmentLevelId: GovernmentLevelId,
+      GeographyId: geographyId,
+      Gender: gender,
+      Phone: phone,
+      Url: url,
+      ContactForm: contactForm,
+      Twitter: twitter,
+      Facebook: facebook,
+      ModifiedByUser: 'test'
+      }, "ID").then((ret) => {
+        resolve(ret[0])
+      });
+    });
 }

@@ -16,14 +16,14 @@ export function getResourcesByOfficial(id) {
 export function getResourcesByPoliticalEvent(id) {
   const query = knex('Resource')
     .innerJoin('Resource_PoliticalEvent', 'Resource.ID', 'Resource_PoliticalEvent.PoliticalEvent_ID')
-    .where({ Official_ID: id });
+    .where({ PoliticalEvent_ID: id });
   return query.then(rows => (rows || []));
 }
 
 export function getResourcesByIssue(id) {
   const query = knex('Resource')
     .innerJoin('Resource_Issue', 'Resource.ID', 'Resource_Issue.Issue_ID')
-    .where({ Official_ID: id });
+    .where({ Issue_ID: id });
   return query.then(rows => (rows || []));
 }
 
@@ -50,13 +50,65 @@ export function getResourceCount() {
   return query.then(rows => rows.map(row => (row['count(*)'] || '0')));
 }
 
-export function submitResource(resourceName, url, media, resourceDescription, username) {
-  return knex.transaction(trx => trx('Resource')
-    .insert({
-      ResourceName: ResourceName,
-      Url: url,
-      Media: media,
-      ResourceDescription: resourceDescription,
-      ModifiedByUser: username
-    }));
+export function submitResource(resourceName, url, media, resourceDescription, resourceRelationType, resourceRelationId) {
+  return new Promise((resolve, reject) => {
+    knex("Resource")
+      .insert({
+        ResourceName: resourceName,
+        Url: url,
+        Media: media,
+        ResourceDescription: resourceDescription,
+        ModifiedByUser: 'test'
+      }, "ID").then((ret) => {
+        if (resourceRelationType) {
+          // save the resource
+          saveResourceRelation(ret[0], resourceRelationType, resourceRelationId)
+        }
+        resolve(ret[0])
+      });
+  });
+}
+
+function saveResourceRelation(resourceId, resourceRelationType, resourceRelationId){
+  switch (resourceRelationType){
+    case 1: {
+      saveOfficialRelation(resourceId, resourceRelationId)
+      break;
+    }
+    case 2: {
+      savePoliticalEventRelation(resourceId, resourceRelationId)
+      break;
+    }
+    case 3: {
+      saveIssueRelation(resourceId, resourceRelationId)
+      break;
+    }
+  }
+}
+
+function saveOfficialRelation(resourceId, relationId){
+  return knex("resource_official")
+     .insert({
+        Resource_Id: resourceId,
+        Official_ID: relationId,
+        ModifiedByUser: 'test'
+      });
+}
+
+function savePoliticalEventRelation(resourceId, relationId){
+  return knex("resource_politicalevent")
+     .insert({
+        Resource_Id: resourceId,
+        PoliticalEvent_ID: relationId,
+        ModifiedByUser: 'test'
+      });
+}
+
+function saveIssueRelation(resourceId, relationId){
+  return knex("resource_issue")
+     .insert({
+        Resource_Id: resourceId,
+        Issue_ID: relationId,
+        ModifiedByUser: 'test'
+      });
 }

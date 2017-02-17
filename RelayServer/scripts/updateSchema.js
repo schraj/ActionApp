@@ -21,8 +21,8 @@ import schema from '../api/schema';
   }
 })();
 
-// Save user readable type system shorthand of schema
-// fs.writeFileSync(
-//   path.join(__dirname, '../api/schema.graphql'),
-//   printSchema(schema)
-//  );
+//Save user readable type system shorthand of schema
+fs.writeFileSync(
+  path.join(__dirname, './api/schema.graphql'),
+  printSchema(schema)
+ );

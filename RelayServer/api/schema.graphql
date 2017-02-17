@@ -11,6 +11,25 @@ type ActionItem implements Node {
   ActionItemEndDate: Float!
   ActionItemType: Int!
   Issue(after: String, first: Int, before: String, last: Int): Issue
+  Officials(after: String, first: Int, before: String, last: Int): OfficialConnection
+}
+
+# A connection to a list of items.
+type ActionItemConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ActionItemEdge]
+}
+
+# An edge in a connection.
+type ActionItemEdge {
+  # The item at the end of the edge
+  node: ActionItem
+
+  # A cursor for use in pagination
+  cursor: String!
 }
 
 # A political issue
@@ -19,9 +38,11 @@ type Issue implements Node {
   id: ID!
 
   # id in db
-  issueId: Int!
+  IssueId: Int!
   IssueName: String!
   IssueDescription: String!
+  ActionItems(after: String, first: Int, before: String, last: Int): ActionItemConnection
+  Resources(after: String, first: Int, before: String, last: Int): ResourceConnection
 }
 
 # A lookup
@@ -39,6 +60,24 @@ type Lookup implements Node {
   LookupItems(after: String, first: Int, before: String, last: Int): LookupItemConnection
 }
 
+# A connection to a list of items.
+type LookupConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [LookupEdge]
+}
+
+# An edge in a connection.
+type LookupEdge {
+  # The item at the end of the edge
+  node: Lookup
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
 # A lookup item
 type LookupItem implements Node {
   # The ID of an object
@@ -50,6 +89,7 @@ type LookupItem implements Node {
   LookupItemName: String!
   DisplayName: String!
   LookupDescription: String
+  Lookup(after: String, first: Int, before: String, last: Int): LookupConnection
 }
 
 # A connection to a list of items.
@@ -68,6 +108,16 @@ type LookupItemEdge {
 
   # A cursor for use in pagination
   cursor: String!
+}
+
+type Mutation {
+  submitIssue(input: SubmitIssueInput!): SubmitIssuePayload
+  submitActionItem(input: SubmitActionItemInput!): SubmitActionItemPayload
+  submitLookup(input: SubmitLookupInput!): SubmitLookupPayload
+  submitLookupItem(input: SubmitLookupItemInput!): SubmitLookupItemPayload
+  submitOfficial(input: SubmitOfficialInput!): SubmitOfficialPayload
+  submitResourceItem(input: SubmitResourceInput!): SubmitResourcePayload
+  submitPoliticalEventItem(input: SubmitPoliticalEventInput!): SubmitPoliticalEventPayload
 }
 
 # An object with an ID
@@ -95,7 +145,27 @@ type Official implements Node {
   ContactForm: String
   Twitter: String
   Facebook: String
-  PoliticalEvents(after: String, first: Int, before: String, last: Int): LookupItemConnection
+  PoliticalEvents(after: String, first: Int, before: String, last: Int): PoliticalEventConnection
+  Resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+  ActionItems(after: String, first: Int, before: String, last: Int): ActionItemConnection
+}
+
+# A connection to a list of items.
+type OfficialConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [OfficialEdge]
+}
+
+# An edge in a connection.
+type OfficialEdge {
+  # The item at the end of the edge
+  node: Official
+
+  # A cursor for use in pagination
+  cursor: String!
 }
 
 # Information about pagination in a connection.
@@ -126,6 +196,25 @@ type PoliticalEvent implements Node {
   PoliticalEventTime: String!
   PoliticalEventType: Int!
   Issue(after: String, first: Int, before: String, last: Int): Issue
+  Resources(after: String, first: Int, before: String, last: Int): ResourceConnection
+}
+
+# A connection to a list of items.
+type PoliticalEventConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [PoliticalEventEdge]
+}
+
+# An edge in a connection.
+type PoliticalEventEdge {
+  # The item at the end of the edge
+  node: PoliticalEvent
+
+  # A cursor for use in pagination
+  cursor: String!
 }
 
 type Query {
@@ -162,4 +251,122 @@ type Resource implements Node {
   ResourceDescription: String!
   Url: String
   Media: String
+}
+
+# A connection to a list of items.
+type ResourceConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ResourceEdge]
+}
+
+# An edge in a connection.
+type ResourceEdge {
+  # The item at the end of the edge
+  node: Resource
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+input SubmitActionItemInput {
+  issue_ID: Int!
+  actionItemName: String!
+  actionItemDescription: String!
+  actionItemStartDate: Float!
+  actionItemEndDate: Float!
+  actionItemType: Int!
+  clientMutationId: String
+}
+
+type SubmitActionItemPayload {
+  actionItem: ActionItem
+  clientMutationId: String
+}
+
+input SubmitIssueInput {
+  issueName: String!
+  issueDescription: String!
+  clientMutationId: String
+}
+
+type SubmitIssuePayload {
+  issue: Issue
+  clientMutationId: String
+}
+
+input SubmitLookupInput {
+  lookupName: String!
+  displayName: String!
+  lookupDescription: String!
+  clientMutationId: String
+}
+
+input SubmitLookupItemInput {
+  lookup_ID: Int!
+  lookupItemDefinition: String!
+  lookupItemName: String!
+  displayName: String!
+  lookupItemDescription: String!
+  clientMutationId: String
+}
+
+type SubmitLookupItemPayload {
+  lookupItem: LookupItem
+  clientMutationId: String
+}
+
+type SubmitLookupPayload {
+  lookup: Lookup
+  clientMutationId: String
+}
+
+input SubmitOfficialInput {
+  firstName: String!
+  lastName: String!
+  governmentLevelId: Int!
+  geographyId: Int!
+  gender: String
+  phone: String
+  url: String
+  contactForm: String
+  twitter: String
+  facebook: String
+  clientMutationId: String
+}
+
+type SubmitOfficialPayload {
+  official: Official
+  clientMutationId: String
+}
+
+input SubmitPoliticalEventInput {
+  politicalEventName: String!
+  politicalEventDescription: String!
+  politicalEventDate: Float!
+  politicalEventTime: String!
+  politicalEventType: String!
+  clientMutationId: String
+}
+
+type SubmitPoliticalEventPayload {
+  politicalEvent: PoliticalEvent
+  clientMutationId: String
+}
+
+input SubmitResourceInput {
+  resourceName: String!
+  resourceDescription: String!
+  url: String
+  media: String
+  resourceRelationType: Int
+  resourceRelationId: Int
+  clientMutationId: String
+}
+
+type SubmitResourcePayload {
+  resource: Resource
+  clientMutationId: String
 }

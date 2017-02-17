@@ -23,13 +23,16 @@ export function getLookupCount() {
   return query.then(rows => rows.map(row => (row['count(*)'] || '0')));
 }
 
-export function submitLookup(lookupName, displayName, lookupDescription, username) {
-  return knex.transaction(trx => trx('Lookup')
+export function submitLookup(lookupName, displayName, lookupDescription) {
+    return new Promise((resolve, reject) => {
+      knex("Lookup")
     .insert({
       LookupName: lookupName,
       DisplayName: displayName,
       LookupDescription: lookupDescription,
-      ModifiedByUser: username
-    }));
-}
-
+      ModifiedByUser: 'test'
+      }, "ID").then((ret) => {
+        resolve(ret[0])
+      });
+    });
+  }

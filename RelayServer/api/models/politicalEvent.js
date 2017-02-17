@@ -23,8 +23,9 @@ export function getPoliticalEventCount() {
   return query.then(rows => rows.map(row => (row['count(*)'] || '0')));
 }
 
-export function submitPoliticalEvent(eventName, eventDate, eventTime, eventDescription, eventType, username) {
-  return knex.transaction(trx => trx('PoliticalEvent')
+export function submitPoliticalEvent(eventName, eventDate, eventTime, eventDescription, eventType) {
+    return new Promise((resolve, reject) => {
+      knex("PoliticalEvent")
     .insert({
       EventName: eventName,
       EventDate: eventDate,
@@ -33,8 +34,11 @@ export function submitPoliticalEvent(eventName, eventDate, eventTime, eventDescr
       EventDescription: eventDescription,
       CreatedDateTime: Date.now(),
       ModifiedDateTime: Date.now(),
-      ModifiedByUser: username
-    }));
-}
+      ModifiedByUser: 'test'
+      }, "ID").then((ret) => {
+        resolve(ret[0])
+      });
+    });
+  }
 
 

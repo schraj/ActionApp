@@ -21,13 +21,13 @@ import {
   nodeDefinitions,
 } from 'graphql-relay';
 
-import { getLookup, getAllLookups } from './models/lookup';
-import { getLookupItemsByLookupId, getLookupItem, getAllLookupItems } from './models/lookupItem';
-import { getIssue, getAllIssues } from './models/issue';
-import { getActionItem, getAllActionItems, getActionItemsByIssue, getActionItemsByOfficial } from './models/actionItem';
-import { getOfficial, getAllOfficials, getOfficialsByActionItem } from './models/official';
-import { getResource, getAllResources, getResourcesByOfficial, getResourcesByIssue, getResourcesByPoliticalEvent } from './models/resource';
-import { getPoliticalEvent, getAllPoliticalEvents } from './models/politicalEvent';
+import { getLookup, getAllLookups, submitLookup } from './models/lookup';
+import { getLookupItemsByLookupId, getLookupItem, getAllLookupItems, submitLookupItem } from './models/lookupItem';
+import { getIssue, getAllIssues, submitIssue, getIssueByName } from './models/issue';
+import { getActionItem, getAllActionItems, getActionItemsByIssue, getActionItemsByOfficial, submitActionItem } from './models/actionItem';
+import { getOfficial, getAllOfficials, getOfficialsByActionItem, submitOfficial } from './models/official';
+import { getResource, getAllResources, getResourcesByOfficial, getResourcesByIssue, getResourcesByPoliticalEvent, submitResource } from './models/resource';
+import { getPoliticalEvent, getAllPoliticalEvents, submitPoliticalEvent } from './models/politicalEvent';
 
 /**
  * We get the node interface and field from the Relay library.
@@ -62,7 +62,7 @@ const { nodeInterface, nodeField } = nodeDefinitions(
       return null;
     }
   },
-  (obj) => { 
+  (obj) => {
     if (obj instanceof Official) {
       return officialType;
     } else if (obj instanceof Issue) {
@@ -131,22 +131,22 @@ const officialType = new GraphQLObjectType({
     PoliticalEvents: {
       type: politicalEventConnection,
       args: connectionArgs,
-      resolve: (official, args) => {  
-          return connectionFromPromisedArray(getPoliticalEventsByOfficial(official.ID),args)
+      resolve: (official, args) => {
+        return connectionFromPromisedArray(getPoliticalEventsByOfficial(official.ID), args)
       }
     },
     Resources: {
       type: resourceConnection,
       args: connectionArgs,
-      resolve: (official, args) => {  
-          return connectionFromPromisedArray(getResourcesByOfficial(official.ID),args)
+      resolve: (official, args) => {
+        return connectionFromPromisedArray(getResourcesByOfficial(official.ID), args)
       }
     },
     ActionItems: {
       type: actionItemConnection,
       args: connectionArgs,
-      resolve: (official, args) => {  
-          return connectionFromPromisedArray(getActionItemsByOfficial(official.ID),args)
+      resolve: (official, args) => {
+        return connectionFromPromisedArray(getActionItemsByOfficial(official.ID), args)
       }
     }
   }),
@@ -173,18 +173,18 @@ const issueType = new GraphQLObjectType({
       type: actionItemConnection,
       args: connectionArgs,
       resolve: (issue, args) => {
-         return connectionFromPromisedArray(getActionItemsByIssue(issue.ID),args);
+        return connectionFromPromisedArray(getActionItemsByIssue(issue.ID), args);
       }
     },
     Resources: {
       type: resourceConnection,
       args: connectionArgs,
-      resolve: (issue, args) => {  
-          return connectionFromPromisedArray(getResourcesByIssue(issue.ID),args)
+      resolve: (issue, args) => {
+        return connectionFromPromisedArray(getResourcesByIssue(issue.ID), args)
       }
     },
   }),
-  
+
   interfaces: [nodeInterface],
 });
 
@@ -221,8 +221,8 @@ const actionItemType = new GraphQLObjectType({
     Officials: {
       type: officialConnection,
       args: connectionArgs,
-      resolve: (actionItem, args) => {  
-          return connectionFromPromisedArray(getOfficialsByActionItem(actionItem.ID),args)
+      resolve: (actionItem, args) => {
+        return connectionFromPromisedArray(getOfficialsByActionItem(actionItem.ID), args)
       }
     }
   }),
@@ -257,15 +257,15 @@ const politicalEventType = new GraphQLObjectType({
     Issue: {
       type: issueType,
       args: connectionArgs,
-      resolve: (actionItem, args) => {  
-          return connectionFromPromisedArray(getIssue(actionItem.issue_ID),args)
+      resolve: (actionItem, args) => {
+        return connectionFromPromisedArray(getIssue(actionItem.issue_ID), args)
       }
     },
     Resources: {
       type: resourceConnection,
       args: connectionArgs,
-      resolve: (politicalEvent, args) => {  
-          return connectionFromPromisedArray(getResourcesByPoliticalEvent(politicalEvent.ID),args)
+      resolve: (politicalEvent, args) => {
+        return connectionFromPromisedArray(getResourcesByPoliticalEvent(politicalEvent.ID), args)
       }
     }
   }),
@@ -323,8 +323,8 @@ const lookupItemType = new GraphQLObjectType({
     Lookup: {
       type: lookupConnection,
       args: connectionArgs,
-      resolve: (lookupItem, args) => {  
-          return connectionFromPromisedArray(getLookup(lookupItem.lookup_ID),args)
+      resolve: (lookupItem, args) => {
+        return connectionFromPromisedArray(getLookup(lookupItem.lookup_ID), args)
       }
     },
   }),
@@ -354,8 +354,8 @@ const lookupType = new GraphQLObjectType({
       type: lookupItemConnection,
       description: 'The lookupItems in the lookup',
       args: connectionArgs,
-      resolve: (lookup, args) => {  
-          return connectionFromPromisedArray(getLookupItemsByLookupId(lookup.ID),args)
+      resolve: (lookup, args) => {
+        return connectionFromPromisedArray(getLookupItemsByLookupId(lookup.ID), args)
       }
     }
   }),
@@ -397,6 +397,7 @@ const {
   edgeType: LookupItemEdge,
 } = connectionDefinitions({ name: 'LookupItem', nodeType: lookupItemType });
 
+
 /**
  * This is the type that will be the root of our query,
  * and the entry point into our schema.
@@ -420,7 +421,7 @@ const queryType = new GraphQLObjectType({
           type: GraphQLInt,
         },
         offset: {
-          type: GraphQLInt,          
+          type: GraphQLInt,
         }
       },
       resolve: (root, { limit, offset }) => getAllOfficials(limit, offset),
@@ -441,7 +442,7 @@ const queryType = new GraphQLObjectType({
           type: GraphQLInt,
         },
         offset: {
-          type: GraphQLInt,          
+          type: GraphQLInt,
         }
       },
       resolve: (root, { limit, offset }) => getAllIssues(limit, offset),
@@ -462,7 +463,7 @@ const queryType = new GraphQLObjectType({
           type: GraphQLInt,
         },
         offset: {
-          type: GraphQLInt,          
+          type: GraphQLInt,
         }
       },
       resolve: (root, { limit, offset}) => getAllActionItems(limit, offset),
@@ -478,12 +479,12 @@ const queryType = new GraphQLObjectType({
     },
     resources: {
       type: new GraphQLList(resourceType),
-       args: {
+      args: {
         limit: {
           type: GraphQLInt,
         },
         offset: {
-          type: GraphQLInt,          
+          type: GraphQLInt,
         }
       },
       resolve: (root, {limit, offset}) => getAllResources(limit, offset),
@@ -504,7 +505,7 @@ const queryType = new GraphQLObjectType({
           type: GraphQLInt,
         },
         offset: {
-          type: GraphQLInt,          
+          type: GraphQLInt,
         }
       },
       resolve: (root, {limit, offset }) => getAllPoliticalEvents(limit, offset),
@@ -544,13 +545,192 @@ const queryType = new GraphQLObjectType({
   }),
 });
 
-/**
- * Finally, we construct our schema (whose starting query type is the query
- * type we defined above) and export it.
- */
+const mutationType = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: () => ({
+    submitIssue: SubmitIssueMutation,
+    submitActionItem: SubmitActionItemMutation,
+    submitLookup: SubmitLookupMutation,
+    submitLookupItem: SubmitLookupItemMutation,
+    submitOfficial: SubmitOfficialMutation,
+    submitResourceItem: SubmitResourceMutation,
+    submitPoliticalEventItem: SubmitPoliticalEventMutation,
+  })
+});
+
+const SubmitIssueMutation = mutationWithClientMutationId({
+  name: 'SubmitIssue',
+  inputFields: {
+    issueName: { type: new GraphQLNonNull(GraphQLString) },
+    issueDescription: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  outputFields: {
+    issue: {
+      type: issueType,
+      resolve: ({ issueId }) => getIssue(issueId)
+  }
+  },
+  mutateAndGetPayload: ({ issueName, issueDescription }) => {
+    return new Promise((resolve, reject) => {
+        submitIssue(issueName, issueDescription).then((issueId)=> {
+          resolve({ issueId })  
+        })
+    });
+  }
+});
+
+const SubmitActionItemMutation = mutationWithClientMutationId({
+  name: 'SubmitActionItem',
+  inputFields: {
+    issue_ID: { type: new GraphQLNonNull(GraphQLInt) },
+    actionItemName: { type: new GraphQLNonNull(GraphQLString) },
+    actionItemDescription: { type: new GraphQLNonNull(GraphQLString) },
+    actionItemStartDate: { type: new GraphQLNonNull(GraphQLFloat) },
+    actionItemEndDate: { type: new GraphQLNonNull(GraphQLFloat) },
+    actionItemType: { type: new GraphQLNonNull(GraphQLInt) },    
+  },
+  outputFields: {
+    actionItem: {
+      type: actionItemType,
+      resolve: ({ actionItemId }) => getActionItem(actionItemId)
+  }
+  },
+  mutateAndGetPayload: ({ issue_ID, actionItemName, actionItemStartDate, actionItemEndDate, actionItemType, actionItemDescription }) => {
+    return new Promise((resolve, reject) => {
+        submitActionItem(issue_ID, actionItemName, actionItemStartDate, actionItemEndDate, actionItemType, actionItemDescription).then((actionItemId)=> {
+          resolve({ actionItemId })  
+        })
+    });
+  }
+});
+
+const SubmitOfficialMutation = mutationWithClientMutationId({
+  name: 'SubmitOfficial',
+  inputFields: {
+    firstName: { type: new GraphQLNonNull(GraphQLString) },
+    lastName: { type: new GraphQLNonNull(GraphQLString) },
+    governmentLevelId: { type: new GraphQLNonNull(GraphQLInt) },
+    geographyId: { type: new GraphQLNonNull(GraphQLInt) },
+    gender: { type: GraphQLString },
+    phone: { type: GraphQLString },
+    url: { type: GraphQLString },
+    contactForm: { type: GraphQLString },
+    twitter: { type: GraphQLString },
+    facebook: { type: GraphQLString }    
+  },
+  outputFields: {
+    official: {
+      type: officialType,
+      resolve: ({ officialId }) => getOfficial(officialId)
+  }
+  },
+  mutateAndGetPayload: ({ firstName, lastName, governmentLevelId, geographyId, gender, phone, email, url, contactForm,twitter, facebook }) => {
+    return new Promise((resolve, reject) => {
+        submitOfficial(firstName, lastName, governmentLevelId, geographyId, gender, phone, email, url, contactForm,twitter, facebook).then((officialId)=> {
+          resolve({ officialId })            
+        })
+    });
+  }
+});
+
+const SubmitResourceMutation = mutationWithClientMutationId({
+  name: 'SubmitResource',
+  inputFields: {
+    resourceName: { type: new GraphQLNonNull(GraphQLString) },
+    resourceDescription: { type: new GraphQLNonNull(GraphQLString) },
+    url: { type: GraphQLString },
+    media: { type: GraphQLString },
+    resourceRelationType: {type: GraphQLInt},
+    resourceRelationId: {type: GraphQLInt}
+  },
+  outputFields: {
+    resource: {
+      type: resourceType,
+      resolve: ({ resourceId }) => getResource(resourceId)
+  }
+  },
+  mutateAndGetPayload: ({ resourceName, url, media, resourceDescription, resourceRelationType, resourceRelationId }) => {
+    return new Promise((resolve, reject) => {
+        submitResource(resourceName, url, media, resourceDescription, resourceRelationType, resourceRelationId).then((resourceId)=> {
+          resolve({ resourceId })  
+        })
+    });
+  }
+});
+
+const SubmitPoliticalEventMutation = mutationWithClientMutationId({
+  name: 'SubmitPoliticalEvent',
+  inputFields: {
+    politicalEventName: { type: new GraphQLNonNull(GraphQLString) },
+    politicalEventDescription: { type: new GraphQLNonNull(GraphQLString) },
+    politicalEventDate: { type: new GraphQLNonNull(GraphQLFloat) },
+    politicalEventTime: { type: new GraphQLNonNull(GraphQLString) },
+    politicalEventType: { type: new GraphQLNonNull(GraphQLString) }
+  },
+  outputFields: {
+    politicalEvent: {
+      type: politicalEventType,
+      resolve: ({ politicalEventId }) => getPoliticalEvent(politicalEventId)
+  }
+  },
+  mutateAndGetPayload: ({ eventName, eventDate, eventTime, eventDescription, eventType }) => {
+    return new Promise((resolve, reject) => {
+        submitPoliticalEvent(eventName, eventDate, eventTime, eventDescription, eventType).then((politicalEventId)=> {
+          resolve({ politicalEventId })  
+        })
+    });
+  }
+});
+
+const SubmitLookupMutation = mutationWithClientMutationId({
+  name: 'SubmitLookup',
+  inputFields: {
+    lookupName: { type: new GraphQLNonNull(GraphQLString) },
+    displayName: { type: new GraphQLNonNull(GraphQLString) },
+    lookupDescription: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  outputFields: {
+    lookup: {
+      type: lookupType,
+      resolve: ({ lookupId }) => getLookup(lookupId)
+  }
+  },
+  mutateAndGetPayload: ({ lookupName, displayName, lookupDescription }) => {
+    return new Promise((resolve, reject) => {
+        submitLookup(lookupName, displayName, lookupDescription).then((lookupId)=> {
+          resolve({ lookupId })  
+        })
+    });
+  }
+});
+
+const SubmitLookupItemMutation = mutationWithClientMutationId({
+  name: 'SubmitLookupItem',
+  inputFields: {
+    lookup_ID: { type: new GraphQLNonNull(GraphQLInt) },
+    lookupItemDefinition: { type: new GraphQLNonNull(GraphQLString) },
+    lookupItemName: { type: new GraphQLNonNull(GraphQLString) },
+    displayName: { type: new GraphQLNonNull(GraphQLString) },
+    lookupItemDescription: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  outputFields: {
+    lookupItem: {
+      type: lookupItemType,
+      resolve: ({ lookupItemId }) => getLookupItem(lookupItemId)
+  }
+  },
+  mutateAndGetPayload: ({ lookup_ID, lookupItemDefinition, lookupItemName, displayName, lookupItemDescription }) => {
+    return new Promise((resolve, reject) => {
+        submitLookupItem(lookupId, lookupItemDefinition, lookupItemName, displayName, lookupItemDescription).then((lookupItemId)=> {
+          resolve({ lookupItemId })  
+        })
+    });
+  }
+});
+
 const schema = new GraphQLSchema({
-  query: queryType
-  //mutation: mutationType,
+  query: queryType,
+  mutation: mutationType
 });
 
 export default schema;

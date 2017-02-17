@@ -23,14 +23,20 @@ export function getLookupItemsByLookupId(lookup_ID) {
   return query.then(rows => (rows || []));
 }
 
-export function submitLookupItem(lookupItemDefinition, lookupItemName, displayName, lookupItemDescription, username) {
-  return knex.transaction(trx => trx('LookupItem')
+export function submitLookupItem(lookupId, lookupItemDefinition, lookupItemName, displayName, lookupItemDescription) {
+    return new Promise((resolve, reject) => {
+      knex("ActionItem")
     .insert({
+      Lookup_ID: lookupId,
       LookupItemDefinition: LookupItemDefinition,
       LookupItemName: LookupItemName,
       DisplayName: displayName,
       LookupItemDescription: LookupItemDescription,
-      ModifiedByUser: username
-    }));
-}
+      ModifiedByUser: 'test'
+      }, "ID").then((ret) => {
+        resolve(ret[0])
+      });
+    });}
+
+
 

@@ -53,15 +53,19 @@ export function getActionItemCount() {
   return query.then(rows => rows.map(row => (row['count(*)'] || '0')));
 }
 
-export function submitActionItem(actionItemName, actionItemStartDate, actionItemEndDate, actionItemType, actionItemDescription, username) {
-  return knex.transaction(trx => trx('ActionItem')
+export function submitActionItem(issueId, actionItemName, actionItemStartDate, actionItemEndDate, actionItemType, actionItemDescription) {
+    return new Promise((resolve, reject) => {
+      knex("ActionItem")
     .insert({
+      Issue_ID: issueId,
       ActionItemName: actionItemName,
       ActionItemStartDate: actionItemStartDate,
       ActionItemEndDate: actionItemEndDate,
       ActionItemType: actionItemType,
       ActionItemDescription: actionItemDescription,
-      ModifiedByUser: username
-    }));
+      ModifiedByUser: 'test'
+      }, "ID").then((ret) => {
+        resolve(ret[0])
+      });
+    });
 }
-
