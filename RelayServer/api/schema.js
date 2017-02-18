@@ -28,6 +28,7 @@ import { getActionItem, getAllActionItems, getActionItemsByIssue, getActionItems
 import { getOfficial, getAllOfficials, getOfficialsByActionItem, submitOfficial } from './models/official';
 import { getResource, getAllResources, getResourcesByOfficial, getResourcesByIssue, getResourcesByPoliticalEvent, submitResource } from './models/resource';
 import { getPoliticalEvent, getAllPoliticalEvents, submitPoliticalEvent } from './models/politicalEvent';
+import { getAppUser, getAllAppUsers, submitAppUsers, handleActionItem, getViewer } from './models/appuser';
 
 /**
  * We get the node interface and field from the Relay library.
@@ -58,7 +59,11 @@ const { nodeInterface, nodeField } = nodeDefinitions(
     }
     if (type === 'LookupItem') {
       return getLookupItem(id);
-    } else {
+    } 
+    if (type === 'AppUser') {
+      return getAppUser(id);
+    }    
+    else {
       return null;
     }
   },
@@ -77,6 +82,8 @@ const { nodeInterface, nodeField } = nodeDefinitions(
       return lookupType;
     } else if (obj instanceof LookupItem) {
       return lookupItemType;
+    } else if (obj instanceof AppUser) {
+      return appUserType;
     }
     return null;
   }
@@ -362,6 +369,58 @@ const lookupType = new GraphQLObjectType({
   interfaces: [nodeInterface],
 });
 
+const appUserType = new GraphQLObjectType({
+  name: 'AppUser',
+  description: 'An App User',
+  fields: () => ({
+    id: globalIdField('AppUser'),
+    appUserId: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: 'id of lookup item in db',
+      resolve: (official) => official.ID,
+    },
+    FirstName: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    LastName: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    Email: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    Address1: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    Address2: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    Zipcode: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    City: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    State: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    Gender: {
+      type: GraphQLInt,
+    },
+    Points: {
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    ActionItems: {
+      type: actionItemConnection,
+      args: connectionArgs,
+      resolve: (appUser, args) => {
+        return connectionFromPromisedArray(getActedUponActionItemsByAppUser(appUser.ID), args)
+      }
+    }
+  }),
+  interfaces: [nodeInterface],
+});
+
+
 const {
   connectionType: officialConnection,
   edgeType: OfficialEdge,
@@ -405,6 +464,10 @@ const {
 const queryType = new GraphQLObjectType({
   name: 'Query',
   fields: () => ({
+    viewer: {
+      type: appUserType,
+      resolve: () => getViewer(),
+    },
     official: {
       type: officialType,
       args: {
@@ -541,6 +604,28 @@ const queryType = new GraphQLObjectType({
       },
       resolve: (root, { lookup_ID }) => getLookupItemsByLookupId(lookup_ID),
     },
+    appUser: {
+      type: appUserType,
+      args: {
+        appUser_ID: {
+          type: GraphQLInt,
+        },
+      },
+      resolve: (root, { appUser_ID }) => getAppUser(appUser_ID),
+    },
+    appUsers: {
+      type: new GraphQLList(appUserType),
+      args: {
+        limit: {
+          type: GraphQLInt,
+        },
+        offset: {
+          type: GraphQLInt,
+        }
+      },
+      resolve: (root, { limit, offset }) => getAllAppUsers(limit, offset),
+    },
+
     node: nodeField,
   }),
 });
@@ -553,8 +638,10 @@ const mutationType = new GraphQLObjectType({
     submitLookup: SubmitLookupMutation,
     submitLookupItem: SubmitLookupItemMutation,
     submitOfficial: SubmitOfficialMutation,
-    submitResourceItem: SubmitResourceMutation,
-    submitPoliticalEventItem: SubmitPoliticalEventMutation,
+    submitResource: SubmitResourceMutation,
+    submitPoliticalEvent: SubmitPoliticalEventMutation,
+    submitAppUser: SubmitAppUserMutation,
+    handleActionItemByUser: HandleActionItemByUserMutation,
   })
 });
 
@@ -727,6 +814,58 @@ const SubmitLookupItemMutation = mutationWithClientMutationId({
     });
   }
 });
+
+const SubmitAppUserMutation = mutationWithClientMutationId({
+  name: 'SubmitAppUser',
+  inputFields: {
+    firstName: { type: new GraphQLNonNull(GraphQLString) },
+    lastName: { type: new GraphQLNonNull(GraphQLString) },
+    email: { type: new GraphQLNonNull(GraphQLString) },
+    address1: { type: new GraphQLNonNull(GraphQLString) },
+    address2: { type: new GraphQLNonNull(GraphQLString) },
+    zipcode: { type: new GraphQLNonNull(GraphQLString) },
+    city: { type: new GraphQLNonNull(GraphQLString) },
+    state: { type: new GraphQLNonNull(GraphQLString) },
+    gender: { type: GraphQLString },
+    points: { type: new GraphQLNonNull(GraphQLInt) },
+  },
+  outputFields: {
+    appUser: {
+      type: appUserType,
+      resolve: ({ appUserId }) => getAppUser(appUserId)
+  }
+  },
+  mutateAndGetPayload: ({ firstName, lastName, email, address1, address2, zipcode, city, state, gender, points }) => {
+    return new Promise((resolve, reject) => {
+        submitAppUser(firstName, lastName, email, address1, address2, zipcode, city, state, gender, points).then((appUserId)=> {
+          resolve({ appUserId })  
+        })
+    });
+  }
+});
+
+const HandleActionItemByUserMutation = mutationWithClientMutationId({
+  name: 'HandleActionItemByUser',
+  inputFields: {
+    actionItem_ID: { type: new GraphQLNonNull(GraphQLInt) },
+    appUser_ID: { type: new GraphQLNonNull(GraphQLInt) },
+    handleActionType: { type: new GraphQLNonNull(GraphQLInt) },
+  },
+  outputFields: {
+    appUser: {
+      type: appUserType,
+      resolve: ({ appUserId }) => getAppUser(appUserId)
+  }
+  },
+  mutateAndGetPayload: ({ actionItem_ID, appUser_ID, handleactionType  }) => {
+    return new Promise((resolve, reject) => {
+        submitAppUser(actionItem_ID, appUser_ID, handleactionType).then((appUserId)=> {
+          resolve({ appUserId })  
+        })
+    });
+  }
+});
+
 
 const schema = new GraphQLSchema({
   query: queryType,

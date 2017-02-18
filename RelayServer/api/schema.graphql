@@ -32,6 +32,38 @@ type ActionItemEdge {
   cursor: String!
 }
 
+# An App User
+type AppUser implements Node {
+  # The ID of an object
+  id: ID!
+
+  # id of lookup item in db
+  appUserId: Int!
+  FirstName: String!
+  LastName: String!
+  Email: String!
+  Address1: String!
+  Address2: String!
+  Zipcode: String!
+  City: String!
+  State: String!
+  Gender: Int
+  Points: String!
+  ActionItems(after: String, first: Int, before: String, last: Int): ActionItemConnection
+}
+
+input HandleActionItemByUserInput {
+  actionItem_ID: Int!
+  appUser_ID: Int!
+  handleActionType: Int!
+  clientMutationId: String
+}
+
+type HandleActionItemByUserPayload {
+  appUser: AppUser
+  clientMutationId: String
+}
+
 # A political issue
 type Issue implements Node {
   # The ID of an object
@@ -116,8 +148,10 @@ type Mutation {
   submitLookup(input: SubmitLookupInput!): SubmitLookupPayload
   submitLookupItem(input: SubmitLookupItemInput!): SubmitLookupItemPayload
   submitOfficial(input: SubmitOfficialInput!): SubmitOfficialPayload
-  submitResourceItem(input: SubmitResourceInput!): SubmitResourcePayload
-  submitPoliticalEventItem(input: SubmitPoliticalEventInput!): SubmitPoliticalEventPayload
+  submitResource(input: SubmitResourceInput!): SubmitResourcePayload
+  submitPoliticalEvent(input: SubmitPoliticalEventInput!): SubmitPoliticalEventPayload
+  submitAppUser(input: SubmitAppUserInput!): SubmitAppUserPayload
+  handleActionItemByUser(input: HandleActionItemByUserInput!): HandleActionItemByUserPayload
 }
 
 # An object with an ID
@@ -218,6 +252,7 @@ type PoliticalEventEdge {
 }
 
 type Query {
+  viewer: AppUser
   official(id: Int): Official
   officials(limit: Int, offset: Int): [Official]
   issue(id: Int): Issue
@@ -232,6 +267,8 @@ type Query {
   lookups: [Lookup]
   lookupItem(lookupItem_ID: Int): LookupItem
   lookupItems(lookup_ID: Int): [LookupItem]
+  appUser(appUser_ID: Int): AppUser
+  appUsers(limit: Int, offset: Int): [AppUser]
 
   # Fetches an object given its ID
   node(
@@ -283,6 +320,25 @@ input SubmitActionItemInput {
 
 type SubmitActionItemPayload {
   actionItem: ActionItem
+  clientMutationId: String
+}
+
+input SubmitAppUserInput {
+  firstName: String!
+  lastName: String!
+  email: String!
+  address1: String!
+  address2: String!
+  zipcode: String!
+  city: String!
+  state: String!
+  gender: String
+  points: Int!
+  clientMutationId: String
+}
+
+type SubmitAppUserPayload {
+  appUser: AppUser
   clientMutationId: String
 }
 

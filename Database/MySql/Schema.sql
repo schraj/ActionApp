@@ -5,6 +5,7 @@ drop table resource_politicalevent;
 drop table resource_issue;
 drop table resource_official;
 drop table actionitem_official;
+drop table appuser_actionitem;
 drop table politicalevent;
 drop table official;
 drop table lookupitem;
@@ -12,6 +13,7 @@ drop table lookup;
 drop table actionitem;
 drop table issue;
 drop table resource;
+drop table appuser;
 
 CREATE TABLE official (
 	ID int AUTO_INCREMENT not null,
@@ -179,3 +181,39 @@ CREATE TABLE lookupitem(
 	PRIMARY KEY (ID),
     FOREIGN KEY (Lookup_ID) REFERENCES lookup(ID)
 );
+
+CREATE TABLE appuser (
+	ID int AUTO_INCREMENT not null,
+	FirstName varchar(100) not null,
+	LastName varchar(100) not null,
+	Email varchar(100) not null,
+	Address1 varchar(250) null,
+	Address2 varchar(250) null,
+	ZipCode varchar(20) null,
+	City varchar(100) not null,
+	State varchar(100) not null,				
+    Gender int null,
+    Points int null,
+	Time_stamp timestamp NOT NULL,
+	CreatedDateTime datetime NOT NULL DEFAULT NOW(),
+	ModifiedDateTime datetime NOT NULL DEFAULT NOW(),
+	ModifiedByUser varchar(255) NOT NULL DEFAULT 'SYSTEM',
+    Primary Key(ID)
+    );
+    
+CREATE TABLE appuser_actionitem(
+	ID int AUTO_INCREMENT not null,
+	ActionItem_ID int not null,
+	AppUser_ID int not null,
+	Completed bit not null,
+	Skipped bit not null,
+	time_stamp timestamp NOT NULL,
+	CreatedDateTime datetime NOT NULL DEFAULT NOW(),
+	ModifiedDateTime datetime NOT NULL DEFAULT NOW(),
+	ModifiedByUser varchar(255) NOT NULL DEFAULT 'SYSTEM',
+	PRIMARY KEY (ID),
+    FOREIGN KEY (ActionItem_ID) REFERENCES actionitem(ID),
+    FOREIGN KEY (AppUser_ID) REFERENCES appuser(ID)
+);
+    
+    

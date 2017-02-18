@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Relay from 'react-relay';
 
-import Reindex from '../Reindex';
 import Main from './main/Main';
 import AppRoute from '../routes/AppRoute';
 //import './importContacts';

@@ -1,4 +1,4 @@
-# Relay TodoMVC
+# RelayServer for Action App
 
 ## Installation
 
