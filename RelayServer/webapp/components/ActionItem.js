@@ -3,12 +3,9 @@ import Relay from 'react-relay';
 import classnames from 'classnames';
 import { Router, Route, Link, browserHistory } from 'react-router'
 
-class ActionItem extends React.Component {
-  handleCompleteChange = (e) => {
-  };
+import Official from './Official';
 
-  skipActionItem() {
-  }
+class ActionItem extends React.Component {
 
   render() {
     const actionItem = this.props.actionItem;
@@ -29,9 +26,16 @@ export default Relay.createContainer(ActionItem, {
   fragments: {
     actionItem: () => Relay.QL`
       fragment on ActionItem {
-          ActionItemId,
-          ActionItemName,
-          ActionItemDescription        
+          ActionItemId
+          ActionItemName
+          ActionItemDescription 
+          Officials(first:1000){
+            edges{
+              node{
+                ${Official.getFragment('official')}
+              }
+            }
+          }                                        
       }
     `
   },

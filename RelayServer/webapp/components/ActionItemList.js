@@ -4,6 +4,7 @@ import Relay from 'react-relay';
 
 import Issue from './Issue';
 import ActionItem from './ActionItem';
+import Official from './Official';
 
 class ActionItemList extends React.Component {
   renderActionItems(issue) {
@@ -18,8 +19,8 @@ class ActionItemList extends React.Component {
   render() {
     const viewer = this.props.viewer;
     const issueId = this.props.params.issueId;
-    console.log(issueId)
     const issue = viewer.Channels.edges[0].node.Issues.edges.find(i => i.node.IssueId == issueId);
+    console.log(issue)
 
     return (
       <section className="main">
@@ -43,33 +44,30 @@ export default Relay.createContainer(ActionItemList, {
     fragments: {
      viewer: () => Relay.QL`
       fragment on AppUser {
-              FirstName
-              LastName        
-                Channels(first:1){
+          Channels(first:1){
+            edges {
+              node {
+                Issues(first:100) {
                   edges {
-                    node {
-                      ChannelId
-                      ChannelName
-                      Issues(first:100) {
-                        edges {
+                    node{
+                      id
+                      IssueId
+                      IssueName
+                      IssueDescription   
+                      ActionItems(first:100){
+                        edges{
                           node{
-                            IssueId
-                            IssueName
-                            IssueDescription
-                            ActionItems(first:1000){
-                              edges{
-                                node{
-                                  ${ActionItem.getFragment('actionItem')}                                  
-                                }
-                              }
-                            }
+                            ${ActionItem.getFragment('actionItem')}
                           }
                         }
-                      }        
-                    }
-                  }  
-                }
-            },
-          `
+                      }
+                     }
+                  }
+                }        
+              }
+            }  
+          }
+      },
+    `
   },  
 });

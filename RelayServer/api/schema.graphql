@@ -38,7 +38,7 @@ type AppUser implements Node {
   id: ID!
 
   # id of lookup item in db
-  appUserId: Int!
+  AppUserId: Int!
   FirstName: String!
   LastName: String!
   Email: String!
@@ -165,7 +165,7 @@ type LookupItem implements Node {
   id: ID!
 
   # id in db
-  lookupItemId: Int!
+  LookupItemId: Int!
   LookupItemDefinition: String!
   LookupItemName: String!
   DisplayName: String!
@@ -215,7 +215,7 @@ type Official implements Node {
   id: ID!
 
   # id of lookup item in db
-  officialId: Int!
+  OfficialId: Int!
   FirstName: String!
   LastName: String!
   GovernmentLevelId: Int!
@@ -333,7 +333,7 @@ type Resource implements Node {
   id: ID!
 
   # id in db
-  resourceId: Int!
+  ResourceId: Int!
   ResourceName: String!
   ResourceDescription: String!
   Url: String

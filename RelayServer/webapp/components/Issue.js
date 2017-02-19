@@ -3,13 +3,9 @@ import Relay from 'react-relay';
 import classnames from 'classnames';
 import { Router, Route, Link, browserHistory } from 'react-router'
 
+import ActionItem from './ActionItem';
+
 class Issue extends React.Component {
-  handleCompleteChange = (e) => {
-  };
-
-  skipIssue() {
-  }
-
   render() {
     const issue = this.props.issue;
     return (
@@ -29,9 +25,16 @@ export default Relay.createContainer(Issue, {
     issue: () => Relay.QL`
       fragment on Issue {
           id
-          IssueId,
-          IssueName,
-          IssueDescription        
+          IssueId
+          IssueName
+          IssueDescription   
+          ActionItems(first:1000){
+            edges{
+              node{
+                ${ActionItem.getFragment('actionItem')}
+              }
+            }
+          }                                            
       }
     `
   },

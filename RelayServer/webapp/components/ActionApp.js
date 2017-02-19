@@ -6,6 +6,7 @@ import IssueList from './IssueList';
 import Issue from './Issue';
 import ActionItemList from './ActionItemList';
 import ActionItem from './ActionItem';
+import Official from './Official';
 
 class ActionApp extends React.Component {
   render() {

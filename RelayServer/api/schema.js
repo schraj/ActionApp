@@ -130,7 +130,7 @@ const officialType = new GraphQLObjectType({
   description: 'A political official',
   fields: () => ({
     id: globalIdField('Official'),
-    officialId: {
+    OfficialId: {
       type: new GraphQLNonNull(GraphQLInt),
       description: 'id of lookup item in db',
       resolve: (official) => official.ID,
@@ -328,7 +328,7 @@ const resourceType = new GraphQLObjectType({
   description: 'An resource',
   fields: () => ({
     id: globalIdField('Resource'),
-    resourceId: {
+    ResourceId: {
       type: new GraphQLNonNull(GraphQLInt),
       description: 'id in db',
       resolve: (resource) => resource.ID,
@@ -354,7 +354,7 @@ const lookupItemType = new GraphQLObjectType({
   description: 'A lookup item',
   fields: () => ({
     id: globalIdField('LookupItem'),
-    lookupItemId: {
+    LookupItemId: {
       type: new GraphQLNonNull(GraphQLInt),
       description: 'id in db',
       resolve: (lookupItem) => lookupItem.ID,
@@ -418,7 +418,7 @@ const appUserType = new GraphQLObjectType({
   description: 'An App User',
   fields: () => ({
     id: globalIdField('AppUser'),
-    appUserId: {
+    AppUserId: {
       type: new GraphQLNonNull(GraphQLInt),
       description: 'id of lookup item in db',
       resolve: (official) => official.ID,

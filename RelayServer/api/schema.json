@@ -553,7 +553,7 @@
               "deprecationReason": null
             },
             {
-              "name": "appUserId",
+              "name": "AppUserId",
               "description": "id of lookup item in db",
               "args": [],
               "type": {
@@ -1640,7 +1640,7 @@
               "deprecationReason": null
             },
             {
-              "name": "resourceId",
+              "name": "ResourceId",
               "description": "id in db",
               "args": [],
               "type": {
@@ -1827,7 +1827,7 @@
               "deprecationReason": null
             },
             {
-              "name": "officialId",
+              "name": "OfficialId",
               "description": "id of lookup item in db",
               "args": [],
               "type": {
@@ -3038,7 +3038,7 @@
               "deprecationReason": null
             },
             {
-              "name": "lookupItemId",
+              "name": "LookupItemId",
               "description": "id in db",
               "args": [],
               "type": {
