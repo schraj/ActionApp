@@ -1,6 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay';
-
+import { Link } from 'react-router'
 
 import Issue from './Issue';
 import ActionItem from './ActionItem';
@@ -11,6 +11,7 @@ class ActionItemList extends React.Component {
     const actionItems = issue.node.ActionItems;
     return actionItems.edges.map(edge =>
       <ActionItem
+        issueId={issue.node.IssueId}
         actionItem={edge.node}
         viewer={this.props.viewer}
       />,
@@ -20,8 +21,7 @@ class ActionItemList extends React.Component {
     const viewer = this.props.viewer;
     const issueId = this.props.params.issueId;
     const issue = viewer.Channels.edges[0].node.Issues.edges.find(i => i.node.IssueId == issueId);
-    console.log(issue)
-
+    
     return (
       <section className="main">
         <header className="header">
@@ -35,6 +35,7 @@ class ActionItemList extends React.Component {
         <ul className="issue-list">
           {this.renderActionItems(issue)}
         </ul>
+        <Link to={`/`}>Back To Issues</Link>
       </section>
     );
   }

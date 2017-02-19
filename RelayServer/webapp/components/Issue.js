@@ -11,7 +11,7 @@ class Issue extends React.Component {
     return (
       <li key={issue.id}>
         <div className="view">
-          <Link to={`/actionItems/${issue.IssueId}`}>{issue.IssueName}</Link>
+          <Link to={`/issue/${issue.IssueId}`}>{issue.IssueName}</Link>
           <br/>
           <label>{issue.IssueDescription}</label>
         </div>

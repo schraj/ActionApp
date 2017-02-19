@@ -1,3 +1,10 @@
+delete from `actionapp`.`issue`
+where ID <= 3;
+
+delete from `actionapp`.`actionitem`
+where ID=1;
+
+
 INSERT INTO `actionapp`.`channel`
 (
 `ChannelName`,
@@ -7,11 +14,12 @@ VALUES
 
 INSERT INTO `actionapp`.`issue`
 (
-`Channel_ID`,
+ `Channel_ID`,
 `IssueName`,
 `IssueDescription`)
 VALUES
-(1,'test issue', 'test desc');
+(1,'Appointment of Scott Pruitt to head the EPA', 'Scott Pruitt was the Attorney General of Oklahoma and had an abysmal record.  He wanted to destroy the EPA and he worked for the interests of the oil companies.  The Sierra Cliub said that putting him in charge of the EPA is like "putting an arsonist in charge of the fire department"'),
+(1,'Appointment of Jeff Sessions to head the DOJ', 'Jeff Sessions has a long history of working against civil rights from his time as AG of Alabama to his time in the Senate.  He was denied a seat on XXX in the 80s due to racist statements.  Coretta Scott King stated that "Jeff Sessions is unfit for any office."');
 
 INSERT INTO `actionapp`.`actionitem`
 (
@@ -22,7 +30,9 @@ INSERT INTO `actionapp`.`actionitem`
 `ActionItemType`,
 `ActionItemDescription`)
 VALUES
-(1,'test ai', '2000-1-1', '2010-1-1', 1, 'test d');
+(38,'Call Your Federal Officials about Scott Pruitt', '2017-3-1', '2017-4-1', 1, 'Call your officials about this'),
+(38,'Thank Senator Cantwell for her opposition to Scott Pruitt', '2017-3-1', '2017-4-1', 1, 'test d'),
+(39,'Call Your Federal Officials about Jeff Sessions', '2017-3-1', '2017-4-1', 1, 'test d');
 
 INSERT INTO `actionapp`.`resource`
 (
@@ -51,10 +61,12 @@ INSERT INTO `actionapp`.`actionitem_official`
 `ActionItem_ID`,
 `Official_ID`)
 VALUES
-(
-'1',
-'2'
-);
+('2','2'),
+('2','217'),
+('4','2'),
+('4','217'),
+('3','2');
+
 
 
 INSERT INTO `actionapp`.`appuser`

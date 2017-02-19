@@ -211,7 +211,7 @@ interface Node {
 
 # A political official
 type Official implements Node {
-  # The ID of an object
+  # global
   id: ID!
 
   # id of lookup item in db

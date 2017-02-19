@@ -1,12 +1,14 @@
 import React from 'react';
 import Relay from 'react-relay';
+import { Link } from 'react-router'
 
 import Issue from './Issue';
 import Official from './Official';
+import ActionItem from './ActionItem';
 
 class OfficialList extends React.Component {
-  renderOfficials(issue) {
-    const officials = issue.node.officials;
+  renderOfficials(actionItem) {
+    const officials = actionItem.node.Officials;
     return officials.edges.map(edge =>
       <Official
         official={edge.node}
@@ -16,12 +18,11 @@ class OfficialList extends React.Component {
   }
   render() {
     const viewer = this.props.viewer;
-    const issueId = this.props.params.issueId;
-    console.log(issueId)
-    const actionItemId = this.props.params.actionItemId;
-    console.log(actionItemId)
+    const issueId = this.props.params.issueid;
+    const actionItemId = this.props.params.actionitemid;
+    
     const issue = viewer.Channels.edges[0].node.Issues.edges.find(i => i.node.IssueId == issueId);
-    const actionItem = issue.node.actionItems.edges.find(i => i.node.ActionItemId == actionItemId);
+    const actionItem = issue.node.ActionItems.edges.find(i => i.node.ActionItemId == actionItemId);
 
     return (
       <section className="main">
@@ -36,6 +37,7 @@ class OfficialList extends React.Component {
         <ul className="issue-list">
           {this.renderOfficials(actionItem)}
         </ul>
+        <Link to={`/issue/${issueId}/`}>Back To Actions</Link>
       </section>
     );
   }
@@ -55,11 +57,16 @@ export default Relay.createContainer(OfficialList, {
                       Issues(first:100) {
                         edges {
                           node{
-                            ${Issue.getFragment('issue')}
+                            id
+                            IssueId
+                            IssueName
+                            IssueDescription   
                             ActionItems(first:1000){
                               edges{
                                 node{
-                                  ${ActionItem.getFragment('actionItem')}
+                                  ActionItemId
+                                  ActionItemName
+                                  ActionItemDescription 
                                   Officials(first:1000){
                                     edges{
                                       node{

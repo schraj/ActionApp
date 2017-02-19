@@ -31,6 +31,8 @@ import { getResource, getAllResources, getResourcesByOfficial, getResourcesByIss
 import { getPoliticalEvent, getAllPoliticalEvents, submitPoliticalEvent } from './models/politicalEvent';
 import { getAppUser, getAllAppUsers, submitAppUsers, handleActionItem, getViewer } from './models/appuser';
 
+import { Party, StringOfEnum } from './models/constants'
+
 /**
  * We get the node interface and field from the Relay library.
  *
@@ -124,12 +126,15 @@ const channelType = new GraphQLObjectType({
     interfaces: [nodeInterface],
 });
 
-
 const officialType = new GraphQLObjectType({
   name: 'Official',
   description: 'A political official',
   fields: () => ({
-    id: globalIdField('Official'),
+    id: {
+      type: new GraphQLNonNull(GraphQLID),
+      description: 'global',
+      resolve: (official) => `Official${official.ID}`,
+    }, 
     OfficialId: {
       type: new GraphQLNonNull(GraphQLInt),
       description: 'id of lookup item in db',
@@ -146,12 +151,18 @@ const officialType = new GraphQLObjectType({
     },
     GeographyId: {
       type: new GraphQLNonNull(GraphQLString),
+      resolve: ((official,args) => {
+        return official.GeographyId.replace('53', 'WA');
+      })
     },
     Gender: {
       type: GraphQLString,
     },
     Party: {
       type: GraphQLString,
+      resolve: ((official,args) => {
+        return StringOfEnum(Party, official.Party);  
+      })
     },
     Phone: {
       type: GraphQLString,

@@ -1812,7 +1812,7 @@
           "fields": [
             {
               "name": "id",
-              "description": "The ID of an object",
+              "description": "global",
               "args": [],
               "type": {
                 "kind": "NON_NULL",

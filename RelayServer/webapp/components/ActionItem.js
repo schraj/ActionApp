@@ -7,13 +7,13 @@ import Official from './Official';
 
 class ActionItem extends React.Component {
 
-  render() {
-    const actionItem = this.props.actionItem;
+  render() {    
+    const { actionItem, issueId } = this.props;
 
     return (
       <li key={actionItem.id}>
         <div className="view">
-          <label>{actionItem.ActionItemName}</label>
+          <Link to={`/actionitem/${issueId}/${actionItem.ActionItemId}`}>{actionItem.ActionItemName}</Link>
           <br/>
           <label>{actionItem.ActionItemDescription}</label>
         </div>
