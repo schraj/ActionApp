@@ -4,12 +4,14 @@ import Relay from 'react-relay';
 import Issue from './Issue';
 
 class IssueList extends React.Component {
-  renderIssues() {
-    return this.props.issues.edges.map(edge =>
+  renderIssue() {
+    const { viewer } = this.props;
+    const issues = viewer.Channels.edges[0].node.Issues;
+    return issues.edges.map(edge =>
       <Issue
         key={edge.node.id}
-        Issue={edge.node}
-        //viewer={this.props.viewer}
+        issue={edge.node}
+        viewer={this.props.viewer}
       />,
     );
   }
@@ -18,21 +20,45 @@ class IssueList extends React.Component {
     return (
       <section className="main">
         <ul className="issue-list">
-          {this.renderIssues()}
+          {this.renderIssue()}
         </ul>
       </section>
-    );
+    );    
   }
 }
 
 export default Relay.createContainer(IssueList, {
-  fragments: {
-    Issues: () => Relay.QL`
-      fragment on Issue {
-        IssueId,
-        IssueName,
-        IssueDescription,
-      }
+    fragments: {
+        viewer: () => Relay.QL`
+      fragment on AppUser {
+        FirstName
+        LastName        
+          Channels(first:1){
+            edges {
+              node {
+                id
+                ChannelId
+                ChannelName
+                Issues(first:100) {
+                  edges {
+                    node{
+                      ${Issue.getFragment('issue')}
+                     }
+                  }
+                }        
+              }
+            }  
+          }
+      },
     `
-  },
+    //  issues: () => Relay.QL`
+    //   fragment on IssueConnection {
+    //     edges {
+    //       node{
+    //           ${Issue.getFragment('issue')}
+    //         }
+    //     }     
+    //   },
+    //`
+  },  
 });

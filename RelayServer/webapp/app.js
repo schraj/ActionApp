@@ -2,14 +2,29 @@ import 'babel-polyfill';
 
 import React from 'react';
 import { render } from 'react-dom';
-import { RootContainer } from 'react-relay';
+import Relay from 'react-relay';
 import ActionApp from './components/ActionApp';
-import AppHomeRoute from './routes/AppHomeRoute';
+import createHashHistory from 'history/lib/createHashHistory';
+
+import applyRouterMiddleware from 'react-router/lib/applyRouterMiddleware';
+import Router from 'react-router/lib/Router';
+import useRouterHistory from 'react-router/lib/useRouterHistory';
+import useRelay from 'react-router-relay';
+
+import routes from './routes/Routes';
+import schema from '../api/schema';
+
+const history = useRouterHistory(createHashHistory)();
+
+const mountNode = document.createElement('div');
+document.body.appendChild(mountNode);
 
 render(
-  <RootContainer
-    Component={ActionApp}
-    route={new AppHomeRoute()}
+  <Router
+    history={history}
+    routes={routes}
+    render={applyRouterMiddleware(useRelay)}
+    environment={Relay.Store}
   />,
-  document.getElementById('root'),
+  mountNode
 );

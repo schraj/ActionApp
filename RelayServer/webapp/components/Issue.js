@@ -1,36 +1,23 @@
 import React from 'react';
 import Relay from 'react-relay';
 import classnames from 'classnames';
+import { Router, Route, Link, browserHistory } from 'react-router'
 
 class Issue extends React.Component {
   handleCompleteChange = (e) => {
   };
 
-  handleDestroyClick = () => {
-  };
-
-  removeIssue() {
+  skipIssue() {
   }
 
   render() {
+    const issue = this.props.issue;
     return (
-      <li
-        className={classnames({
-          completed: this.props.Issue.complete,
-        })}
-      >
+      <li key={issue.id}>
         <div className="view">
-          <input
-            checked={this.props.Issue.complete}
-            className="toggle"
-            onChange={this.handleCompleteChange}
-            type="checkbox"
-          />
-          <label>{this.props.Issue.text}</label>
-          <button
-            className="destroy"
-            onClick={this.handleDestroyClick}
-          />
+          <Link to={`/actionItems/${issue.IssueId}`}>{issue.IssueName}</Link>
+          <br/>
+          <label>{issue.IssueDescription}</label>
         </div>
       </li>
     );
@@ -39,11 +26,12 @@ class Issue extends React.Component {
 
 export default Relay.createContainer(Issue, {
   fragments: {
-    Issue: () => Relay.QL`
+    issue: () => Relay.QL`
       fragment on Issue {
-        IssueId,
-        IssueName,
-        IssueDescription,
+          id
+          IssueId,
+          IssueName,
+          IssueDescription        
       }
     `
   },

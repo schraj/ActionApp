@@ -14,6 +14,7 @@ drop table actionitem;
 drop table issue;
 drop table resource;
 drop table appuser;
+drop table `channel`;
 
 CREATE TABLE official (
 	ID int AUTO_INCREMENT not null,
@@ -63,8 +64,20 @@ CREATE TABLE politicalevent_official(
     FOREIGN KEY (Official_ID) REFERENCES official(ID)
 );
 
+CREATE TABLE `channel`(
+	ID int AUTO_INCREMENT not null,
+	ChannelName varchar(100) not null,
+	ChannelDescription varchar(20000) null,
+	time_stamp timestamp NOT NULL,
+	CreatedDateTime datetime NOT NULL DEFAULT NOW(),
+	ModifiedDateTime datetime NOT NULL DEFAULT NOW(),
+	ModifiedByUser varchar(255) NOT NULL DEFAULT 'SYSTEM',
+	PRIMARY KEY (ID)
+);
+
 CREATE TABLE issue(
 	ID int AUTO_INCREMENT not null,
+    Channel_ID int not null,
 	IssueName varchar(100) not null,
 	IssueDescription varchar(20000) null,
 	time_stamp timestamp NOT NULL,

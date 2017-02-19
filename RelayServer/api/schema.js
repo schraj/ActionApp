@@ -24,6 +24,7 @@ import {
 import { getLookup, getAllLookups, submitLookup } from './models/lookup';
 import { getLookupItemsByLookupId, getLookupItem, getAllLookupItems, submitLookupItem } from './models/lookupItem';
 import { getIssue, getAllIssues, submitIssue, getIssueByName } from './models/issue';
+import { getChannel, getAllChannels, submitChannel } from './models/channel';
 import { getActionItem, getAllActionItems, getActionItemsByIssue, getActionItemsByOfficial, submitActionItem } from './models/actionItem';
 import { getOfficial, getAllOfficials, getOfficialsByActionItem, submitOfficial } from './models/official';
 import { getResource, getAllResources, getResourcesByOfficial, getResourcesByIssue, getResourcesByPoliticalEvent, submitResource } from './models/resource';
@@ -39,6 +40,9 @@ import { getAppUser, getAllAppUsers, submitAppUsers, handleActionItem, getViewer
 const { nodeInterface, nodeField } = nodeDefinitions(
   (globalId) => {
     const { type, id } = fromGlobalId(globalId);
+    if (type === 'Channel') {
+      return getChannel(id);
+    }
     if (type === 'Official') {
       return getOfficial(id);
     }
@@ -68,7 +72,9 @@ const { nodeInterface, nodeField } = nodeDefinitions(
     }
   },
   (obj) => {
-    if (obj instanceof Official) {
+    if (obj instanceof Channel) {
+      return channelType;
+    } else if (obj instanceof Official) {
       return officialType;
     } else if (obj instanceof Issue) {
       return issueType;
@@ -88,6 +94,36 @@ const { nodeInterface, nodeField } = nodeDefinitions(
     return null;
   }
 );
+
+const channelType = new GraphQLObjectType({
+  name: 'Channel',
+  description: 'A political channel',
+  fields: () => ({
+    id: globalIdField("Channel"),
+    ChannelId: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: 'id in db',
+      resolve: (channel) => channel.ID,
+    },
+    ChannelName: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: (channel) => 'Democracy',
+    },
+    ChannelDescription: {
+      type: new GraphQLNonNull(GraphQLString),
+      resolve: (channel) => 'Reclaiming democracy from the right-wing nationalists',
+    },
+    Issues: {
+      type: issueConnection,
+      args: connectionArgs,
+      resolve: (channel, args) => {
+        return connectionFromPromisedArray(getAllIssues(100,0), args);
+      }
+    }
+  }),
+    interfaces: [nodeInterface],
+});
+
 
 const officialType = new GraphQLObjectType({
   name: 'Official',
@@ -164,7 +200,11 @@ const issueType = new GraphQLObjectType({
   name: 'Issue',
   description: 'A political issue',
   fields: () => ({
-    id: globalIdField('Issue'),
+    id: {
+      type: new GraphQLNonNull(GraphQLID),
+      description: 'global',
+      resolve: (issue) => `Issue` + issue.ID.toString(),
+    }, 
     IssueId: {
       type: new GraphQLNonNull(GraphQLInt),
       description: 'id in db',
@@ -199,7 +239,11 @@ const actionItemType = new GraphQLObjectType({
   name: 'ActionItem',
   description: 'An action item',
   fields: () => ({
-    id: globalIdField('ActionItem'),
+    id: {
+      type: new GraphQLNonNull(GraphQLID),
+      description: 'global',
+      resolve: (actionItem) => `actionItem` + actionItem.ID.toString(),
+    }, 
     ActionItemId: {
       type: new GraphQLNonNull(GraphQLInt),
       description: 'id in db',
@@ -415,11 +459,23 @@ const appUserType = new GraphQLObjectType({
       resolve: (appUser, args) => {
         return connectionFromPromisedArray(getActedUponActionItemsByAppUser(appUser.ID), args)
       }
+    },
+    Channels: {
+      type: channelConnection,
+      args: connectionArgs,
+      resolve: (appUser, args) => {
+        return connectionFromPromisedArray(getAllChannels(100,0), args)
+      }
     }
+
   }),
   interfaces: [nodeInterface],
 });
 
+const {
+  connectionType: channelConnection,
+  edgeType: ChannelEdge,
+} = connectionDefinitions({ name: 'Channel', nodeType: channelType });
 
 const {
   connectionType: officialConnection,
@@ -467,6 +523,15 @@ const queryType = new GraphQLObjectType({
     viewer: {
       type: appUserType,
       resolve: () => getViewer(),
+    },
+    channel: {
+      type: channelType,
+      args: {
+        id: {
+          type: GraphQLInt,
+        },
+      },
+      resolve: (root, { id }) => getChannel(id),
     },
     official: {
       type: officialType,

@@ -3,66 +3,55 @@ import Relay from 'react-relay';
 
 //import SubmitIssueMutation from '../mutations/SubmitIssueMutation';
 import IssueList from './IssueList';
-//import IssueListFooter from './IssueListFooter';
+import Issue from './Issue';
+import ActionItemList from './ActionItemList';
+import ActionItem from './ActionItem';
 
-class IssueApp extends React.Component {
-  handleTextInputSave = (text) => {
-    // this.props.relay.commitUpdate(
-    //   new AddIssueMutation({ text, viewer: this.props.viewer })
-    // );
-  };
-
+class ActionApp extends React.Component {
   render() {
-    const hasIssues = this.props.viewer.totalCount > 0;
+    const { viewer, children } = this.props;
+
     return (
-      <div>
+      <div data-framework="relay">
         <section className="issue-app">
           <header className="header">
             <h1>
-              Issues
+              Democracy Channel
             </h1>
-            {/*<IssueTextInput
-              autoFocus
-              className="new-issue"
-              onSave={this.handleTextInputSave}
-              placeholder="What needs to be done?"
-            />*/}
           </header>
 
-          <IssueList viewer={this.props.viewer} />
-
-          {/*{hasIssues &&
-            <IssueListFooter
-              Issues={this.props.viewer.Issues}
-              viewer={this.props.viewer}
-            />
-          }*/}
+         {children}
         </section>
         <footer className="info">
-          <p>
-              footer
-          </p>
+           <small>OneGoodThing<sub>tm</sub></small>
         </footer>
       </div>
     );
   }
 }
 
-export default Relay.createContainer(IssueApp, {
- fragments: {
+export default Relay.createContainer(ActionApp, {
+  fragments: {
     viewer: () => Relay.QL`
       fragment on AppUser {
-        FirstName,
-        LastName
-      }
-    `,
-    Issues: () => Relay.QL`
-      fragment on Issue {
-        IssueId,
-        IssueName,
-        IssueDescription,
-      }
+        FirstName
+        LastName        
+          Channels(first:1){
+            edges {
+              node {
+                ChannelId
+                ChannelName
+                Issues(first:100) {
+                  edges {
+                    node{
+                      ${Issue.getFragment('issue')}
+                     }
+                  }
+                }        
+              }
+            }  
+          }
+      },
     `
-  },
-
+  }  
 });

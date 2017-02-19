@@ -7,36 +7,10 @@ import path from 'path';
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 
+// run the schema update
 import './scripts/updateSchema'
 
 import schema from './api/schema';
-
-
-
-// import fs from 'fs';
-// import { graphql } from 'graphql';
-// import { introspectionQuery, printSchema } from 'graphql/utilities';
-
-// // Save JSON of full schema introspection for Babel Relay Plugin to use
-// (async () => {
-//   const result = await (graphql(schema, introspectionQuery));
-//   if (result.errors) {
-//     console.error(
-//       'ERROR introspecting schema: ',
-//       JSON.stringify(result.errors, null, 2),
-//     );
-//   } else {
-//     fs.writeFileSync(
-//       path.join(__dirname, './api/schema.json'),
-//       JSON.stringify(result, null, 2),
-//     );
-//   }
-// })();
-
-// fs.writeFileSync(
-//   path.join(__dirname, './api/schema.graphql'),
-//   printSchema(schema)
-//  );
 
 const APP_PORT = 3000;
 const GRAPHQL_PORT = 8080;
