@@ -1,5 +1,6 @@
 import fs from 'fs'
 import readline from 'readline'
+import { addActions } from './actions' 
 
 export function queryIssues(client) {
   var p = new Promise((resolve, reject)=>{
@@ -25,18 +26,37 @@ export function addIssues(client, issues) {
   return results;
 }
 
+export function addIssueHierarchy(client, channelName, issue) {
+  // harcoded for now
+  let channelId = "cizerylwttbcb0191qb3mxq0m"
+  var p = new Promise((resolve, reject)=>{
+      addIssue(client, channelId, issue)
+        .then(issueId => {
+            //console.log(`added issue: ${issueId}`)
+            // add actions for issue    
+            addActions(client, issueId, issue.actions)
+                .then(data => {
+                    //console.log(`added actions: ${data}`)
+                    resolve(issue)
+                });
+        })
+  })
+  return p;
+}
+
+
 export function addIssue(client, channelId, issue) {
   var p = new Promise((resolve, reject)=>{
         client.mutate(`{
            createIssue(
                 issueName: "${issue.issueName}",
-                issueDescription: "${issue.IssueDescription}",
+                issueDescription: "${issue.issueDescription}",
                 channelId: "${channelId}"
             ) {
                 id
             }
         }`).then((data)=> {
-            resolve(data);
+            resolve(data.createIssue.id);
         });
   })
   return p;

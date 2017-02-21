@@ -15,6 +15,20 @@ export function queryOfficials(client) {
   return p;
 }
 
+export function queryOfficialsByGeographyAndGovernmentLevel(client, geographyId, governmentLevelId) {
+  var p = new Promise((resolve, reject)=>{
+        client.query(`{
+            officials: allOfficials(filter: {governmentLevelId: "${governmentLevelId}", geographyId: "${geographyId}"}) {
+                id
+            }
+        }`).then((data)=> {
+            resolve(data);
+        })
+  })
+  return p;
+}
+
+
 export function getFeds(stateLookupItems){
   var p = new Promise((resolve, reject)=>{
 
@@ -63,6 +77,31 @@ export function getFeds(stateLookupItems){
   return p;    
 }
 
+// can be last|first, "MyFederalSenators", "MyFederalRepresentative"
+// This will return a list of the officials' ids
+export function getOfficialsByKeywords(client, officialsByKeywords) {
+  let ids = [];
+  let keywords = officialsByKeywords.split(',');
+  keywords.map(k => {
+      if (k === "MyFederalSenators"){
+        ids.push('cizer8zhycw1j0191tcjsnhgl') // cantwell
+        ids.push('cizerbwtyeasg0191y3flric8') // murray        
+      }
+
+      if (k === "MyFederalRepresentative"){
+        ids.push('cizercxz5h8pu0191ntzfrqe1') // heck
+      }
+
+      if (k==="cantwell|maria"){
+        ids.push('cizer8zhycw1j0191tcjsnhgl') // cantwell          
+      }
+      if (k==="murray|patty"){
+        ids.push('cizerbwtyeasg0191y3flric8') // murray        
+      }
+  });
+
+  return ids;
+}
 
 export function addOfficials(client, officials, offset) {
   var toAdd = officials.slice(offset, offset + 100);

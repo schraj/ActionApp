@@ -38,7 +38,7 @@ export function addEvent(client, event) {
                 id
             }
         }`).then((data)=> {
-            resolve(data);
+            resolve(data.createEvent.id);
         });
   })
   return p;

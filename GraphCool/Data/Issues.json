@@ -1,0 +1,14 @@
+[{
+    "channelName": "Democracy",
+    "issueName": "Collusion with Russia",
+    "issueDescription": "The Trump administration may have had improper interactions with Russia during and after the election.  There needs to be a full investigation.",
+    "actions":  [{
+       "actionName": "Call your Senators to demand and investigation",
+       "actionDescription": "The Senate has the power to open a special investigation that is bipartisan, etc.",
+       "scriptTemplate":  "Hi, My name is {Name}.  My zip code is {ZipCode}.  I am calling about the issue of {IssueName}.  Please open a special Select Committee to investigate this matter.  Thank you.  {Me}",
+       "actionStartDate": "2017-03-03",
+       "actionEndDate": "2017-04-03",
+       "actionType": "Call",
+       "officialsByKeywords": "MyFederalSenators"
+    }]
+}]

@@ -4,6 +4,11 @@ import {Transport} from 'lokka-transport-http'
 import { queryLookups, addLookups, deleteLookups, deleteLookup} from './lookups'
 import { getStates, getDistricts, getGovernmentLevels, addLookupItems, queryLookupItemsByLookup } from './lookupItems'
 import { getFeds, queryOfficials, addOfficials, deleteOfficials } from './officials'
+import { addChannels, queryChannels} from './channels'
+import { addIssueHierarchy, queryIssues} from './issues'
+import { addActions, queryActions} from './actions'
+
+import issues from './Data/issues'
 
 const client = new Lokka({
   transport: new Transport('https://api.graph.cool/simple/v1/cizeauyua5b9l0120ne6ilz47')
@@ -38,6 +43,21 @@ function main() {
   //     })
   //   });
   // });
+
+
+  // let channels = [];
+  // channels.push({
+  //   channelName: "Democracy",
+  //   channelDescription: "The fight for our country."
+  //   })
+  // addChannels(client, channels).then((data)=> {
+  //   console.log(data);
+  // })
+
+  let channelName = "Democracy";
+  issues.map(i => {
+    addIssueHierarchy(client, channelName, i)
+  })
 
   // queryOfficials(client).then((data)=> {
   //   deleteOfficials(client, data.officials).then((data)=> {
