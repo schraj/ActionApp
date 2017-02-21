@@ -36,6 +36,7 @@ export function addAction(client, issueId, action) {
                 actionStartDate: "${action.actionStartDate}",
                 actionEndDate: "${action.actionEndDate}",
                 actionType: ${action.actionType},
+                scriptTemplate: "${action.scriptTemplate}",
                 issueId: "${issueId}"   
             ) {
                 id

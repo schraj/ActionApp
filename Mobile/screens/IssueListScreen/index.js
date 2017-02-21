@@ -4,8 +4,9 @@ import {
   View,
 } from 'react-native';
 
-import { BaseText } from '../../components/BaseText';
 import Router from '../../navigation/Router';
+
+import { BaseText } from '../../components/BaseText';
 import { IssueListWithData} from './components/IssueList';
 
 export default class IssueListScreen extends React.Component {
@@ -24,7 +25,6 @@ export default class IssueListScreen extends React.Component {
       .getNavigator('root')
       .push(Router.getRoute('issueDetail', { issue }));
   }
-
 
   render() {
     return (

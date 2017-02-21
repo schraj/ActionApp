@@ -13,11 +13,14 @@ import { BaseText } from '../../../components/BaseText';
 
 export class Title extends React.Component {
   static fragments = {
-    issue: gql` 
-      fragment TitleIssue on Issue {
+    action: gql` 
+      fragment TitleAction on Action {
         id
-        issueName
-        issueDescription
+        actionName
+        actionDescription
+        officials {
+          id
+        }
       }
     `
   }
@@ -29,31 +32,18 @@ export class Title extends React.Component {
           fontFace="source-sans"
           style={{fontSize: 14}}
         >
-          Description: {this.props.issue.issueDescription}
+          Description: {this.props.action.actionDescription}
         </BaseText>
         
        <BaseText
           fontFace="source-sans"
           style={{fontSize: 18, marginTop: 10,}}
         >
-          Actions:
+          Officials:
         </BaseText>
-
-        {this._renderSeparator()}
       </View>
     )
   }
-
-  _renderSeparator = () => (
-    <View
-      key={`-1--1`}
-      style={{
-        height: 1,
-        backgroundColor: '#CCCCCC',
-      }}
-    />
-  );
-
 }
 
 const styles = StyleSheet.create({

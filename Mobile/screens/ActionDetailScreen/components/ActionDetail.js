@@ -15,11 +15,11 @@ import { createFocusAwareComponent } from '@exponent/ex-navigation';
 
 import { BaseText } from '../../../components/BaseText';
 
-import { ActionListItem } from './ActionListItem';
+import { OfficialListItem } from './OfficialListItem';
 import { Title } from './Title';
 
 @createFocusAwareComponent
-export class IssueDetail extends Component {
+export class ActionDetail extends Component {
   constructor(props){
     super(props);
 
@@ -36,7 +36,7 @@ export class IssueDetail extends Component {
     if (!data.loading && !data.error) {
       const { dataSource } = this.state;
       this.setState({
-        dataSource: dataSource.cloneWithRows(data.Issue.actions),
+        dataSource: dataSource.cloneWithRows(data.Action.officials),
       });
       if (nextProps.isFocused && !this.props.isFocused) {
         this.props.data.refetch();
@@ -81,11 +81,10 @@ export class IssueDetail extends Component {
     );
   }
 
-  _renderItem = (action) => {
+  _renderItem = (official) => {
    return (
-
-      <ActionListItem 
-        action={filter(ActionListItem.fragments.action, action)} 
+      <OfficialListItem 
+        official={filter(OfficialListItem.fragments.official, official)} 
         onPress={this.props.onRowPress}
       />
     );
@@ -93,7 +92,17 @@ export class IssueDetail extends Component {
   
   _renderHeader = () => (
     <Title 
-      issue={ this.props.issue } 
+      action={ this.props.action } 
+    />
+  );
+
+  _renderSeparator = (sectionID, rowID) => (
+    <View
+      key={`${sectionID}-${rowID}`}
+      style={{
+        height: 1,
+        backgroundColor: '#CCCCCC',
+      }}
     />
   );
 }
@@ -106,26 +115,27 @@ const styles = StyleSheet.create({
   },
 });
 
-const IssueQuery = gql`
+const ActionQuery = gql`
   query($id: ID!) {
-    Issue(id: $id) {
+    Action(id: $id) {
       id
-      issueName
-      issueDescription
-      actions {
-        ...ActionListItemAction  
+      actionName
+      actionDescription
+      scriptTemplate
+      officials {
+        ...OfficialListItemOfficial  
       }
     }
   }
-  ${ActionListItem.fragments.action}
+  ${OfficialListItem.fragments.official}
 `
 
-export const IssueDetailWithData = graphql(IssueQuery, {
+export const ActionDetailWithData = graphql(ActionQuery, {
   options: (ownProps) => {
     return {
       variables: {
-        id: ownProps.issue.id
+        id: ownProps.action.id
       }
     }
   }
-})(IssueDetail)
+})(ActionDetail)
