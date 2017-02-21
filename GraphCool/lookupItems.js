@@ -16,6 +16,29 @@ export function queryLookupItems(client) {
   return p;
 }
 
+export function queryLookupItemsByLookup(client, lookupName) {
+  var p = new Promise((resolve, reject)=>{
+        client.query(`{
+            lookupItems: allLookupItems(
+                filter: {
+                lookup: {
+                    lookupName: "${lookupName}"
+                }
+             }
+             )            
+            {                
+                id
+                lookupItemDefinition
+                lookupItemName
+                lookupItemDescription
+            }
+        }`).then((data)=> {
+            resolve(data.lookupItems);
+        })
+  })
+  return p;
+}
+
 export function getGovernmentLevels(){
     let lookupItems = [];
     lookupItems.push({lookupItemDefinition: "FedPresident", lookupItemName: "FedPresident", lookupItemDescription: "Federal President", displayName: "Federal President"})

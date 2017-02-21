@@ -5,9 +5,8 @@ import { queryLookups } from './lookups'
 export function queryOfficials(client) {
   var p = new Promise((resolve, reject)=>{
         client.query(`{
-            lookups: allOfficials {
-            id
-            officialName
+            officials: allOfficials {
+                id
             }
         }`).then((data)=> {
             resolve(data);
@@ -16,12 +15,12 @@ export function queryOfficials(client) {
   return p;
 }
 
-export function getStates(){
+export function getFeds(stateLookupItems){
   var p = new Promise((resolve, reject)=>{
 
     let lines = [];
     var lineReader = readline.createInterface({
-        input: fs.createReadStream('./data/states.csv')
+        input: fs.createReadStream('./data/legislators-current.csv')
     });
 
     lineReader.on('line', function (line) {
@@ -29,56 +28,46 @@ export function getStates(){
     });
 
     lineReader.on('close', function () {
-        var lookupItems = []
+        let officials = []
         lines.map(l => {
-            lookupItems.push({
-                lookupItemDefinition: l[2],
-                lookupItemName: l[1],
-                lookupItemDescription: l[0],
-                displayName: l[0]
+            let lookupItem = stateLookupItems.find(li => li.lookupItemName.trim() == l[5].trim());
+            let stateId = '';
+            if (lookupItem){
+                stateId = lookupItem.lookupItemDefinition;
+            }
+            
+            let geographyId = l[4]==='sen'? `${stateId}`: `${stateId}-${l[6]}`;
+            let governmentLevelId = l[4] === 'sen'? 'FedSen' : 'FedHouse';
+            let gender = l[3]=== 'M' ? 'Male' : 'Female';    
+
+            officials.push({
+                firstName: l[1],
+                lastName: l[0],
+                geographyId: geographyId,
+                governmentLevelId: governmentLevelId,
+                gender: gender,
+                party:l[7],
+                phone:l[10],
+                email:'',
+                url:l[8],
+                contactForm:l[11],
+                twitter:l[13],
+                facebook:l[14]                
             })
         });
 
-        resolve(lookupItems);
+        resolve(officials);
     });
   })
 
   return p;    
 }
 
-export function getDistricts(districtType){
-  var p = new Promise((resolve, reject)=>{
 
-    let lines = [];
-    var lineReader = readline.createInterface({
-        input: fs.createReadStream(`./data/${districtType}.csv`)
-    });
-
-    lineReader.on('line', function (line) {
-        lines.push(line.split(','));
-    });
-
-    lineReader.on('close', function () {
-        var lookupItems = []
-        lines.map(l => {
-            lookupItems.push({
-                lookupItemDefinition: l[1],
-                lookupItemName: l[1],
-                lookupItemDescription: l[2],
-                displayName: l[2]
-            })
-        });
-
-        resolve(lookupItems);
-    });
-  })
-
-  return p;    
-}
-
-export function addLookupItems(client, lookupId, lookupItems) {
-  let adds = lookupItems.map((l) => {
-     addLookupItem(client, lookupId, l)
+export function addOfficials(client, officials, offset) {
+  var toAdd = officials.slice(offset, offset + 100);
+  let adds = toAdd.map((o) => {
+     addOfficial(client, o)
   })  
 
   var results = Promise.all(adds);
@@ -86,15 +75,22 @@ export function addLookupItems(client, lookupId, lookupItems) {
   return results;
 }
 
-export function addLookupItem(client, lookupId, lookupItem) {
+export function addOfficial(client, official) {
   var p = new Promise((resolve, reject)=>{
         client.mutate(`{
-            createLookupItem(
-                lookupItemDefinition: "${lookupItem.lookupItemDefinition}",
-                lookupItemName: "${lookupItem.lookupItemName}",
-                lookupItemDescription: "${lookupItem.lookupItemDescription}",
-                displayName: "${lookupItem.displayName}",
-                lookupId: "${lookupId}"
+            createOfficial(
+                firstName: "${official.firstName}",
+                lastName: "${official.lastName}",
+                governmentLevelId: "${official.governmentLevelId}",
+                geographyId: "${official.geographyId}",
+                gender: ${official.gender},
+                party: ${official.party},
+                phone: "${official.phone}",
+                email: "${official.email}",
+                url: "${official.url}",
+                contactForm: "${official.contactForm}",
+                twitter: "${official.twitter}",
+                facebook: "${official.facebook}",
             ) {
                 id
             }
@@ -105,9 +101,9 @@ export function addLookupItem(client, lookupId, lookupItem) {
   return p;
 }
 
-export function deleteLookupItems(client, lookupItems) {
-  let deletes = lookupItems.map((l) => {
-     deleteLookupItem(client,l)
+export function deleteOfficials(client, officials) {
+  let deletes = officials.map((l) => {
+     deleteOfficial(client,l)
   })  
 
   var results = Promise.all(deletes);
@@ -115,12 +111,11 @@ export function deleteLookupItems(client, lookupItems) {
   return results;
 }
 
-export function deleteLookup(client, lookup) {
+export function deleteOfficial(client, official) {
   var p = new Promise((resolve, reject)=>{
-    console.log(lookup)
     client.mutate(`{
-        deleteLookup(
-            id: "${lookup.id}"
+        deleteOfficial(
+            id: "${official.id}"
         ) {
             id
         }

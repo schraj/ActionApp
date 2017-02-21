@@ -2,7 +2,8 @@ import {Lokka} from 'lokka'
 import {Transport} from 'lokka-transport-http'
 
 import { queryLookups, addLookups, deleteLookups, deleteLookup} from './lookups'
-import { getStates, getDistricts, getGovernmentLevels, addLookupItems } from './lookupItems'
+import { getStates, getDistricts, getGovernmentLevels, addLookupItems, queryLookupItemsByLookup } from './lookupItems'
+import { getFeds, queryOfficials, addOfficials, deleteOfficials } from './officials'
 
 const client = new Lokka({
   transport: new Transport('https://api.graph.cool/simple/v1/cizeauyua5b9l0120ne6ilz47')
@@ -29,12 +30,20 @@ function main() {
   //   })
   // });
 
-  var lookupItems = getGovernmentLevels();
-  queryLookups(client).then((data)=> {
-    var lookupId = data.lookups.find(l => l.lookupName === "GovernmentLevel").id;
-    addLookupItems(client, lookupId, lookupItems);
-  });
+  // let offset = 500;
+  // queryLookupItemsByLookup(client, "State").then((lookupItems)=> {
+  //   getFeds(lookupItems).then((data)=>{
+  //     addOfficials(client, data, offset).then((data)=> {
+  //       console.log(data);
+  //     })
+  //   });
+  // });
 
+  // queryOfficials(client).then((data)=> {
+  //   deleteOfficials(client, data.officials).then((data)=> {
+  //     console.log(data);
+  //   });
+  // })
 
   // queryLookups(client).then((data)=> {
   //   deleteLookups(client, data.lookups).then((data)=> {
