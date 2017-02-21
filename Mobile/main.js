@@ -37,7 +37,7 @@ class AppContainer extends Component {
   }
 
   componentWillMount() {
-    this._loadAssetsAsync();
+    this._loadAssetsAsync().done();
   }
 
   async _loadAssetsAsync() {

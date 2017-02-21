@@ -15,7 +15,7 @@ import {
 import { BaseText } from '../components/BaseText';
 
 import Colors from '../constants/Colors';
-import Router from '../navigation/Router';
+import Router from './Router';
 
 const defaultRouteConfig = {
   navigationBar: {
@@ -30,13 +30,23 @@ export default class RootNavigation extends React.Component {
     return (
       <TabNavigation
         tabBarHeight={56}
-        initialTab="pokemons">
+        id="main"
+        navigatorUID="main"
+        initialTab="issues">
         <TabNavigationItem
-          id="pokemons"
-          renderIcon={isSelected => this._renderIcon('Pokemons', 'ios-paper', isSelected)}>
-          <StackNavigation 
+          id="issues"
+          renderIcon={isSelected => this._renderIcon('Your Issues', 'ios-paper', isSelected)}>
+          <StackNavigation
             defaultRouteConfig={defaultRouteConfig}
-            initialRoute={Router.getRoute('pokemons')} 
+            initialRoute={Router.getRoute('issueList')}
+          />
+        </TabNavigationItem>
+        <TabNavigationItem
+          id="settings"
+          renderIcon={isSelected => this._renderIcon('Settings', 'ios-add-circle', isSelected)}>
+          <StackNavigation
+            defaultRouteConfig={defaultRouteConfig}
+            initialRoute={Router.getRoute('settings')}
           />
         </TabNavigationItem>
       </TabNavigation>
@@ -55,7 +65,7 @@ export default class RootNavigation extends React.Component {
         />
         <BaseText
           fontFace="lato-bold"
-          style={[styles.tabTitleText, {color}]} 
+          style={[styles.tabTitleText, {color}]}
           numberOfLines={1}
         >
           {title}

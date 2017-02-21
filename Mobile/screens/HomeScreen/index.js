@@ -4,11 +4,14 @@ import {
   View,
 } from 'react-native';
 
-import { BaseText } from '../components/BaseText';
+import { BaseText } from '../../components/BaseText';
+import { TitleWithData } from './components/Title';
 
 export default class HomeScreen extends React.Component {
   static route = {
     navigationBar: {
+      backgroundColor: '#22A699',
+      tintColor: '#fff',
       title: (route) => {
         return 'Action App';
       },
@@ -20,12 +23,7 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <View style={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
-            <BaseText
-            fontFace="lato-bold"
-            style={{fontSize: 22}}
-          >
-            Pokedex
-          </BaseText>
+            <TitleWithData />
           </View>
         </View>
       </View>
