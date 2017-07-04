@@ -1,0 +1,13 @@
+Run these in the graph.cool playground using the "Simple" format
+
+query {
+  Channel(channelName: "Democracy") {
+    channelName
+    channelName
+    channelDescription
+    issues{
+      issueName
+      issueDescription
+    }
+  }  
+}
