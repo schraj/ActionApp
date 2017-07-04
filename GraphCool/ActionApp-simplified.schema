@@ -1,0 +1,142 @@
+﻿enum ACTION_ACTION_TYPE {
+  Call
+  Meeting
+  Protest
+}
+
+type Action implements Node {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  createdAt: DateTime
+  id: ID! @isUnique
+  issue: Issue @relation(name: "IssueActions")
+  officials: [Official!]! @relation(name: "ActionsOfficials")
+  scriptTemplate: String
+  updatedAt: DateTime
+}
+
+type Channel implements Node {
+  channelDescription: String!
+  channelName: String! @isUnique
+  createdAt: DateTime
+  id: ID! @isUnique
+  issues: [Issue!]! @relation(name: "ChannelIssues")
+  updatedAt: DateTime
+}
+
+enum EVENT_EVENT_TYPE {
+  Call
+  Meeting
+  Protest
+}
+
+type Event implements Node {
+  createdAt: DateTime
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  id: ID! @isUnique
+  issues: [Issue!]! @relation(name: "IssuesEvents")
+  officials: [Official!]! @relation(name: "OfficialsEvents")
+  updatedAt: DateTime
+}
+
+type File implements Node {
+  contentType: String!
+  createdAt: DateTime
+  id: ID! @isUnique
+  name: String!
+  secret: String! @isUnique
+  size: Int!
+  updatedAt: DateTime
+  url: String! @isUnique
+}
+
+type Issue implements Node {
+  actions: [Action!]! @relation(name: "IssueActions")
+  channel: Channel @relation(name: "ChannelIssues")
+  createdAt: DateTime
+  events: [Event!]! @relation(name: "IssuesEvents")
+  id: ID! @isUnique
+  issueDescription: String!
+  issueName: String!
+  resources: [Resource!]! @relation(name: "IssuesResources")
+  updatedAt: DateTime
+}
+
+type Lookup implements Node {
+  createdAt: DateTime
+  displayName: String!
+  id: ID! @isUnique
+  lookupDescription: String!
+  lookupItems: [LookupItem!]! @relation(name: "LookupLookupItems")
+  lookupName: String!
+  updatedAt: DateTime
+}
+
+type LookupItem implements Node {
+  createdAt: DateTime
+  displayName: String!
+  id: ID! @isUnique
+  lookup: Lookup @relation(name: "LookupLookupItems")
+  lookupItemDefinition: String!
+  lookupItemDescription: String!
+  lookupItemName: String!
+  updatedAt: DateTime
+}
+
+enum OFFICIAL_GENDER {
+  Male
+  Female
+  NonBinary
+}
+
+enum OFFICIAL_PARTY {
+  Democrat
+  Republican
+  Independent
+  Green
+  Libertarian
+}
+
+type Official implements Node {
+  actions: [Action!]! @relation(name: "ActionsOfficials")
+  contactForm: String
+  createdAt: DateTime
+  email: String
+  events: [Event!]! @relation(name: "OfficialsEvents")
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  id: ID! @isUnique
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  resources: [Resource!]! @relation(name: "OfficialsResources")
+  twitter: String
+  updatedAt: DateTime
+  url: String
+}
+
+type Resource implements Node {
+  createdAt: DateTime
+  id: ID! @isUnique
+  issues: [Issue!]! @relation(name: "IssuesResources")
+  officials: [Official!]! @relation(name: "OfficialsResources")
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  updatedAt: DateTime
+}
+
+type User implements Node {
+  createdAt: DateTime
+  id: ID! @isUnique
+  updatedAt: DateTime
+}

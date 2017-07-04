@@ -1,0 +1,5731 @@
+﻿type Action implements Node {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  createdAt: DateTime
+  id: ID!
+  issue(filter: IssueFilter): Issue
+  officials(filter: OfficialFilter, orderBy: OfficialOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): OfficialConnection
+  scriptTemplate: String
+  updatedAt: DateTime
+}
+
+enum ACTION_ACTION_TYPE {
+  Call
+  Meeting
+  Protest
+}
+
+# A connection to a list of items.
+type ActionConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ActionEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type ActionEdge {
+  # The item at the end of the edge.
+  node: Action!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input ActionFilter {
+  # Logical AND on all given filters.
+  AND: [ActionFilter!]
+
+  # Logical OR on all given filters.
+  OR: [ActionFilter!]
+  actionDescription: String
+
+  # All values that are not equal to given value.
+  actionDescription_not: String
+
+  # All values that are contained in given list.
+  actionDescription_in: [String!]
+
+  # All values that are not contained in given list.
+  actionDescription_not_in: [String!]
+
+  # All values less than the given value.
+  actionDescription_lt: String
+
+  # All values less than or equal the given value.
+  actionDescription_lte: String
+
+  # All values greater than the given value.
+  actionDescription_gt: String
+
+  # All values greater than or equal the given value.
+  actionDescription_gte: String
+
+  # All values containing the given string.
+  actionDescription_contains: String
+
+  # All values not containing the given string.
+  actionDescription_not_contains: String
+
+  # All values starting with the given string.
+  actionDescription_starts_with: String
+
+  # All values not starting with the given string.
+  actionDescription_not_starts_with: String
+
+  # All values ending with the given string.
+  actionDescription_ends_with: String
+
+  # All values not ending with the given string.
+  actionDescription_not_ends_with: String
+  actionEndDate: DateTime
+
+  # All values that are not equal to given value.
+  actionEndDate_not: DateTime
+
+  # All values that are contained in given list.
+  actionEndDate_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  actionEndDate_not_in: [DateTime!]
+
+  # All values less than the given value.
+  actionEndDate_lt: DateTime
+
+  # All values less than or equal the given value.
+  actionEndDate_lte: DateTime
+
+  # All values greater than the given value.
+  actionEndDate_gt: DateTime
+
+  # All values greater than or equal the given value.
+  actionEndDate_gte: DateTime
+  actionName: String
+
+  # All values that are not equal to given value.
+  actionName_not: String
+
+  # All values that are contained in given list.
+  actionName_in: [String!]
+
+  # All values that are not contained in given list.
+  actionName_not_in: [String!]
+
+  # All values less than the given value.
+  actionName_lt: String
+
+  # All values less than or equal the given value.
+  actionName_lte: String
+
+  # All values greater than the given value.
+  actionName_gt: String
+
+  # All values greater than or equal the given value.
+  actionName_gte: String
+
+  # All values containing the given string.
+  actionName_contains: String
+
+  # All values not containing the given string.
+  actionName_not_contains: String
+
+  # All values starting with the given string.
+  actionName_starts_with: String
+
+  # All values not starting with the given string.
+  actionName_not_starts_with: String
+
+  # All values ending with the given string.
+  actionName_ends_with: String
+
+  # All values not ending with the given string.
+  actionName_not_ends_with: String
+  actionStartDate: DateTime
+
+  # All values that are not equal to given value.
+  actionStartDate_not: DateTime
+
+  # All values that are contained in given list.
+  actionStartDate_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  actionStartDate_not_in: [DateTime!]
+
+  # All values less than the given value.
+  actionStartDate_lt: DateTime
+
+  # All values less than or equal the given value.
+  actionStartDate_lte: DateTime
+
+  # All values greater than the given value.
+  actionStartDate_gt: DateTime
+
+  # All values greater than or equal the given value.
+  actionStartDate_gte: DateTime
+  actionType: ACTION_ACTION_TYPE
+
+  # All values that are not equal to given value.
+  actionType_not: ACTION_ACTION_TYPE
+
+  # All values that are contained in given list.
+  actionType_in: [ACTION_ACTION_TYPE!]
+
+  # All values that are not contained in given list.
+  actionType_not_in: [ACTION_ACTION_TYPE!]
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  scriptTemplate: String
+
+  # All values that are not equal to given value.
+  scriptTemplate_not: String
+
+  # All values that are contained in given list.
+  scriptTemplate_in: [String!]
+
+  # All values that are not contained in given list.
+  scriptTemplate_not_in: [String!]
+
+  # All values less than the given value.
+  scriptTemplate_lt: String
+
+  # All values less than or equal the given value.
+  scriptTemplate_lte: String
+
+  # All values greater than the given value.
+  scriptTemplate_gt: String
+
+  # All values greater than or equal the given value.
+  scriptTemplate_gte: String
+
+  # All values containing the given string.
+  scriptTemplate_contains: String
+
+  # All values not containing the given string.
+  scriptTemplate_not_contains: String
+
+  # All values starting with the given string.
+  scriptTemplate_starts_with: String
+
+  # All values not starting with the given string.
+  scriptTemplate_not_starts_with: String
+
+  # All values ending with the given string.
+  scriptTemplate_ends_with: String
+
+  # All values not ending with the given string.
+  scriptTemplate_not_ends_with: String
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  issue: IssueFilter
+  officials_every: OfficialFilter
+  officials_some: OfficialFilter
+  officials_none: OfficialFilter
+}
+
+input ActionissueIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  channel: ActionissueIssuechannelChannel
+  actionsIds: [ID!]
+  actions: [ActionissueIssueactionsAction!]
+  eventsIds: [ID!]
+  events: [ActionissueIssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [ActionissueIssueresourcesResource!]
+}
+
+input ActionissueIssueactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  officialsIds: [ID!]
+  officials: [ActionissueIssueactionsActionofficialsOfficial!]
+}
+
+input ActionissueIssueactionsActionofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ActionissueIssuechannelChannel {
+  channelDescription: String!
+  channelName: String!
+  issuesIds: [ID!]
+  issues: [ActionissueIssuechannelChannelissuesIssue!]
+}
+
+input ActionissueIssuechannelChannelissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ActionissueIssueeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  issues: [ActionissueIssueeventsEventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ActionissueIssueeventsEventofficialsOfficial!]
+}
+
+input ActionissueIssueeventsEventissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ActionissueIssueeventsEventofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ActionissueIssueresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [ActionissueIssueresourcesResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ActionissueIssueresourcesResourceofficialsOfficial!]
+}
+
+input ActionissueIssueresourcesResourceissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ActionissueIssueresourcesResourceofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ActionofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [ActionofficialsOfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [ActionofficialsOfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [ActionofficialsOfficialresourcesResource!]
+}
+
+input ActionofficialsOfficialactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  issue: ActionofficialsOfficialactionsActionissueIssue
+  officialsIds: [ID!]
+  officials: [ActionofficialsOfficialactionsActionofficialsOfficial!]
+}
+
+input ActionofficialsOfficialactionsActionissueIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ActionofficialsOfficialactionsActionofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ActionofficialsOfficialeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  issues: [ActionofficialsOfficialeventsEventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ActionofficialsOfficialeventsEventofficialsOfficial!]
+}
+
+input ActionofficialsOfficialeventsEventissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ActionofficialsOfficialeventsEventofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ActionofficialsOfficialresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [ActionofficialsOfficialresourcesResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ActionofficialsOfficialresourcesResourceofficialsOfficial!]
+}
+
+input ActionofficialsOfficialresourcesResourceissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ActionofficialsOfficialresourcesResourceofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+enum ActionOrderBy {
+  actionDescription_ASC
+  actionDescription_DESC
+  actionEndDate_ASC
+  actionEndDate_DESC
+  actionName_ASC
+  actionName_DESC
+  actionStartDate_ASC
+  actionStartDate_DESC
+  actionType_ASC
+  actionType_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  scriptTemplate_ASC
+  scriptTemplate_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input AddToActionsOfficialsActionInput {
+  officialsOfficialId: ID!
+  actionsActionId: ID!
+  clientMutationId: String!
+}
+
+type AddToActionsOfficialsPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  actionsAction: Action
+  officialsOfficial: Official
+  actionsActionEdge: ActionEdge
+  officialsOfficialEdge: OfficialEdge
+}
+
+input AddToChannelIssuesIssueInput {
+  channelChannelId: ID!
+  issuesIssueId: ID!
+  clientMutationId: String!
+}
+
+type AddToChannelIssuesPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  issuesIssue: Issue
+  channelChannel: Channel
+  issuesIssueEdge: IssueEdge
+  channelChannelEdge: ChannelEdge
+}
+
+input AddToIssueActionsActionInput {
+  issueIssueId: ID!
+  actionsActionId: ID!
+  clientMutationId: String!
+}
+
+type AddToIssueActionsPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  actionsAction: Action
+  issueIssue: Issue
+  actionsActionEdge: ActionEdge
+  issueIssueEdge: IssueEdge
+}
+
+input AddToIssuesEventsIssueInput {
+  eventsEventId: ID!
+  issuesIssueId: ID!
+  clientMutationId: String!
+}
+
+type AddToIssuesEventsPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  issuesIssue: Issue
+  eventsEvent: Event
+  issuesIssueEdge: IssueEdge
+  eventsEventEdge: EventEdge
+}
+
+input AddToIssuesResourcesIssueInput {
+  resourcesResourceId: ID!
+  issuesIssueId: ID!
+  clientMutationId: String!
+}
+
+type AddToIssuesResourcesPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  issuesIssue: Issue
+  resourcesResource: Resource
+  issuesIssueEdge: IssueEdge
+  resourcesResourceEdge: ResourceEdge
+}
+
+input AddToLookupLookupItemsLookupItemInput {
+  lookupLookupId: ID!
+  lookupItemsLookupItemId: ID!
+  clientMutationId: String!
+}
+
+type AddToLookupLookupItemsPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  lookupItemsLookupItem: LookupItem
+  lookupLookup: Lookup
+  lookupItemsLookupItemEdge: LookupItemEdge
+  lookupLookupEdge: LookupEdge
+}
+
+input AddToOfficialsEventsOfficialInput {
+  eventsEventId: ID!
+  officialsOfficialId: ID!
+  clientMutationId: String!
+}
+
+type AddToOfficialsEventsPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  officialsOfficial: Official
+  eventsEvent: Event
+  officialsOfficialEdge: OfficialEdge
+  eventsEventEdge: EventEdge
+}
+
+input AddToOfficialsResourcesOfficialInput {
+  resourcesResourceId: ID!
+  officialsOfficialId: ID!
+  clientMutationId: String!
+}
+
+type AddToOfficialsResourcesPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  officialsOfficial: Official
+  resourcesResource: Resource
+  officialsOfficialEdge: OfficialEdge
+  resourcesResourceEdge: ResourceEdge
+}
+
+# The `BigDecimal` scalar type represents signed fractional values with arbitrary precision.
+scalar BigDecimal
+
+# The `BigInt` scalar type represents non-fractional signed whole numeric values. BigInt can represent arbitrary big values.
+scalar BigInt
+
+type Channel implements Node {
+  channelDescription: String!
+  channelName: String!
+  createdAt: DateTime
+  id: ID!
+  issues(filter: IssueFilter, orderBy: IssueOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): IssueConnection
+  updatedAt: DateTime
+}
+
+# A connection to a list of items.
+type ChannelConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ChannelEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type ChannelEdge {
+  # The item at the end of the edge.
+  node: Channel!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input ChannelFilter {
+  # Logical AND on all given filters.
+  AND: [ChannelFilter!]
+
+  # Logical OR on all given filters.
+  OR: [ChannelFilter!]
+  channelDescription: String
+
+  # All values that are not equal to given value.
+  channelDescription_not: String
+
+  # All values that are contained in given list.
+  channelDescription_in: [String!]
+
+  # All values that are not contained in given list.
+  channelDescription_not_in: [String!]
+
+  # All values less than the given value.
+  channelDescription_lt: String
+
+  # All values less than or equal the given value.
+  channelDescription_lte: String
+
+  # All values greater than the given value.
+  channelDescription_gt: String
+
+  # All values greater than or equal the given value.
+  channelDescription_gte: String
+
+  # All values containing the given string.
+  channelDescription_contains: String
+
+  # All values not containing the given string.
+  channelDescription_not_contains: String
+
+  # All values starting with the given string.
+  channelDescription_starts_with: String
+
+  # All values not starting with the given string.
+  channelDescription_not_starts_with: String
+
+  # All values ending with the given string.
+  channelDescription_ends_with: String
+
+  # All values not ending with the given string.
+  channelDescription_not_ends_with: String
+  channelName: String
+
+  # All values that are not equal to given value.
+  channelName_not: String
+
+  # All values that are contained in given list.
+  channelName_in: [String!]
+
+  # All values that are not contained in given list.
+  channelName_not_in: [String!]
+
+  # All values less than the given value.
+  channelName_lt: String
+
+  # All values less than or equal the given value.
+  channelName_lte: String
+
+  # All values greater than the given value.
+  channelName_gt: String
+
+  # All values greater than or equal the given value.
+  channelName_gte: String
+
+  # All values containing the given string.
+  channelName_contains: String
+
+  # All values not containing the given string.
+  channelName_not_contains: String
+
+  # All values starting with the given string.
+  channelName_starts_with: String
+
+  # All values not starting with the given string.
+  channelName_not_starts_with: String
+
+  # All values ending with the given string.
+  channelName_ends_with: String
+
+  # All values not ending with the given string.
+  channelName_not_ends_with: String
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  issues_every: IssueFilter
+  issues_some: IssueFilter
+  issues_none: IssueFilter
+}
+
+input ChannelissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  actionsIds: [ID!]
+  actions: [ChannelissuesIssueactionsAction!]
+  eventsIds: [ID!]
+  events: [ChannelissuesIssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [ChannelissuesIssueresourcesResource!]
+}
+
+input ChannelissuesIssueactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  officialsIds: [ID!]
+  officials: [ChannelissuesIssueactionsActionofficialsOfficial!]
+}
+
+input ChannelissuesIssueactionsActionofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ChannelissuesIssueeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  issues: [ChannelissuesIssueeventsEventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ChannelissuesIssueeventsEventofficialsOfficial!]
+}
+
+input ChannelissuesIssueeventsEventissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ChannelissuesIssueeventsEventofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ChannelissuesIssueresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [ChannelissuesIssueresourcesResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ChannelissuesIssueresourcesResourceofficialsOfficial!]
+}
+
+input ChannelissuesIssueresourcesResourceissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ChannelissuesIssueresourcesResourceofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+enum ChannelOrderBy {
+  channelDescription_ASC
+  channelDescription_DESC
+  channelName_ASC
+  channelName_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input CreateAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  issue: ActionissueIssue
+  officialsIds: [ID!]
+  officials: [ActionofficialsOfficial!]
+}
+
+input CreateActionInput {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  issue: ActionissueIssue
+  officialsIds: [ID!]
+  officials: [ActionofficialsOfficial!]
+  clientMutationId: String!
+}
+
+type CreateActionPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  action: Action
+  edge: ActionEdge
+  issue: Issue
+}
+
+input CreateChannel {
+  channelDescription: String!
+  channelName: String!
+  issuesIds: [ID!]
+  issues: [ChannelissuesIssue!]
+}
+
+input CreateChannelInput {
+  channelDescription: String!
+  channelName: String!
+  issuesIds: [ID!]
+  issues: [ChannelissuesIssue!]
+  clientMutationId: String!
+}
+
+type CreateChannelPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  channel: Channel
+  edge: ChannelEdge
+}
+
+input CreateEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  issues: [EventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [EventofficialsOfficial!]
+}
+
+input CreateEventInput {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  issues: [EventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [EventofficialsOfficial!]
+  clientMutationId: String!
+}
+
+type CreateEventPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  event: Event
+  edge: EventEdge
+}
+
+input CreateFile {
+  name: String!
+}
+
+input CreateFileInput {
+  name: String!
+  clientMutationId: String!
+}
+
+type CreateFilePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  file: File
+  edge: FileEdge
+}
+
+input CreateIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  channel: IssuechannelChannel
+  actionsIds: [ID!]
+  actions: [IssueactionsAction!]
+  eventsIds: [ID!]
+  events: [IssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [IssueresourcesResource!]
+}
+
+input CreateIssueInput {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  channel: IssuechannelChannel
+  actionsIds: [ID!]
+  actions: [IssueactionsAction!]
+  eventsIds: [ID!]
+  events: [IssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [IssueresourcesResource!]
+  clientMutationId: String!
+}
+
+type CreateIssuePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  issue: Issue
+  edge: IssueEdge
+  channel: Channel
+}
+
+input CreateLookup {
+  displayName: String!
+  lookupDescription: String!
+  lookupName: String!
+  lookupItemsIds: [ID!]
+  lookupItems: [LookuplookupItemsLookupItem!]
+}
+
+input CreateLookupInput {
+  displayName: String!
+  lookupDescription: String!
+  lookupName: String!
+  lookupItemsIds: [ID!]
+  lookupItems: [LookuplookupItemsLookupItem!]
+  clientMutationId: String!
+}
+
+input CreateLookupItem {
+  displayName: String!
+  lookupItemDefinition: String!
+  lookupItemDescription: String!
+  lookupItemName: String!
+  lookupId: ID
+  lookup: LookupItemlookupLookup
+}
+
+input CreateLookupItemInput {
+  displayName: String!
+  lookupItemDefinition: String!
+  lookupItemDescription: String!
+  lookupItemName: String!
+  lookupId: ID
+  lookup: LookupItemlookupLookup
+  clientMutationId: String!
+}
+
+type CreateLookupItemPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  lookupItem: LookupItem
+  edge: LookupItemEdge
+  lookup: Lookup
+}
+
+type CreateLookupPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  lookup: Lookup
+  edge: LookupEdge
+}
+
+input CreateOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [OfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [OfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [OfficialresourcesResource!]
+}
+
+input CreateOfficialInput {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [OfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [OfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [OfficialresourcesResource!]
+  clientMutationId: String!
+}
+
+type CreateOfficialPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  official: Official
+  edge: OfficialEdge
+}
+
+input CreateResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [ResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ResourceofficialsOfficial!]
+}
+
+input CreateResourceInput {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [ResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ResourceofficialsOfficial!]
+  clientMutationId: String!
+}
+
+type CreateResourcePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  resource: Resource
+  edge: ResourceEdge
+}
+
+# If authentication was successful the payload contains the user and a token. If unsuccessful this payload is null.
+type CreateUserPayload {
+  user: User
+  clientMutationId: String
+  viewer: Viewer!
+}
+
+scalar DateTime
+
+input DeleteActionInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteActionPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  action: Action
+  edge: ActionEdge
+  issue: Issue
+  deletedId: ID
+}
+
+input DeleteChannelInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteChannelPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  channel: Channel
+  edge: ChannelEdge
+  deletedId: ID
+}
+
+input DeleteEventInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteEventPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  event: Event
+  edge: EventEdge
+  deletedId: ID
+}
+
+input DeleteFileInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteFilePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  file: File
+  edge: FileEdge
+  deletedId: ID
+}
+
+input DeleteIssueInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteIssuePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  issue: Issue
+  edge: IssueEdge
+  channel: Channel
+  deletedId: ID
+}
+
+input DeleteLookupInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+input DeleteLookupItemInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteLookupItemPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  lookupItem: LookupItem
+  edge: LookupItemEdge
+  lookup: Lookup
+  deletedId: ID
+}
+
+type DeleteLookupPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  lookup: Lookup
+  edge: LookupEdge
+  deletedId: ID
+}
+
+input DeleteOfficialInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteOfficialPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  official: Official
+  edge: OfficialEdge
+  deletedId: ID
+}
+
+input DeleteResourceInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteResourcePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  resource: Resource
+  edge: ResourceEdge
+  deletedId: ID
+}
+
+input DeleteUserInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type DeleteUserPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  user: User
+  edge: UserEdge
+  deletedId: ID
+}
+
+type Event implements Node {
+  createdAt: DateTime
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  id: ID!
+  issues(filter: IssueFilter, orderBy: IssueOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): IssueConnection
+  officials(filter: OfficialFilter, orderBy: OfficialOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): OfficialConnection
+  updatedAt: DateTime
+}
+
+enum EVENT_EVENT_TYPE {
+  Call
+  Meeting
+  Protest
+}
+
+# A connection to a list of items.
+type EventConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [EventEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type EventEdge {
+  # The item at the end of the edge.
+  node: Event!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input EventFilter {
+  # Logical AND on all given filters.
+  AND: [EventFilter!]
+
+  # Logical OR on all given filters.
+  OR: [EventFilter!]
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  eventDate: DateTime
+
+  # All values that are not equal to given value.
+  eventDate_not: DateTime
+
+  # All values that are contained in given list.
+  eventDate_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  eventDate_not_in: [DateTime!]
+
+  # All values less than the given value.
+  eventDate_lt: DateTime
+
+  # All values less than or equal the given value.
+  eventDate_lte: DateTime
+
+  # All values greater than the given value.
+  eventDate_gt: DateTime
+
+  # All values greater than or equal the given value.
+  eventDate_gte: DateTime
+  eventDescription: String
+
+  # All values that are not equal to given value.
+  eventDescription_not: String
+
+  # All values that are contained in given list.
+  eventDescription_in: [String!]
+
+  # All values that are not contained in given list.
+  eventDescription_not_in: [String!]
+
+  # All values less than the given value.
+  eventDescription_lt: String
+
+  # All values less than or equal the given value.
+  eventDescription_lte: String
+
+  # All values greater than the given value.
+  eventDescription_gt: String
+
+  # All values greater than or equal the given value.
+  eventDescription_gte: String
+
+  # All values containing the given string.
+  eventDescription_contains: String
+
+  # All values not containing the given string.
+  eventDescription_not_contains: String
+
+  # All values starting with the given string.
+  eventDescription_starts_with: String
+
+  # All values not starting with the given string.
+  eventDescription_not_starts_with: String
+
+  # All values ending with the given string.
+  eventDescription_ends_with: String
+
+  # All values not ending with the given string.
+  eventDescription_not_ends_with: String
+  eventName: String
+
+  # All values that are not equal to given value.
+  eventName_not: String
+
+  # All values that are contained in given list.
+  eventName_in: [String!]
+
+  # All values that are not contained in given list.
+  eventName_not_in: [String!]
+
+  # All values less than the given value.
+  eventName_lt: String
+
+  # All values less than or equal the given value.
+  eventName_lte: String
+
+  # All values greater than the given value.
+  eventName_gt: String
+
+  # All values greater than or equal the given value.
+  eventName_gte: String
+
+  # All values containing the given string.
+  eventName_contains: String
+
+  # All values not containing the given string.
+  eventName_not_contains: String
+
+  # All values starting with the given string.
+  eventName_starts_with: String
+
+  # All values not starting with the given string.
+  eventName_not_starts_with: String
+
+  # All values ending with the given string.
+  eventName_ends_with: String
+
+  # All values not ending with the given string.
+  eventName_not_ends_with: String
+  eventType: EVENT_EVENT_TYPE
+
+  # All values that are not equal to given value.
+  eventType_not: EVENT_EVENT_TYPE
+
+  # All values that are contained in given list.
+  eventType_in: [EVENT_EVENT_TYPE!]
+
+  # All values that are not contained in given list.
+  eventType_not_in: [EVENT_EVENT_TYPE!]
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  issues_every: IssueFilter
+  issues_some: IssueFilter
+  issues_none: IssueFilter
+  officials_every: OfficialFilter
+  officials_some: OfficialFilter
+  officials_none: OfficialFilter
+}
+
+input EventissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  channel: EventissuesIssuechannelChannel
+  actionsIds: [ID!]
+  actions: [EventissuesIssueactionsAction!]
+  eventsIds: [ID!]
+  events: [EventissuesIssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [EventissuesIssueresourcesResource!]
+}
+
+input EventissuesIssueactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  officialsIds: [ID!]
+  officials: [EventissuesIssueactionsActionofficialsOfficial!]
+}
+
+input EventissuesIssueactionsActionofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input EventissuesIssuechannelChannel {
+  channelDescription: String!
+  channelName: String!
+  issuesIds: [ID!]
+  issues: [EventissuesIssuechannelChannelissuesIssue!]
+}
+
+input EventissuesIssuechannelChannelissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input EventissuesIssueeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  issues: [EventissuesIssueeventsEventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [EventissuesIssueeventsEventofficialsOfficial!]
+}
+
+input EventissuesIssueeventsEventissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input EventissuesIssueeventsEventofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input EventissuesIssueresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [EventissuesIssueresourcesResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [EventissuesIssueresourcesResourceofficialsOfficial!]
+}
+
+input EventissuesIssueresourcesResourceissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input EventissuesIssueresourcesResourceofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input EventofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [EventofficialsOfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [EventofficialsOfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [EventofficialsOfficialresourcesResource!]
+}
+
+input EventofficialsOfficialactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  issue: EventofficialsOfficialactionsActionissueIssue
+  officialsIds: [ID!]
+  officials: [EventofficialsOfficialactionsActionofficialsOfficial!]
+}
+
+input EventofficialsOfficialactionsActionissueIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input EventofficialsOfficialactionsActionofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input EventofficialsOfficialeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  issues: [EventofficialsOfficialeventsEventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [EventofficialsOfficialeventsEventofficialsOfficial!]
+}
+
+input EventofficialsOfficialeventsEventissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input EventofficialsOfficialeventsEventofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input EventofficialsOfficialresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [EventofficialsOfficialresourcesResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [EventofficialsOfficialresourcesResourceofficialsOfficial!]
+}
+
+input EventofficialsOfficialresourcesResourceissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input EventofficialsOfficialresourcesResourceofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+enum EventOrderBy {
+  createdAt_ASC
+  createdAt_DESC
+  eventDate_ASC
+  eventDate_DESC
+  eventDescription_ASC
+  eventDescription_DESC
+  eventName_ASC
+  eventName_DESC
+  eventType_ASC
+  eventType_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type File implements Node {
+  contentType: String!
+  createdAt: DateTime
+  id: ID!
+  name: String!
+  secret: String!
+  size: Int!
+  updatedAt: DateTime
+  url: String!
+}
+
+# A connection to a list of items.
+type FileConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [FileEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type FileEdge {
+  # The item at the end of the edge.
+  node: File!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input FileFilter {
+  # Logical AND on all given filters.
+  AND: [FileFilter!]
+
+  # Logical OR on all given filters.
+  OR: [FileFilter!]
+  contentType: String
+
+  # All values that are not equal to given value.
+  contentType_not: String
+
+  # All values that are contained in given list.
+  contentType_in: [String!]
+
+  # All values that are not contained in given list.
+  contentType_not_in: [String!]
+
+  # All values less than the given value.
+  contentType_lt: String
+
+  # All values less than or equal the given value.
+  contentType_lte: String
+
+  # All values greater than the given value.
+  contentType_gt: String
+
+  # All values greater than or equal the given value.
+  contentType_gte: String
+
+  # All values containing the given string.
+  contentType_contains: String
+
+  # All values not containing the given string.
+  contentType_not_contains: String
+
+  # All values starting with the given string.
+  contentType_starts_with: String
+
+  # All values not starting with the given string.
+  contentType_not_starts_with: String
+
+  # All values ending with the given string.
+  contentType_ends_with: String
+
+  # All values not ending with the given string.
+  contentType_not_ends_with: String
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  name: String
+
+  # All values that are not equal to given value.
+  name_not: String
+
+  # All values that are contained in given list.
+  name_in: [String!]
+
+  # All values that are not contained in given list.
+  name_not_in: [String!]
+
+  # All values less than the given value.
+  name_lt: String
+
+  # All values less than or equal the given value.
+  name_lte: String
+
+  # All values greater than the given value.
+  name_gt: String
+
+  # All values greater than or equal the given value.
+  name_gte: String
+
+  # All values containing the given string.
+  name_contains: String
+
+  # All values not containing the given string.
+  name_not_contains: String
+
+  # All values starting with the given string.
+  name_starts_with: String
+
+  # All values not starting with the given string.
+  name_not_starts_with: String
+
+  # All values ending with the given string.
+  name_ends_with: String
+
+  # All values not ending with the given string.
+  name_not_ends_with: String
+  secret: String
+
+  # All values that are not equal to given value.
+  secret_not: String
+
+  # All values that are contained in given list.
+  secret_in: [String!]
+
+  # All values that are not contained in given list.
+  secret_not_in: [String!]
+
+  # All values less than the given value.
+  secret_lt: String
+
+  # All values less than or equal the given value.
+  secret_lte: String
+
+  # All values greater than the given value.
+  secret_gt: String
+
+  # All values greater than or equal the given value.
+  secret_gte: String
+
+  # All values containing the given string.
+  secret_contains: String
+
+  # All values not containing the given string.
+  secret_not_contains: String
+
+  # All values starting with the given string.
+  secret_starts_with: String
+
+  # All values not starting with the given string.
+  secret_not_starts_with: String
+
+  # All values ending with the given string.
+  secret_ends_with: String
+
+  # All values not ending with the given string.
+  secret_not_ends_with: String
+  size: Int
+
+  # All values that are not equal to given value.
+  size_not: Int
+
+  # All values that are contained in given list.
+  size_in: [Int!]
+
+  # All values that are not contained in given list.
+  size_not_in: [Int!]
+
+  # All values less than the given value.
+  size_lt: Int
+
+  # All values less than or equal the given value.
+  size_lte: Int
+
+  # All values greater than the given value.
+  size_gt: Int
+
+  # All values greater than or equal the given value.
+  size_gte: Int
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  url: String
+
+  # All values that are not equal to given value.
+  url_not: String
+
+  # All values that are contained in given list.
+  url_in: [String!]
+
+  # All values that are not contained in given list.
+  url_not_in: [String!]
+
+  # All values less than the given value.
+  url_lt: String
+
+  # All values less than or equal the given value.
+  url_lte: String
+
+  # All values greater than the given value.
+  url_gt: String
+
+  # All values greater than or equal the given value.
+  url_gte: String
+
+  # All values containing the given string.
+  url_contains: String
+
+  # All values not containing the given string.
+  url_not_contains: String
+
+  # All values starting with the given string.
+  url_starts_with: String
+
+  # All values not starting with the given string.
+  url_not_starts_with: String
+
+  # All values ending with the given string.
+  url_ends_with: String
+
+  # All values not ending with the given string.
+  url_not_ends_with: String
+}
+
+enum FileOrderBy {
+  contentType_ASC
+  contentType_DESC
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  secret_ASC
+  secret_DESC
+  size_ASC
+  size_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  url_ASC
+  url_DESC
+}
+
+type Issue implements Node {
+  actions(filter: ActionFilter, orderBy: ActionOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): ActionConnection
+  channel(filter: ChannelFilter): Channel
+  createdAt: DateTime
+  events(filter: EventFilter, orderBy: EventOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection
+  id: ID!
+  issueDescription: String!
+  issueName: String!
+  resources(filter: ResourceFilter, orderBy: ResourceOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): ResourceConnection
+  updatedAt: DateTime
+}
+
+input IssueactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  officialsIds: [ID!]
+  officials: [IssueactionsActionofficialsOfficial!]
+}
+
+input IssueactionsActionofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [IssueactionsActionofficialsOfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [IssueactionsActionofficialsOfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [IssueactionsActionofficialsOfficialresourcesResource!]
+}
+
+input IssueactionsActionofficialsOfficialactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input IssueactionsActionofficialsOfficialeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input IssueactionsActionofficialsOfficialresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input IssuechannelChannel {
+  channelDescription: String!
+  channelName: String!
+  issuesIds: [ID!]
+  issues: [IssuechannelChannelissuesIssue!]
+}
+
+input IssuechannelChannelissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  actionsIds: [ID!]
+  actions: [IssuechannelChannelissuesIssueactionsAction!]
+  eventsIds: [ID!]
+  events: [IssuechannelChannelissuesIssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [IssuechannelChannelissuesIssueresourcesResource!]
+}
+
+input IssuechannelChannelissuesIssueactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input IssuechannelChannelissuesIssueeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input IssuechannelChannelissuesIssueresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+# A connection to a list of items.
+type IssueConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [IssueEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type IssueEdge {
+  # The item at the end of the edge.
+  node: Issue!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input IssueeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  issues: [IssueeventsEventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [IssueeventsEventofficialsOfficial!]
+}
+
+input IssueeventsEventissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  channel: IssueeventsEventissuesIssuechannelChannel
+  actionsIds: [ID!]
+  actions: [IssueeventsEventissuesIssueactionsAction!]
+  eventsIds: [ID!]
+  events: [IssueeventsEventissuesIssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [IssueeventsEventissuesIssueresourcesResource!]
+}
+
+input IssueeventsEventissuesIssueactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input IssueeventsEventissuesIssuechannelChannel {
+  channelDescription: String!
+  channelName: String!
+  issuesIds: [ID!]
+}
+
+input IssueeventsEventissuesIssueeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input IssueeventsEventissuesIssueresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input IssueeventsEventofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [IssueeventsEventofficialsOfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [IssueeventsEventofficialsOfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [IssueeventsEventofficialsOfficialresourcesResource!]
+}
+
+input IssueeventsEventofficialsOfficialactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input IssueeventsEventofficialsOfficialeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input IssueeventsEventofficialsOfficialresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input IssueFilter {
+  # Logical AND on all given filters.
+  AND: [IssueFilter!]
+
+  # Logical OR on all given filters.
+  OR: [IssueFilter!]
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  issueDescription: String
+
+  # All values that are not equal to given value.
+  issueDescription_not: String
+
+  # All values that are contained in given list.
+  issueDescription_in: [String!]
+
+  # All values that are not contained in given list.
+  issueDescription_not_in: [String!]
+
+  # All values less than the given value.
+  issueDescription_lt: String
+
+  # All values less than or equal the given value.
+  issueDescription_lte: String
+
+  # All values greater than the given value.
+  issueDescription_gt: String
+
+  # All values greater than or equal the given value.
+  issueDescription_gte: String
+
+  # All values containing the given string.
+  issueDescription_contains: String
+
+  # All values not containing the given string.
+  issueDescription_not_contains: String
+
+  # All values starting with the given string.
+  issueDescription_starts_with: String
+
+  # All values not starting with the given string.
+  issueDescription_not_starts_with: String
+
+  # All values ending with the given string.
+  issueDescription_ends_with: String
+
+  # All values not ending with the given string.
+  issueDescription_not_ends_with: String
+  issueName: String
+
+  # All values that are not equal to given value.
+  issueName_not: String
+
+  # All values that are contained in given list.
+  issueName_in: [String!]
+
+  # All values that are not contained in given list.
+  issueName_not_in: [String!]
+
+  # All values less than the given value.
+  issueName_lt: String
+
+  # All values less than or equal the given value.
+  issueName_lte: String
+
+  # All values greater than the given value.
+  issueName_gt: String
+
+  # All values greater than or equal the given value.
+  issueName_gte: String
+
+  # All values containing the given string.
+  issueName_contains: String
+
+  # All values not containing the given string.
+  issueName_not_contains: String
+
+  # All values starting with the given string.
+  issueName_starts_with: String
+
+  # All values not starting with the given string.
+  issueName_not_starts_with: String
+
+  # All values ending with the given string.
+  issueName_ends_with: String
+
+  # All values not ending with the given string.
+  issueName_not_ends_with: String
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  actions_every: ActionFilter
+  actions_some: ActionFilter
+  actions_none: ActionFilter
+  channel: ChannelFilter
+  events_every: EventFilter
+  events_some: EventFilter
+  events_none: EventFilter
+  resources_every: ResourceFilter
+  resources_some: ResourceFilter
+  resources_none: ResourceFilter
+}
+
+enum IssueOrderBy {
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  issueDescription_ASC
+  issueDescription_DESC
+  issueName_ASC
+  issueName_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input IssueresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [IssueresourcesResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [IssueresourcesResourceofficialsOfficial!]
+}
+
+input IssueresourcesResourceissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  channel: IssueresourcesResourceissuesIssuechannelChannel
+  actionsIds: [ID!]
+  actions: [IssueresourcesResourceissuesIssueactionsAction!]
+  eventsIds: [ID!]
+  events: [IssueresourcesResourceissuesIssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [IssueresourcesResourceissuesIssueresourcesResource!]
+}
+
+input IssueresourcesResourceissuesIssueactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input IssueresourcesResourceissuesIssuechannelChannel {
+  channelDescription: String!
+  channelName: String!
+  issuesIds: [ID!]
+}
+
+input IssueresourcesResourceissuesIssueeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input IssueresourcesResourceissuesIssueresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input IssueresourcesResourceofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [IssueresourcesResourceofficialsOfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [IssueresourcesResourceofficialsOfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [IssueresourcesResourceofficialsOfficialresourcesResource!]
+}
+
+input IssueresourcesResourceofficialsOfficialactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input IssueresourcesResourceofficialsOfficialeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input IssueresourcesResourceofficialsOfficialresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+# The `Long` scalar type represents non-fractional signed whole numeric values.
+# Long can represent values between -(2^63) and 2^63 - 1.
+scalar Long
+
+type Lookup implements Node {
+  createdAt: DateTime
+  displayName: String!
+  id: ID!
+  lookupDescription: String!
+  lookupItems(filter: LookupItemFilter, orderBy: LookupItemOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): LookupItemConnection
+  lookupName: String!
+  updatedAt: DateTime
+}
+
+# A connection to a list of items.
+type LookupConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [LookupEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type LookupEdge {
+  # The item at the end of the edge.
+  node: Lookup!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input LookupFilter {
+  # Logical AND on all given filters.
+  AND: [LookupFilter!]
+
+  # Logical OR on all given filters.
+  OR: [LookupFilter!]
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  displayName: String
+
+  # All values that are not equal to given value.
+  displayName_not: String
+
+  # All values that are contained in given list.
+  displayName_in: [String!]
+
+  # All values that are not contained in given list.
+  displayName_not_in: [String!]
+
+  # All values less than the given value.
+  displayName_lt: String
+
+  # All values less than or equal the given value.
+  displayName_lte: String
+
+  # All values greater than the given value.
+  displayName_gt: String
+
+  # All values greater than or equal the given value.
+  displayName_gte: String
+
+  # All values containing the given string.
+  displayName_contains: String
+
+  # All values not containing the given string.
+  displayName_not_contains: String
+
+  # All values starting with the given string.
+  displayName_starts_with: String
+
+  # All values not starting with the given string.
+  displayName_not_starts_with: String
+
+  # All values ending with the given string.
+  displayName_ends_with: String
+
+  # All values not ending with the given string.
+  displayName_not_ends_with: String
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  lookupDescription: String
+
+  # All values that are not equal to given value.
+  lookupDescription_not: String
+
+  # All values that are contained in given list.
+  lookupDescription_in: [String!]
+
+  # All values that are not contained in given list.
+  lookupDescription_not_in: [String!]
+
+  # All values less than the given value.
+  lookupDescription_lt: String
+
+  # All values less than or equal the given value.
+  lookupDescription_lte: String
+
+  # All values greater than the given value.
+  lookupDescription_gt: String
+
+  # All values greater than or equal the given value.
+  lookupDescription_gte: String
+
+  # All values containing the given string.
+  lookupDescription_contains: String
+
+  # All values not containing the given string.
+  lookupDescription_not_contains: String
+
+  # All values starting with the given string.
+  lookupDescription_starts_with: String
+
+  # All values not starting with the given string.
+  lookupDescription_not_starts_with: String
+
+  # All values ending with the given string.
+  lookupDescription_ends_with: String
+
+  # All values not ending with the given string.
+  lookupDescription_not_ends_with: String
+  lookupName: String
+
+  # All values that are not equal to given value.
+  lookupName_not: String
+
+  # All values that are contained in given list.
+  lookupName_in: [String!]
+
+  # All values that are not contained in given list.
+  lookupName_not_in: [String!]
+
+  # All values less than the given value.
+  lookupName_lt: String
+
+  # All values less than or equal the given value.
+  lookupName_lte: String
+
+  # All values greater than the given value.
+  lookupName_gt: String
+
+  # All values greater than or equal the given value.
+  lookupName_gte: String
+
+  # All values containing the given string.
+  lookupName_contains: String
+
+  # All values not containing the given string.
+  lookupName_not_contains: String
+
+  # All values starting with the given string.
+  lookupName_starts_with: String
+
+  # All values not starting with the given string.
+  lookupName_not_starts_with: String
+
+  # All values ending with the given string.
+  lookupName_ends_with: String
+
+  # All values not ending with the given string.
+  lookupName_not_ends_with: String
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  lookupItems_every: LookupItemFilter
+  lookupItems_some: LookupItemFilter
+  lookupItems_none: LookupItemFilter
+}
+
+type LookupItem implements Node {
+  createdAt: DateTime
+  displayName: String!
+  id: ID!
+  lookup(filter: LookupFilter): Lookup
+  lookupItemDefinition: String!
+  lookupItemDescription: String!
+  lookupItemName: String!
+  updatedAt: DateTime
+}
+
+# A connection to a list of items.
+type LookupItemConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [LookupItemEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type LookupItemEdge {
+  # The item at the end of the edge.
+  node: LookupItem!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input LookupItemFilter {
+  # Logical AND on all given filters.
+  AND: [LookupItemFilter!]
+
+  # Logical OR on all given filters.
+  OR: [LookupItemFilter!]
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  displayName: String
+
+  # All values that are not equal to given value.
+  displayName_not: String
+
+  # All values that are contained in given list.
+  displayName_in: [String!]
+
+  # All values that are not contained in given list.
+  displayName_not_in: [String!]
+
+  # All values less than the given value.
+  displayName_lt: String
+
+  # All values less than or equal the given value.
+  displayName_lte: String
+
+  # All values greater than the given value.
+  displayName_gt: String
+
+  # All values greater than or equal the given value.
+  displayName_gte: String
+
+  # All values containing the given string.
+  displayName_contains: String
+
+  # All values not containing the given string.
+  displayName_not_contains: String
+
+  # All values starting with the given string.
+  displayName_starts_with: String
+
+  # All values not starting with the given string.
+  displayName_not_starts_with: String
+
+  # All values ending with the given string.
+  displayName_ends_with: String
+
+  # All values not ending with the given string.
+  displayName_not_ends_with: String
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  lookupItemDefinition: String
+
+  # All values that are not equal to given value.
+  lookupItemDefinition_not: String
+
+  # All values that are contained in given list.
+  lookupItemDefinition_in: [String!]
+
+  # All values that are not contained in given list.
+  lookupItemDefinition_not_in: [String!]
+
+  # All values less than the given value.
+  lookupItemDefinition_lt: String
+
+  # All values less than or equal the given value.
+  lookupItemDefinition_lte: String
+
+  # All values greater than the given value.
+  lookupItemDefinition_gt: String
+
+  # All values greater than or equal the given value.
+  lookupItemDefinition_gte: String
+
+  # All values containing the given string.
+  lookupItemDefinition_contains: String
+
+  # All values not containing the given string.
+  lookupItemDefinition_not_contains: String
+
+  # All values starting with the given string.
+  lookupItemDefinition_starts_with: String
+
+  # All values not starting with the given string.
+  lookupItemDefinition_not_starts_with: String
+
+  # All values ending with the given string.
+  lookupItemDefinition_ends_with: String
+
+  # All values not ending with the given string.
+  lookupItemDefinition_not_ends_with: String
+  lookupItemDescription: String
+
+  # All values that are not equal to given value.
+  lookupItemDescription_not: String
+
+  # All values that are contained in given list.
+  lookupItemDescription_in: [String!]
+
+  # All values that are not contained in given list.
+  lookupItemDescription_not_in: [String!]
+
+  # All values less than the given value.
+  lookupItemDescription_lt: String
+
+  # All values less than or equal the given value.
+  lookupItemDescription_lte: String
+
+  # All values greater than the given value.
+  lookupItemDescription_gt: String
+
+  # All values greater than or equal the given value.
+  lookupItemDescription_gte: String
+
+  # All values containing the given string.
+  lookupItemDescription_contains: String
+
+  # All values not containing the given string.
+  lookupItemDescription_not_contains: String
+
+  # All values starting with the given string.
+  lookupItemDescription_starts_with: String
+
+  # All values not starting with the given string.
+  lookupItemDescription_not_starts_with: String
+
+  # All values ending with the given string.
+  lookupItemDescription_ends_with: String
+
+  # All values not ending with the given string.
+  lookupItemDescription_not_ends_with: String
+  lookupItemName: String
+
+  # All values that are not equal to given value.
+  lookupItemName_not: String
+
+  # All values that are contained in given list.
+  lookupItemName_in: [String!]
+
+  # All values that are not contained in given list.
+  lookupItemName_not_in: [String!]
+
+  # All values less than the given value.
+  lookupItemName_lt: String
+
+  # All values less than or equal the given value.
+  lookupItemName_lte: String
+
+  # All values greater than the given value.
+  lookupItemName_gt: String
+
+  # All values greater than or equal the given value.
+  lookupItemName_gte: String
+
+  # All values containing the given string.
+  lookupItemName_contains: String
+
+  # All values not containing the given string.
+  lookupItemName_not_contains: String
+
+  # All values starting with the given string.
+  lookupItemName_starts_with: String
+
+  # All values not starting with the given string.
+  lookupItemName_not_starts_with: String
+
+  # All values ending with the given string.
+  lookupItemName_ends_with: String
+
+  # All values not ending with the given string.
+  lookupItemName_not_ends_with: String
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  lookup: LookupFilter
+}
+
+input LookupItemlookupLookup {
+  displayName: String!
+  lookupDescription: String!
+  lookupName: String!
+  lookupItemsIds: [ID!]
+  lookupItems: [LookupItemlookupLookuplookupItemsLookupItem!]
+}
+
+input LookupItemlookupLookuplookupItemsLookupItem {
+  displayName: String!
+  lookupItemDefinition: String!
+  lookupItemDescription: String!
+  lookupItemName: String!
+}
+
+enum LookupItemOrderBy {
+  createdAt_ASC
+  createdAt_DESC
+  displayName_ASC
+  displayName_DESC
+  id_ASC
+  id_DESC
+  lookupItemDefinition_ASC
+  lookupItemDefinition_DESC
+  lookupItemDescription_ASC
+  lookupItemDescription_DESC
+  lookupItemName_ASC
+  lookupItemName_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input LookuplookupItemsLookupItem {
+  displayName: String!
+  lookupItemDefinition: String!
+  lookupItemDescription: String!
+  lookupItemName: String!
+}
+
+enum LookupOrderBy {
+  createdAt_ASC
+  createdAt_DESC
+  displayName_ASC
+  displayName_DESC
+  id_ASC
+  id_DESC
+  lookupDescription_ASC
+  lookupDescription_DESC
+  lookupName_ASC
+  lookupName_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type Mutation {
+  createAction(input: CreateActionInput!): CreateActionPayload
+  createChannel(input: CreateChannelInput!): CreateChannelPayload
+  createEvent(input: CreateEventInput!): CreateEventPayload
+  createFile(input: CreateFileInput!): CreateFilePayload
+  createIssue(input: CreateIssueInput!): CreateIssuePayload
+  createLookup(input: CreateLookupInput!): CreateLookupPayload
+  createLookupItem(input: CreateLookupItemInput!): CreateLookupItemPayload
+  createOfficial(input: CreateOfficialInput!): CreateOfficialPayload
+  createResource(input: CreateResourceInput!): CreateResourcePayload
+  updateAction(input: UpdateActionInput!): UpdateActionPayload
+  updateChannel(input: UpdateChannelInput!): UpdateChannelPayload
+  updateEvent(input: UpdateEventInput!): UpdateEventPayload
+  updateFile(input: UpdateFileInput!): UpdateFilePayload
+  updateIssue(input: UpdateIssueInput!): UpdateIssuePayload
+  updateLookup(input: UpdateLookupInput!): UpdateLookupPayload
+  updateLookupItem(input: UpdateLookupItemInput!): UpdateLookupItemPayload
+  updateOfficial(input: UpdateOfficialInput!): UpdateOfficialPayload
+  updateResource(input: UpdateResourceInput!): UpdateResourcePayload
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+  updateOrCreateAction(input: UpdateOrCreateActionInput!): UpdateOrCreateActionPayload
+  updateOrCreateChannel(input: UpdateOrCreateChannelInput!): UpdateOrCreateChannelPayload
+  updateOrCreateEvent(input: UpdateOrCreateEventInput!): UpdateOrCreateEventPayload
+  updateOrCreateFile(input: UpdateOrCreateFileInput!): UpdateOrCreateFilePayload
+  updateOrCreateIssue(input: UpdateOrCreateIssueInput!): UpdateOrCreateIssuePayload
+  updateOrCreateLookup(input: UpdateOrCreateLookupInput!): UpdateOrCreateLookupPayload
+  updateOrCreateLookupItem(input: UpdateOrCreateLookupItemInput!): UpdateOrCreateLookupItemPayload
+  updateOrCreateOfficial(input: UpdateOrCreateOfficialInput!): UpdateOrCreateOfficialPayload
+  updateOrCreateResource(input: UpdateOrCreateResourceInput!): UpdateOrCreateResourcePayload
+  updateOrCreateUser(input: UpdateOrCreateUserInput!): UpdateOrCreateUserPayload
+  deleteAction(input: DeleteActionInput!): DeleteActionPayload
+  deleteChannel(input: DeleteChannelInput!): DeleteChannelPayload
+  deleteEvent(input: DeleteEventInput!): DeleteEventPayload
+  deleteFile(input: DeleteFileInput!): DeleteFilePayload
+  deleteIssue(input: DeleteIssueInput!): DeleteIssuePayload
+  deleteLookup(input: DeleteLookupInput!): DeleteLookupPayload
+  deleteLookupItem(input: DeleteLookupItemInput!): DeleteLookupItemPayload
+  deleteOfficial(input: DeleteOfficialInput!): DeleteOfficialPayload
+  deleteResource(input: DeleteResourceInput!): DeleteResourcePayload
+  deleteUser(input: DeleteUserInput!): DeleteUserPayload
+  addToActionsOfficials(input: AddToActionsOfficialsActionInput!): AddToActionsOfficialsPayload
+  addToChannelIssues(input: AddToChannelIssuesIssueInput!): AddToChannelIssuesPayload
+  addToIssueActions(input: AddToIssueActionsActionInput!): AddToIssueActionsPayload
+  addToIssuesEvents(input: AddToIssuesEventsIssueInput!): AddToIssuesEventsPayload
+  addToIssuesResources(input: AddToIssuesResourcesIssueInput!): AddToIssuesResourcesPayload
+  addToLookupLookupItems(input: AddToLookupLookupItemsLookupItemInput!): AddToLookupLookupItemsPayload
+  addToOfficialsEvents(input: AddToOfficialsEventsOfficialInput!): AddToOfficialsEventsPayload
+  addToOfficialsResources(input: AddToOfficialsResourcesOfficialInput!): AddToOfficialsResourcesPayload
+  removeFromActionsOfficials(input: RemoveFromActionsOfficialsActionInput!): RemoveFromActionsOfficialsPayload
+  removeFromChannelIssues(input: RemoveFromChannelIssuesIssueInput!): RemoveFromChannelIssuesPayload
+  removeFromIssueActions(input: RemoveFromIssueActionsActionInput!): RemoveFromIssueActionsPayload
+  removeFromIssuesEvents(input: RemoveFromIssuesEventsIssueInput!): RemoveFromIssuesEventsPayload
+  removeFromIssuesResources(input: RemoveFromIssuesResourcesIssueInput!): RemoveFromIssuesResourcesPayload
+  removeFromLookupLookupItems(input: RemoveFromLookupLookupItemsLookupItemInput!): RemoveFromLookupLookupItemsPayload
+  removeFromOfficialsEvents(input: RemoveFromOfficialsEventsOfficialInput!): RemoveFromOfficialsEventsPayload
+  removeFromOfficialsResources(input: RemoveFromOfficialsResourcesOfficialInput!): RemoveFromOfficialsResourcesPayload
+  createUser(input: SignupUserInput!): CreateUserPayload!
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+type Official implements Node {
+  actions(filter: ActionFilter, orderBy: ActionOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): ActionConnection
+  contactForm: String
+  createdAt: DateTime
+  email: String
+  events(filter: EventFilter, orderBy: EventOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  id: ID!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  resources(filter: ResourceFilter, orderBy: ResourceOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): ResourceConnection
+  twitter: String
+  updatedAt: DateTime
+  url: String
+}
+
+enum OFFICIAL_GENDER {
+  Male
+  Female
+  NonBinary
+}
+
+enum OFFICIAL_PARTY {
+  Democrat
+  Republican
+  Independent
+  Green
+  Libertarian
+}
+
+input OfficialactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  issue: OfficialactionsActionissueIssue
+  officialsIds: [ID!]
+  officials: [OfficialactionsActionofficialsOfficial!]
+}
+
+input OfficialactionsActionissueIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  channel: OfficialactionsActionissueIssuechannelChannel
+  actionsIds: [ID!]
+  actions: [OfficialactionsActionissueIssueactionsAction!]
+  eventsIds: [ID!]
+  events: [OfficialactionsActionissueIssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [OfficialactionsActionissueIssueresourcesResource!]
+}
+
+input OfficialactionsActionissueIssueactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input OfficialactionsActionissueIssuechannelChannel {
+  channelDescription: String!
+  channelName: String!
+  issuesIds: [ID!]
+}
+
+input OfficialactionsActionissueIssueeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input OfficialactionsActionissueIssueresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input OfficialactionsActionofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [OfficialactionsActionofficialsOfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [OfficialactionsActionofficialsOfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [OfficialactionsActionofficialsOfficialresourcesResource!]
+}
+
+input OfficialactionsActionofficialsOfficialactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input OfficialactionsActionofficialsOfficialeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input OfficialactionsActionofficialsOfficialresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+# A connection to a list of items.
+type OfficialConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [OfficialEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type OfficialEdge {
+  # The item at the end of the edge.
+  node: Official!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input OfficialeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  issues: [OfficialeventsEventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [OfficialeventsEventofficialsOfficial!]
+}
+
+input OfficialeventsEventissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  channel: OfficialeventsEventissuesIssuechannelChannel
+  actionsIds: [ID!]
+  actions: [OfficialeventsEventissuesIssueactionsAction!]
+  eventsIds: [ID!]
+  events: [OfficialeventsEventissuesIssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [OfficialeventsEventissuesIssueresourcesResource!]
+}
+
+input OfficialeventsEventissuesIssueactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input OfficialeventsEventissuesIssuechannelChannel {
+  channelDescription: String!
+  channelName: String!
+  issuesIds: [ID!]
+}
+
+input OfficialeventsEventissuesIssueeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input OfficialeventsEventissuesIssueresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input OfficialeventsEventofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [OfficialeventsEventofficialsOfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [OfficialeventsEventofficialsOfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [OfficialeventsEventofficialsOfficialresourcesResource!]
+}
+
+input OfficialeventsEventofficialsOfficialactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input OfficialeventsEventofficialsOfficialeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input OfficialeventsEventofficialsOfficialresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input OfficialFilter {
+  # Logical AND on all given filters.
+  AND: [OfficialFilter!]
+
+  # Logical OR on all given filters.
+  OR: [OfficialFilter!]
+  contactForm: String
+
+  # All values that are not equal to given value.
+  contactForm_not: String
+
+  # All values that are contained in given list.
+  contactForm_in: [String!]
+
+  # All values that are not contained in given list.
+  contactForm_not_in: [String!]
+
+  # All values less than the given value.
+  contactForm_lt: String
+
+  # All values less than or equal the given value.
+  contactForm_lte: String
+
+  # All values greater than the given value.
+  contactForm_gt: String
+
+  # All values greater than or equal the given value.
+  contactForm_gte: String
+
+  # All values containing the given string.
+  contactForm_contains: String
+
+  # All values not containing the given string.
+  contactForm_not_contains: String
+
+  # All values starting with the given string.
+  contactForm_starts_with: String
+
+  # All values not starting with the given string.
+  contactForm_not_starts_with: String
+
+  # All values ending with the given string.
+  contactForm_ends_with: String
+
+  # All values not ending with the given string.
+  contactForm_not_ends_with: String
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  email: String
+
+  # All values that are not equal to given value.
+  email_not: String
+
+  # All values that are contained in given list.
+  email_in: [String!]
+
+  # All values that are not contained in given list.
+  email_not_in: [String!]
+
+  # All values less than the given value.
+  email_lt: String
+
+  # All values less than or equal the given value.
+  email_lte: String
+
+  # All values greater than the given value.
+  email_gt: String
+
+  # All values greater than or equal the given value.
+  email_gte: String
+
+  # All values containing the given string.
+  email_contains: String
+
+  # All values not containing the given string.
+  email_not_contains: String
+
+  # All values starting with the given string.
+  email_starts_with: String
+
+  # All values not starting with the given string.
+  email_not_starts_with: String
+
+  # All values ending with the given string.
+  email_ends_with: String
+
+  # All values not ending with the given string.
+  email_not_ends_with: String
+  facebook: String
+
+  # All values that are not equal to given value.
+  facebook_not: String
+
+  # All values that are contained in given list.
+  facebook_in: [String!]
+
+  # All values that are not contained in given list.
+  facebook_not_in: [String!]
+
+  # All values less than the given value.
+  facebook_lt: String
+
+  # All values less than or equal the given value.
+  facebook_lte: String
+
+  # All values greater than the given value.
+  facebook_gt: String
+
+  # All values greater than or equal the given value.
+  facebook_gte: String
+
+  # All values containing the given string.
+  facebook_contains: String
+
+  # All values not containing the given string.
+  facebook_not_contains: String
+
+  # All values starting with the given string.
+  facebook_starts_with: String
+
+  # All values not starting with the given string.
+  facebook_not_starts_with: String
+
+  # All values ending with the given string.
+  facebook_ends_with: String
+
+  # All values not ending with the given string.
+  facebook_not_ends_with: String
+  firstName: String
+
+  # All values that are not equal to given value.
+  firstName_not: String
+
+  # All values that are contained in given list.
+  firstName_in: [String!]
+
+  # All values that are not contained in given list.
+  firstName_not_in: [String!]
+
+  # All values less than the given value.
+  firstName_lt: String
+
+  # All values less than or equal the given value.
+  firstName_lte: String
+
+  # All values greater than the given value.
+  firstName_gt: String
+
+  # All values greater than or equal the given value.
+  firstName_gte: String
+
+  # All values containing the given string.
+  firstName_contains: String
+
+  # All values not containing the given string.
+  firstName_not_contains: String
+
+  # All values starting with the given string.
+  firstName_starts_with: String
+
+  # All values not starting with the given string.
+  firstName_not_starts_with: String
+
+  # All values ending with the given string.
+  firstName_ends_with: String
+
+  # All values not ending with the given string.
+  firstName_not_ends_with: String
+  gender: OFFICIAL_GENDER
+
+  # All values that are not equal to given value.
+  gender_not: OFFICIAL_GENDER
+
+  # All values that are contained in given list.
+  gender_in: [OFFICIAL_GENDER!]
+
+  # All values that are not contained in given list.
+  gender_not_in: [OFFICIAL_GENDER!]
+  geographyId: String
+
+  # All values that are not equal to given value.
+  geographyId_not: String
+
+  # All values that are contained in given list.
+  geographyId_in: [String!]
+
+  # All values that are not contained in given list.
+  geographyId_not_in: [String!]
+
+  # All values less than the given value.
+  geographyId_lt: String
+
+  # All values less than or equal the given value.
+  geographyId_lte: String
+
+  # All values greater than the given value.
+  geographyId_gt: String
+
+  # All values greater than or equal the given value.
+  geographyId_gte: String
+
+  # All values containing the given string.
+  geographyId_contains: String
+
+  # All values not containing the given string.
+  geographyId_not_contains: String
+
+  # All values starting with the given string.
+  geographyId_starts_with: String
+
+  # All values not starting with the given string.
+  geographyId_not_starts_with: String
+
+  # All values ending with the given string.
+  geographyId_ends_with: String
+
+  # All values not ending with the given string.
+  geographyId_not_ends_with: String
+  governmentLevelId: String
+
+  # All values that are not equal to given value.
+  governmentLevelId_not: String
+
+  # All values that are contained in given list.
+  governmentLevelId_in: [String!]
+
+  # All values that are not contained in given list.
+  governmentLevelId_not_in: [String!]
+
+  # All values less than the given value.
+  governmentLevelId_lt: String
+
+  # All values less than or equal the given value.
+  governmentLevelId_lte: String
+
+  # All values greater than the given value.
+  governmentLevelId_gt: String
+
+  # All values greater than or equal the given value.
+  governmentLevelId_gte: String
+
+  # All values containing the given string.
+  governmentLevelId_contains: String
+
+  # All values not containing the given string.
+  governmentLevelId_not_contains: String
+
+  # All values starting with the given string.
+  governmentLevelId_starts_with: String
+
+  # All values not starting with the given string.
+  governmentLevelId_not_starts_with: String
+
+  # All values ending with the given string.
+  governmentLevelId_ends_with: String
+
+  # All values not ending with the given string.
+  governmentLevelId_not_ends_with: String
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  lastName: String
+
+  # All values that are not equal to given value.
+  lastName_not: String
+
+  # All values that are contained in given list.
+  lastName_in: [String!]
+
+  # All values that are not contained in given list.
+  lastName_not_in: [String!]
+
+  # All values less than the given value.
+  lastName_lt: String
+
+  # All values less than or equal the given value.
+  lastName_lte: String
+
+  # All values greater than the given value.
+  lastName_gt: String
+
+  # All values greater than or equal the given value.
+  lastName_gte: String
+
+  # All values containing the given string.
+  lastName_contains: String
+
+  # All values not containing the given string.
+  lastName_not_contains: String
+
+  # All values starting with the given string.
+  lastName_starts_with: String
+
+  # All values not starting with the given string.
+  lastName_not_starts_with: String
+
+  # All values ending with the given string.
+  lastName_ends_with: String
+
+  # All values not ending with the given string.
+  lastName_not_ends_with: String
+  party: OFFICIAL_PARTY
+
+  # All values that are not equal to given value.
+  party_not: OFFICIAL_PARTY
+
+  # All values that are contained in given list.
+  party_in: [OFFICIAL_PARTY!]
+
+  # All values that are not contained in given list.
+  party_not_in: [OFFICIAL_PARTY!]
+  phone: String
+
+  # All values that are not equal to given value.
+  phone_not: String
+
+  # All values that are contained in given list.
+  phone_in: [String!]
+
+  # All values that are not contained in given list.
+  phone_not_in: [String!]
+
+  # All values less than the given value.
+  phone_lt: String
+
+  # All values less than or equal the given value.
+  phone_lte: String
+
+  # All values greater than the given value.
+  phone_gt: String
+
+  # All values greater than or equal the given value.
+  phone_gte: String
+
+  # All values containing the given string.
+  phone_contains: String
+
+  # All values not containing the given string.
+  phone_not_contains: String
+
+  # All values starting with the given string.
+  phone_starts_with: String
+
+  # All values not starting with the given string.
+  phone_not_starts_with: String
+
+  # All values ending with the given string.
+  phone_ends_with: String
+
+  # All values not ending with the given string.
+  phone_not_ends_with: String
+  twitter: String
+
+  # All values that are not equal to given value.
+  twitter_not: String
+
+  # All values that are contained in given list.
+  twitter_in: [String!]
+
+  # All values that are not contained in given list.
+  twitter_not_in: [String!]
+
+  # All values less than the given value.
+  twitter_lt: String
+
+  # All values less than or equal the given value.
+  twitter_lte: String
+
+  # All values greater than the given value.
+  twitter_gt: String
+
+  # All values greater than or equal the given value.
+  twitter_gte: String
+
+  # All values containing the given string.
+  twitter_contains: String
+
+  # All values not containing the given string.
+  twitter_not_contains: String
+
+  # All values starting with the given string.
+  twitter_starts_with: String
+
+  # All values not starting with the given string.
+  twitter_not_starts_with: String
+
+  # All values ending with the given string.
+  twitter_ends_with: String
+
+  # All values not ending with the given string.
+  twitter_not_ends_with: String
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  url: String
+
+  # All values that are not equal to given value.
+  url_not: String
+
+  # All values that are contained in given list.
+  url_in: [String!]
+
+  # All values that are not contained in given list.
+  url_not_in: [String!]
+
+  # All values less than the given value.
+  url_lt: String
+
+  # All values less than or equal the given value.
+  url_lte: String
+
+  # All values greater than the given value.
+  url_gt: String
+
+  # All values greater than or equal the given value.
+  url_gte: String
+
+  # All values containing the given string.
+  url_contains: String
+
+  # All values not containing the given string.
+  url_not_contains: String
+
+  # All values starting with the given string.
+  url_starts_with: String
+
+  # All values not starting with the given string.
+  url_not_starts_with: String
+
+  # All values ending with the given string.
+  url_ends_with: String
+
+  # All values not ending with the given string.
+  url_not_ends_with: String
+  actions_every: ActionFilter
+  actions_some: ActionFilter
+  actions_none: ActionFilter
+  events_every: EventFilter
+  events_some: EventFilter
+  events_none: EventFilter
+  resources_every: ResourceFilter
+  resources_some: ResourceFilter
+  resources_none: ResourceFilter
+}
+
+enum OfficialOrderBy {
+  contactForm_ASC
+  contactForm_DESC
+  createdAt_ASC
+  createdAt_DESC
+  email_ASC
+  email_DESC
+  facebook_ASC
+  facebook_DESC
+  firstName_ASC
+  firstName_DESC
+  gender_ASC
+  gender_DESC
+  geographyId_ASC
+  geographyId_DESC
+  governmentLevelId_ASC
+  governmentLevelId_DESC
+  id_ASC
+  id_DESC
+  lastName_ASC
+  lastName_DESC
+  party_ASC
+  party_DESC
+  phone_ASC
+  phone_DESC
+  twitter_ASC
+  twitter_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  url_ASC
+  url_DESC
+}
+
+input OfficialresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [OfficialresourcesResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [OfficialresourcesResourceofficialsOfficial!]
+}
+
+input OfficialresourcesResourceissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  channel: OfficialresourcesResourceissuesIssuechannelChannel
+  actionsIds: [ID!]
+  actions: [OfficialresourcesResourceissuesIssueactionsAction!]
+  eventsIds: [ID!]
+  events: [OfficialresourcesResourceissuesIssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [OfficialresourcesResourceissuesIssueresourcesResource!]
+}
+
+input OfficialresourcesResourceissuesIssueactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input OfficialresourcesResourceissuesIssuechannelChannel {
+  channelDescription: String!
+  channelName: String!
+  issuesIds: [ID!]
+}
+
+input OfficialresourcesResourceissuesIssueeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input OfficialresourcesResourceissuesIssueresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input OfficialresourcesResourceofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [OfficialresourcesResourceofficialsOfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [OfficialresourcesResourceofficialsOfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [OfficialresourcesResourceofficialsOfficialresourcesResource!]
+}
+
+input OfficialresourcesResourceofficialsOfficialactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  officialsIds: [ID!]
+}
+
+input OfficialresourcesResourceofficialsOfficialeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+input OfficialresourcesResourceofficialsOfficialresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  officialsIds: [ID!]
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type Query {
+  viewer: Viewer!
+
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+}
+
+input RemoveFromActionsOfficialsActionInput {
+  officialsOfficialId: ID!
+  actionsActionId: ID!
+  clientMutationId: String!
+}
+
+type RemoveFromActionsOfficialsPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  actionsAction: Action
+  officialsOfficial: Official
+  actionsActionEdge: ActionEdge
+  officialsOfficialEdge: OfficialEdge
+}
+
+input RemoveFromChannelIssuesIssueInput {
+  channelChannelId: ID!
+  issuesIssueId: ID!
+  clientMutationId: String!
+}
+
+type RemoveFromChannelIssuesPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  issuesIssue: Issue
+  channelChannel: Channel
+  issuesIssueEdge: IssueEdge
+  channelChannelEdge: ChannelEdge
+}
+
+input RemoveFromIssueActionsActionInput {
+  issueIssueId: ID!
+  actionsActionId: ID!
+  clientMutationId: String!
+}
+
+type RemoveFromIssueActionsPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  actionsAction: Action
+  issueIssue: Issue
+  actionsActionEdge: ActionEdge
+  issueIssueEdge: IssueEdge
+}
+
+input RemoveFromIssuesEventsIssueInput {
+  eventsEventId: ID!
+  issuesIssueId: ID!
+  clientMutationId: String!
+}
+
+type RemoveFromIssuesEventsPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  issuesIssue: Issue
+  eventsEvent: Event
+  issuesIssueEdge: IssueEdge
+  eventsEventEdge: EventEdge
+}
+
+input RemoveFromIssuesResourcesIssueInput {
+  resourcesResourceId: ID!
+  issuesIssueId: ID!
+  clientMutationId: String!
+}
+
+type RemoveFromIssuesResourcesPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  issuesIssue: Issue
+  resourcesResource: Resource
+  issuesIssueEdge: IssueEdge
+  resourcesResourceEdge: ResourceEdge
+}
+
+input RemoveFromLookupLookupItemsLookupItemInput {
+  lookupLookupId: ID!
+  lookupItemsLookupItemId: ID!
+  clientMutationId: String!
+}
+
+type RemoveFromLookupLookupItemsPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  lookupItemsLookupItem: LookupItem
+  lookupLookup: Lookup
+  lookupItemsLookupItemEdge: LookupItemEdge
+  lookupLookupEdge: LookupEdge
+}
+
+input RemoveFromOfficialsEventsOfficialInput {
+  eventsEventId: ID!
+  officialsOfficialId: ID!
+  clientMutationId: String!
+}
+
+type RemoveFromOfficialsEventsPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  officialsOfficial: Official
+  eventsEvent: Event
+  officialsOfficialEdge: OfficialEdge
+  eventsEventEdge: EventEdge
+}
+
+input RemoveFromOfficialsResourcesOfficialInput {
+  resourcesResourceId: ID!
+  officialsOfficialId: ID!
+  clientMutationId: String!
+}
+
+type RemoveFromOfficialsResourcesPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  officialsOfficial: Official
+  resourcesResource: Resource
+  officialsOfficialEdge: OfficialEdge
+  resourcesResourceEdge: ResourceEdge
+}
+
+type Resource implements Node {
+  createdAt: DateTime
+  id: ID!
+  issues(filter: IssueFilter, orderBy: IssueOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): IssueConnection
+  officials(filter: OfficialFilter, orderBy: OfficialOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): OfficialConnection
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  updatedAt: DateTime
+}
+
+# A connection to a list of items.
+type ResourceConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [ResourceEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type ResourceEdge {
+  # The item at the end of the edge.
+  node: Resource!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input ResourceFilter {
+  # Logical AND on all given filters.
+  AND: [ResourceFilter!]
+
+  # Logical OR on all given filters.
+  OR: [ResourceFilter!]
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  resourceDescription: String
+
+  # All values that are not equal to given value.
+  resourceDescription_not: String
+
+  # All values that are contained in given list.
+  resourceDescription_in: [String!]
+
+  # All values that are not contained in given list.
+  resourceDescription_not_in: [String!]
+
+  # All values less than the given value.
+  resourceDescription_lt: String
+
+  # All values less than or equal the given value.
+  resourceDescription_lte: String
+
+  # All values greater than the given value.
+  resourceDescription_gt: String
+
+  # All values greater than or equal the given value.
+  resourceDescription_gte: String
+
+  # All values containing the given string.
+  resourceDescription_contains: String
+
+  # All values not containing the given string.
+  resourceDescription_not_contains: String
+
+  # All values starting with the given string.
+  resourceDescription_starts_with: String
+
+  # All values not starting with the given string.
+  resourceDescription_not_starts_with: String
+
+  # All values ending with the given string.
+  resourceDescription_ends_with: String
+
+  # All values not ending with the given string.
+  resourceDescription_not_ends_with: String
+  resourceName: String
+
+  # All values that are not equal to given value.
+  resourceName_not: String
+
+  # All values that are contained in given list.
+  resourceName_in: [String!]
+
+  # All values that are not contained in given list.
+  resourceName_not_in: [String!]
+
+  # All values less than the given value.
+  resourceName_lt: String
+
+  # All values less than or equal the given value.
+  resourceName_lte: String
+
+  # All values greater than the given value.
+  resourceName_gt: String
+
+  # All values greater than or equal the given value.
+  resourceName_gte: String
+
+  # All values containing the given string.
+  resourceName_contains: String
+
+  # All values not containing the given string.
+  resourceName_not_contains: String
+
+  # All values starting with the given string.
+  resourceName_starts_with: String
+
+  # All values not starting with the given string.
+  resourceName_not_starts_with: String
+
+  # All values ending with the given string.
+  resourceName_ends_with: String
+
+  # All values not ending with the given string.
+  resourceName_not_ends_with: String
+  resourceUrl: String
+
+  # All values that are not equal to given value.
+  resourceUrl_not: String
+
+  # All values that are contained in given list.
+  resourceUrl_in: [String!]
+
+  # All values that are not contained in given list.
+  resourceUrl_not_in: [String!]
+
+  # All values less than the given value.
+  resourceUrl_lt: String
+
+  # All values less than or equal the given value.
+  resourceUrl_lte: String
+
+  # All values greater than the given value.
+  resourceUrl_gt: String
+
+  # All values greater than or equal the given value.
+  resourceUrl_gte: String
+
+  # All values containing the given string.
+  resourceUrl_contains: String
+
+  # All values not containing the given string.
+  resourceUrl_not_contains: String
+
+  # All values starting with the given string.
+  resourceUrl_starts_with: String
+
+  # All values not starting with the given string.
+  resourceUrl_not_starts_with: String
+
+  # All values ending with the given string.
+  resourceUrl_ends_with: String
+
+  # All values not ending with the given string.
+  resourceUrl_not_ends_with: String
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+  issues_every: IssueFilter
+  issues_some: IssueFilter
+  issues_none: IssueFilter
+  officials_every: OfficialFilter
+  officials_some: OfficialFilter
+  officials_none: OfficialFilter
+}
+
+input ResourceissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  channel: ResourceissuesIssuechannelChannel
+  actionsIds: [ID!]
+  actions: [ResourceissuesIssueactionsAction!]
+  eventsIds: [ID!]
+  events: [ResourceissuesIssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [ResourceissuesIssueresourcesResource!]
+}
+
+input ResourceissuesIssueactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  officialsIds: [ID!]
+  officials: [ResourceissuesIssueactionsActionofficialsOfficial!]
+}
+
+input ResourceissuesIssueactionsActionofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ResourceissuesIssuechannelChannel {
+  channelDescription: String!
+  channelName: String!
+  issuesIds: [ID!]
+  issues: [ResourceissuesIssuechannelChannelissuesIssue!]
+}
+
+input ResourceissuesIssuechannelChannelissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ResourceissuesIssueeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  issues: [ResourceissuesIssueeventsEventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ResourceissuesIssueeventsEventofficialsOfficial!]
+}
+
+input ResourceissuesIssueeventsEventissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ResourceissuesIssueeventsEventofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ResourceissuesIssueresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [ResourceissuesIssueresourcesResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ResourceissuesIssueresourcesResourceofficialsOfficial!]
+}
+
+input ResourceissuesIssueresourcesResourceissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ResourceissuesIssueresourcesResourceofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ResourceofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [ResourceofficialsOfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [ResourceofficialsOfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [ResourceofficialsOfficialresourcesResource!]
+}
+
+input ResourceofficialsOfficialactionsAction {
+  actionDescription: String!
+  actionEndDate: DateTime!
+  actionName: String!
+  actionStartDate: DateTime!
+  actionType: ACTION_ACTION_TYPE!
+  scriptTemplate: String
+  issueId: ID
+  issue: ResourceofficialsOfficialactionsActionissueIssue
+  officialsIds: [ID!]
+  officials: [ResourceofficialsOfficialactionsActionofficialsOfficial!]
+}
+
+input ResourceofficialsOfficialactionsActionissueIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ResourceofficialsOfficialactionsActionofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ResourceofficialsOfficialeventsEvent {
+  eventDate: DateTime!
+  eventDescription: String!
+  eventName: String!
+  eventType: EVENT_EVENT_TYPE
+  issuesIds: [ID!]
+  issues: [ResourceofficialsOfficialeventsEventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ResourceofficialsOfficialeventsEventofficialsOfficial!]
+}
+
+input ResourceofficialsOfficialeventsEventissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ResourceofficialsOfficialeventsEventofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ResourceofficialsOfficialresourcesResource {
+  resourceDescription: String!
+  resourceName: String!
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [ResourceofficialsOfficialresourcesResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ResourceofficialsOfficialresourcesResourceofficialsOfficial!]
+}
+
+input ResourceofficialsOfficialresourcesResourceissuesIssue {
+  issueDescription: String!
+  issueName: String!
+  channelId: ID
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+input ResourceofficialsOfficialresourcesResourceofficialsOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String!
+  gender: OFFICIAL_GENDER
+  geographyId: String!
+  governmentLevelId: String!
+  lastName: String!
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  eventsIds: [ID!]
+  resourcesIds: [ID!]
+}
+
+enum ResourceOrderBy {
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  resourceDescription_ASC
+  resourceDescription_DESC
+  resourceName_ASC
+  resourceName_DESC
+  resourceUrl_ASC
+  resourceUrl_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+input SignupUserInput {
+  clientMutationId: String!
+}
+
+input UpdateAction {
+  actionDescription: String
+  actionEndDate: DateTime
+  actionName: String
+  actionStartDate: DateTime
+  actionType: ACTION_ACTION_TYPE
+  id: ID!
+  scriptTemplate: String
+  issueId: ID
+  issue: ActionissueIssue
+  officialsIds: [ID!]
+  officials: [ActionofficialsOfficial!]
+}
+
+input UpdateActionInput {
+  actionDescription: String
+  actionEndDate: DateTime
+  actionName: String
+  actionStartDate: DateTime
+  actionType: ACTION_ACTION_TYPE
+  id: ID!
+  scriptTemplate: String
+  issueId: ID
+  issue: ActionissueIssue
+  officialsIds: [ID!]
+  officials: [ActionofficialsOfficial!]
+  clientMutationId: String!
+}
+
+type UpdateActionPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  action: Action
+  edge: ActionEdge
+  issue: Issue
+}
+
+input UpdateChannel {
+  channelDescription: String
+  channelName: String
+  id: ID!
+  issuesIds: [ID!]
+  issues: [ChannelissuesIssue!]
+}
+
+input UpdateChannelInput {
+  channelDescription: String
+  channelName: String
+  id: ID!
+  issuesIds: [ID!]
+  issues: [ChannelissuesIssue!]
+  clientMutationId: String!
+}
+
+type UpdateChannelPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  channel: Channel
+  edge: ChannelEdge
+}
+
+input UpdateEvent {
+  eventDate: DateTime
+  eventDescription: String
+  eventName: String
+  eventType: EVENT_EVENT_TYPE
+  id: ID!
+  issuesIds: [ID!]
+  issues: [EventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [EventofficialsOfficial!]
+}
+
+input UpdateEventInput {
+  eventDate: DateTime
+  eventDescription: String
+  eventName: String
+  eventType: EVENT_EVENT_TYPE
+  id: ID!
+  issuesIds: [ID!]
+  issues: [EventissuesIssue!]
+  officialsIds: [ID!]
+  officials: [EventofficialsOfficial!]
+  clientMutationId: String!
+}
+
+type UpdateEventPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  event: Event
+  edge: EventEdge
+}
+
+input UpdateFile {
+  id: ID!
+  name: String
+}
+
+input UpdateFileInput {
+  id: ID!
+  name: String
+  clientMutationId: String!
+}
+
+type UpdateFilePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  file: File
+  edge: FileEdge
+}
+
+input UpdateIssue {
+  id: ID!
+  issueDescription: String
+  issueName: String
+  channelId: ID
+  channel: IssuechannelChannel
+  actionsIds: [ID!]
+  actions: [IssueactionsAction!]
+  eventsIds: [ID!]
+  events: [IssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [IssueresourcesResource!]
+}
+
+input UpdateIssueInput {
+  id: ID!
+  issueDescription: String
+  issueName: String
+  channelId: ID
+  channel: IssuechannelChannel
+  actionsIds: [ID!]
+  actions: [IssueactionsAction!]
+  eventsIds: [ID!]
+  events: [IssueeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [IssueresourcesResource!]
+  clientMutationId: String!
+}
+
+type UpdateIssuePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  issue: Issue
+  edge: IssueEdge
+  channel: Channel
+}
+
+input UpdateLookup {
+  displayName: String
+  id: ID!
+  lookupDescription: String
+  lookupName: String
+  lookupItemsIds: [ID!]
+  lookupItems: [LookuplookupItemsLookupItem!]
+}
+
+input UpdateLookupInput {
+  displayName: String
+  id: ID!
+  lookupDescription: String
+  lookupName: String
+  lookupItemsIds: [ID!]
+  lookupItems: [LookuplookupItemsLookupItem!]
+  clientMutationId: String!
+}
+
+input UpdateLookupItem {
+  displayName: String
+  id: ID!
+  lookupItemDefinition: String
+  lookupItemDescription: String
+  lookupItemName: String
+  lookupId: ID
+  lookup: LookupItemlookupLookup
+}
+
+input UpdateLookupItemInput {
+  displayName: String
+  id: ID!
+  lookupItemDefinition: String
+  lookupItemDescription: String
+  lookupItemName: String
+  lookupId: ID
+  lookup: LookupItemlookupLookup
+  clientMutationId: String!
+}
+
+type UpdateLookupItemPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  lookupItem: LookupItem
+  edge: LookupItemEdge
+  lookup: Lookup
+}
+
+type UpdateLookupPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  lookup: Lookup
+  edge: LookupEdge
+}
+
+input UpdateOfficial {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String
+  gender: OFFICIAL_GENDER
+  geographyId: String
+  governmentLevelId: String
+  id: ID!
+  lastName: String
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [OfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [OfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [OfficialresourcesResource!]
+}
+
+input UpdateOfficialInput {
+  contactForm: String
+  email: String
+  facebook: String
+  firstName: String
+  gender: OFFICIAL_GENDER
+  geographyId: String
+  governmentLevelId: String
+  id: ID!
+  lastName: String
+  party: OFFICIAL_PARTY
+  phone: String
+  twitter: String
+  url: String
+  actionsIds: [ID!]
+  actions: [OfficialactionsAction!]
+  eventsIds: [ID!]
+  events: [OfficialeventsEvent!]
+  resourcesIds: [ID!]
+  resources: [OfficialresourcesResource!]
+  clientMutationId: String!
+}
+
+type UpdateOfficialPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  official: Official
+  edge: OfficialEdge
+}
+
+input UpdateOrCreateActionInput {
+  update: UpdateAction!
+  create: CreateAction!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateActionPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  action: Action
+  edge: ActionEdge
+  issue: Issue
+}
+
+input UpdateOrCreateChannelInput {
+  update: UpdateChannel!
+  create: CreateChannel!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateChannelPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  channel: Channel
+  edge: ChannelEdge
+}
+
+input UpdateOrCreateEventInput {
+  update: UpdateEvent!
+  create: CreateEvent!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateEventPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  event: Event
+  edge: EventEdge
+}
+
+input UpdateOrCreateFileInput {
+  update: UpdateFile!
+  create: CreateFile!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateFilePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  file: File
+  edge: FileEdge
+}
+
+input UpdateOrCreateIssueInput {
+  update: UpdateIssue!
+  create: CreateIssue!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateIssuePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  issue: Issue
+  edge: IssueEdge
+  channel: Channel
+}
+
+input UpdateOrCreateLookupInput {
+  update: UpdateLookup!
+  create: CreateLookup!
+  clientMutationId: String!
+}
+
+input UpdateOrCreateLookupItemInput {
+  update: UpdateLookupItem!
+  create: CreateLookupItem!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateLookupItemPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  lookupItem: LookupItem
+  edge: LookupItemEdge
+  lookup: Lookup
+}
+
+type UpdateOrCreateLookupPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  lookup: Lookup
+  edge: LookupEdge
+}
+
+input UpdateOrCreateOfficialInput {
+  update: UpdateOfficial!
+  create: CreateOfficial!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateOfficialPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  official: Official
+  edge: OfficialEdge
+}
+
+input UpdateOrCreateResourceInput {
+  update: UpdateResource!
+  create: CreateResource!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateResourcePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  resource: Resource
+  edge: ResourceEdge
+}
+
+input UpdateOrCreateUserInput {
+  update: UpdateUser!
+  clientMutationId: String!
+}
+
+type UpdateOrCreateUserPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  user: User
+  edge: UserEdge
+}
+
+input UpdateResource {
+  id: ID!
+  resourceDescription: String
+  resourceName: String
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [ResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ResourceofficialsOfficial!]
+}
+
+input UpdateResourceInput {
+  id: ID!
+  resourceDescription: String
+  resourceName: String
+  resourceUrl: String
+  issuesIds: [ID!]
+  issues: [ResourceissuesIssue!]
+  officialsIds: [ID!]
+  officials: [ResourceofficialsOfficial!]
+  clientMutationId: String!
+}
+
+type UpdateResourcePayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  resource: Resource
+  edge: ResourceEdge
+}
+
+input UpdateUser {
+  id: ID!
+}
+
+input UpdateUserInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type UpdateUserPayload {
+  viewer: Viewer!
+  clientMutationId: String!
+  user: User
+  edge: UserEdge
+}
+
+type User implements Node {
+  createdAt: DateTime
+  id: ID!
+  updatedAt: DateTime
+}
+
+# A connection to a list of items.
+type UserConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [UserEdge]
+
+  # Count of filtered result set without considering pagination arguments
+  count: Int!
+}
+
+# An edge in a connection.
+type UserEdge {
+  # The item at the end of the edge.
+  node: User!
+
+  # A cursor for use in pagination.
+  cursor: String!
+}
+
+input UserFilter {
+  # Logical AND on all given filters.
+  AND: [UserFilter!]
+
+  # Logical OR on all given filters.
+  OR: [UserFilter!]
+  createdAt: DateTime
+
+  # All values that are not equal to given value.
+  createdAt_not: DateTime
+
+  # All values that are contained in given list.
+  createdAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  createdAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  createdAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  createdAt_lte: DateTime
+
+  # All values greater than the given value.
+  createdAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  createdAt_gte: DateTime
+  id: ID
+
+  # All values that are not equal to given value.
+  id_not: ID
+
+  # All values that are contained in given list.
+  id_in: [ID!]
+
+  # All values that are not contained in given list.
+  id_not_in: [ID!]
+
+  # All values less than the given value.
+  id_lt: ID
+
+  # All values less than or equal the given value.
+  id_lte: ID
+
+  # All values greater than the given value.
+  id_gt: ID
+
+  # All values greater than or equal the given value.
+  id_gte: ID
+
+  # All values containing the given string.
+  id_contains: ID
+
+  # All values not containing the given string.
+  id_not_contains: ID
+
+  # All values starting with the given string.
+  id_starts_with: ID
+
+  # All values not starting with the given string.
+  id_not_starts_with: ID
+
+  # All values ending with the given string.
+  id_ends_with: ID
+
+  # All values not ending with the given string.
+  id_not_ends_with: ID
+  updatedAt: DateTime
+
+  # All values that are not equal to given value.
+  updatedAt_not: DateTime
+
+  # All values that are contained in given list.
+  updatedAt_in: [DateTime!]
+
+  # All values that are not contained in given list.
+  updatedAt_not_in: [DateTime!]
+
+  # All values less than the given value.
+  updatedAt_lt: DateTime
+
+  # All values less than or equal the given value.
+  updatedAt_lte: DateTime
+
+  # All values greater than the given value.
+  updatedAt_gt: DateTime
+
+  # All values greater than or equal the given value.
+  updatedAt_gte: DateTime
+}
+
+enum UserOrderBy {
+  createdAt_ASC
+  createdAt_DESC
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+# This is the famous Relay viewer object
+type Viewer {
+  allActions(filter: ActionFilter, orderBy: ActionOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): ActionConnection!
+  allChannels(filter: ChannelFilter, orderBy: ChannelOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): ChannelConnection!
+  allEvents(filter: EventFilter, orderBy: EventOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
+  allFiles(filter: FileFilter, orderBy: FileOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): FileConnection!
+  allIssues(filter: IssueFilter, orderBy: IssueOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): IssueConnection!
+  allLookups(filter: LookupFilter, orderBy: LookupOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): LookupConnection!
+  allLookupItems(filter: LookupItemFilter, orderBy: LookupItemOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): LookupItemConnection!
+  allOfficials(filter: OfficialFilter, orderBy: OfficialOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): OfficialConnection!
+  allResources(filter: ResourceFilter, orderBy: ResourceOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): ResourceConnection!
+  allUsers(filter: UserFilter, orderBy: UserOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  user: User
+  Action(id: ID): Action
+  Channel(channelName: String, id: ID): Channel
+  Event(id: ID): Event
+  File(id: ID, secret: String, url: String): File
+  Issue(id: ID): Issue
+  Lookup(id: ID): Lookup
+  LookupItem(id: ID): LookupItem
+  Official(id: ID): Official
+  Resource(id: ID): Resource
+  User(id: ID): User
+  id: ID!
+}
