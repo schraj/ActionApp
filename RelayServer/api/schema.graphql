@@ -1,9 +1,10 @@
-# An action item
-type ActionItem implements Node {
-  # global
-  id: ID!
+schema {
+  query: Query
+  mutation: Mutation
+}
 
-  # id in db
+type ActionItem implements Node {
+  id: ID!
   ActionItemId: Int!
   ActionItemName: String!
   ActionItemDescription: String!
@@ -14,30 +15,18 @@ type ActionItem implements Node {
   Officials(after: String, first: Int, before: String, last: Int): OfficialConnection
 }
 
-# A connection to a list of items.
 type ActionItemConnection {
-  # Information to aid in pagination.
   pageInfo: PageInfo!
-
-  # A list of edges.
   edges: [ActionItemEdge]
 }
 
-# An edge in a connection.
 type ActionItemEdge {
-  # The item at the end of the edge
   node: ActionItem
-
-  # A cursor for use in pagination
   cursor: String!
 }
 
-# An App User
 type AppUser implements Node {
-  # The ID of an object
   id: ID!
-
-  # id of lookup item in db
   AppUserId: Int!
   FirstName: String!
   LastName: String!
@@ -53,33 +42,21 @@ type AppUser implements Node {
   Channels(after: String, first: Int, before: String, last: Int): ChannelConnection
 }
 
-# A political channel
 type Channel implements Node {
-  # The ID of an object
   id: ID!
-
-  # id in db
   ChannelId: Int!
   ChannelName: String!
   ChannelDescription: String!
   Issues(after: String, first: Int, before: String, last: Int): IssueConnection
 }
 
-# A connection to a list of items.
 type ChannelConnection {
-  # Information to aid in pagination.
   pageInfo: PageInfo!
-
-  # A list of edges.
   edges: [ChannelEdge]
 }
 
-# An edge in a connection.
 type ChannelEdge {
-  # The item at the end of the edge
   node: Channel
-
-  # A cursor for use in pagination
   cursor: String!
 }
 
@@ -95,12 +72,8 @@ type HandleActionItemByUserPayload {
   clientMutationId: String
 }
 
-# A political issue
 type Issue implements Node {
-  # global
   id: ID!
-
-  # id in db
   IssueId: Int!
   IssueName: String!
   IssueDescription: String!
@@ -108,63 +81,37 @@ type Issue implements Node {
   Resources(after: String, first: Int, before: String, last: Int): ResourceConnection
 }
 
-# A connection to a list of items.
 type IssueConnection {
-  # Information to aid in pagination.
   pageInfo: PageInfo!
-
-  # A list of edges.
   edges: [IssueEdge]
 }
 
-# An edge in a connection.
 type IssueEdge {
-  # The item at the end of the edge
   node: Issue
-
-  # A cursor for use in pagination
   cursor: String!
 }
 
-# A lookup
 type Lookup implements Node {
-  # The ID of an object
   id: ID!
-
-  # id of lookup in db
   LookupId: Int!
   LookupName: String!
   DisplayName: String!
   LookupDescription: String
-
-  # The lookupItems in the lookup
   LookupItems(after: String, first: Int, before: String, last: Int): LookupItemConnection
 }
 
-# A connection to a list of items.
 type LookupConnection {
-  # Information to aid in pagination.
   pageInfo: PageInfo!
-
-  # A list of edges.
   edges: [LookupEdge]
 }
 
-# An edge in a connection.
 type LookupEdge {
-  # The item at the end of the edge
   node: Lookup
-
-  # A cursor for use in pagination
   cursor: String!
 }
 
-# A lookup item
 type LookupItem implements Node {
-  # The ID of an object
   id: ID!
-
-  # id in db
   LookupItemId: Int!
   LookupItemDefinition: String!
   LookupItemName: String!
@@ -173,21 +120,13 @@ type LookupItem implements Node {
   Lookup(after: String, first: Int, before: String, last: Int): LookupConnection
 }
 
-# A connection to a list of items.
 type LookupItemConnection {
-  # Information to aid in pagination.
   pageInfo: PageInfo!
-
-  # A list of edges.
   edges: [LookupItemEdge]
 }
 
-# An edge in a connection.
 type LookupItemEdge {
-  # The item at the end of the edge
   node: LookupItem
-
-  # A cursor for use in pagination
   cursor: String!
 }
 
@@ -203,18 +142,12 @@ type Mutation {
   handleActionItemByUser(input: HandleActionItemByUserInput!): HandleActionItemByUserPayload
 }
 
-# An object with an ID
 interface Node {
-  # The id of the object.
   id: ID!
 }
 
-# A political official
 type Official implements Node {
-  # global
   id: ID!
-
-  # id of lookup item in db
   OfficialId: Int!
   FirstName: String!
   LastName: String!
@@ -233,45 +166,25 @@ type Official implements Node {
   ActionItems(after: String, first: Int, before: String, last: Int): ActionItemConnection
 }
 
-# A connection to a list of items.
 type OfficialConnection {
-  # Information to aid in pagination.
   pageInfo: PageInfo!
-
-  # A list of edges.
   edges: [OfficialEdge]
 }
 
-# An edge in a connection.
 type OfficialEdge {
-  # The item at the end of the edge
   node: Official
-
-  # A cursor for use in pagination
   cursor: String!
 }
 
-# Information about pagination in a connection.
 type PageInfo {
-  # When paginating forwards, are there more items?
   hasNextPage: Boolean!
-
-  # When paginating backwards, are there more items?
   hasPreviousPage: Boolean!
-
-  # When paginating backwards, the cursor to continue.
   startCursor: String
-
-  # When paginating forwards, the cursor to continue.
   endCursor: String
 }
 
-# An political event
 type PoliticalEvent implements Node {
-  # The ID of an object
   id: ID!
-
-  # id in db
   PoliticalEventId: Int!
   PoliticalEventName: String!
   PoliticalEventDescription: String!
@@ -282,21 +195,13 @@ type PoliticalEvent implements Node {
   Resources(after: String, first: Int, before: String, last: Int): ResourceConnection
 }
 
-# A connection to a list of items.
 type PoliticalEventConnection {
-  # Information to aid in pagination.
   pageInfo: PageInfo!
-
-  # A list of edges.
   edges: [PoliticalEventEdge]
 }
 
-# An edge in a connection.
 type PoliticalEventEdge {
-  # The item at the end of the edge
   node: PoliticalEvent
-
-  # A cursor for use in pagination
   cursor: String!
 }
 
@@ -319,20 +224,11 @@ type Query {
   lookupItems(lookup_ID: Int): [LookupItem]
   appUser(appUser_ID: Int): AppUser
   appUsers(limit: Int, offset: Int): [AppUser]
-
-  # Fetches an object given its ID
-  node(
-    # The ID of an object
-    id: ID!
-  ): Node
+  node(id: ID!): Node
 }
 
-# An resource
 type Resource implements Node {
-  # The ID of an object
   id: ID!
-
-  # id in db
   ResourceId: Int!
   ResourceName: String!
   ResourceDescription: String!
@@ -340,21 +236,13 @@ type Resource implements Node {
   Media: String
 }
 
-# A connection to a list of items.
 type ResourceConnection {
-  # Information to aid in pagination.
   pageInfo: PageInfo!
-
-  # A list of edges.
   edges: [ResourceEdge]
 }
 
-# An edge in a connection.
 type ResourceEdge {
-  # The item at the end of the edge
   node: Resource
-
-  # A cursor for use in pagination
   cursor: String!
 }
 
