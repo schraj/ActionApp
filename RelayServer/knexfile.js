@@ -3,9 +3,9 @@ require('babel-register');
 
 module.exports = {
   development: {
-    client: 'mysql',
+    client: 'mssql',
     connection: {
-      host : '127.0.0.1',
+      host : 'localhost',
       user : 'ActionAppUser',
       password : 'asdf123!',
       database : 'ActionApp'

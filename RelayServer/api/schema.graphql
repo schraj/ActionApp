@@ -75,7 +75,7 @@ type HandleActionItemByUserPayload {
 type Issue implements Node {
   id: ID!
   IssueId: Int!
-  IssueName: String!
+  Name: String!
   IssueDescription: String!
   ActionItems(after: String, first: Int, before: String, last: Int): ActionItemConnection
   Resources(after: String, first: Int, before: String, last: Int): ResourceConnection

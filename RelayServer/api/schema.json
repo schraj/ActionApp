@@ -1387,7 +1387,7 @@
               "deprecationReason": null
             },
             {
-              "name": "IssueName",
+              "name": "Name",
               "description": null,
               "args": [],
               "type": {

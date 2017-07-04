@@ -221,7 +221,7 @@ const issueType = new GraphQLObjectType({
       description: 'id in db',
       resolve: (issue) => issue.ID,
     },
-    IssueName: {
+    Name: {
       type: new GraphQLNonNull(GraphQLString),
     },
     IssueDescription: {
